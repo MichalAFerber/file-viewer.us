@@ -193,6 +193,22 @@
       gap: 14px;
       margin-bottom: 16px;
     }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: -4px 0 16px;
+    }
+    .tag {
+      font-size: 11px;
+      line-height: 1;
+      padding: 5px 8px;
+      border-radius: 999px;
+      color: color-mix(in srgb, var(--accent) 55%, var(--text));
+      background: color-mix(in srgb, var(--accent) 12%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
+      white-space: nowrap;
+    }
 
     .badge {
       flex: none;
@@ -365,87 +381,7 @@
     <main>
       <div class="grid">
 
-        <!-- HTML -->
-        <article class="card" style="--accent:#e44f26">
-          <div class="card-head">
-            <div class="badge"><svg class="badge-ico" viewBox="0 0 32 32" aria-hidden="true"><polygon points="5.902 27.201 3.655 2 28.345 2 26.095 27.197 15.985 30 5.902 27.201" style="fill:#e44f26"/><polygon points="16 27.858 24.17 25.593 26.092 4.061 16 4.061 16 27.858" style="fill:#f1662a"/><polygon points="16 13.407 11.91 13.407 11.628 10.242 16 10.242 16 7.151 15.989 7.151 8.25 7.151 8.324 7.981 9.083 16.498 16 16.498 16 13.407" style="fill:#ebebeb"/><polygon points="16 21.434 15.986 21.438 12.544 20.509 12.324 18.044 10.651 18.044 9.221 18.044 9.654 22.896 15.986 24.654 16 24.65 16 21.434" style="fill:#ebebeb"/><polygon points="15.989 13.407 15.989 16.498 19.795 16.498 19.437 20.507 15.989 21.437 15.989 24.653 22.326 22.896 22.372 22.374 23.098 14.237 23.174 13.407 22.341 13.407 15.989 13.407" style="fill:#fff"/><polygon points="15.989 7.151 15.989 9.071 15.989 10.235 15.989 10.242 23.445 10.242 23.445 10.242 23.455 10.242 23.517 9.548 23.658 7.981 23.732 7.151 15.989 7.151" style="fill:#fff"/></svg></div>
-            <div>
-              <h2>HTML Viewer</h2>
-              <div class="repo">html-web-viewer</div>
-            </div>
-          </div>
-          <p>Fast, single-file HTML viewer — drop an HTML file to render it in a sandboxed iframe, or open CSS/JS/TS/template source with syntax highlighting, line numbers, and a Format/beautify toggle. Offline, no build; deploys to Cloudflare Pages.</p>
-          <div class="actions">
-            <a class="btn btn-gh" href="https://github.com/MichalAFerber/html-web-viewer" target="_blank" rel="noopener" aria-label="HTML Viewer on GitHub">
-              <svg class="ico"><use href="#i-github"/></svg>
-            </a>
-            <a class="btn btn-site" href="https://html-viewer.us/" target="_blank" rel="noopener" aria-label="Open html-viewer.us">
-              <svg class="ico"><use href="#i-globe"/></svg> html-viewer.us <span class="arrow">↗</span>
-            </a>
-          </div>
-        </article>
-
-        <!-- Markdown -->
-        <article class="card" style="--accent:#3b82f6">
-          <div class="card-head">
-            <div class="badge"><svg class="badge-ico" viewBox="0 0 32 32" aria-hidden="true"><rect x="2.5" y="7.955" width="27" height="16.091" style="fill:none;stroke:#755838"/><polygon points="5.909 20.636 5.909 11.364 8.636 11.364 11.364 14.773 14.091 11.364 16.818 11.364 16.818 20.636 14.091 20.636 14.091 15.318 11.364 18.727 8.636 15.318 8.636 20.636 5.909 20.636" style="fill:#755838"/><polygon points="22.955 20.636 18.864 16.136 21.591 16.136 21.591 11.364 24.318 11.364 24.318 16.136 27.045 16.136 22.955 20.636" style="fill:#755838"/></svg></div>
-            <div>
-              <h2>Markdown Viewer</h2>
-              <div class="repo">markdown-web-viewer</div>
-            </div>
-          </div>
-          <p>Fast, mobile-first, single-file Markdown viewer. Drag &amp; drop any text file to render it — no build, no uploads, MIT licensed.</p>
-          <div class="actions">
-            <a class="btn btn-gh" href="https://github.com/MichalAFerber/markdown-web-viewer" target="_blank" rel="noopener" aria-label="Markdown Viewer on GitHub">
-              <svg class="ico"><use href="#i-github"/></svg>
-            </a>
-            <a class="btn btn-site" href="https://markdown-viewer.us/" target="_blank" rel="noopener" aria-label="Open markdown-viewer.us">
-              <svg class="ico"><use href="#i-globe"/></svg> markdown-viewer.us <span class="arrow">↗</span>
-            </a>
-          </div>
-        </article>
-
-        <!-- PDF -->
-        <article class="card" style="--accent:#dd2025">
-          <div class="card-head">
-            <div class="badge"><svg class="badge-ico" viewBox="0 0 32 32" aria-hidden="true"><path d="M24.1,2.072h0l5.564,5.8V29.928H8.879V30H29.735V7.945L24.1,2.072" style="fill:#909090"/><path d="M24.031,2H8.808V29.928H29.664V7.873L24.03,2" style="fill:#f4f4f4"/><path d="M8.655,3.5H2.265v6.827h20.1V3.5H8.655" style="fill:#7a7b7c"/><path d="M22.472,10.211H2.395V3.379H22.472v6.832" style="fill:#dd2025"/><path d="M9.052,4.534h-.03l-.207,0H7.745v4.8H8.773V7.715L9,7.728a2.042,2.042,0,0,0,.647-.117,1.427,1.427,0,0,0,.493-.291,1.224,1.224,0,0,0,.335-.454,2.13,2.13,0,0,0,.105-.908,2.237,2.237,0,0,0-.114-.644,1.173,1.173,0,0,0-.687-.65A2.149,2.149,0,0,0,9.37,4.56a2.232,2.232,0,0,0-.319-.026M8.862,6.828l-.089,0V5.348h.193a.57.57,0,0,1,.459.181.92.92,0,0,1,.183.558c0,.246,0,.469-.222.626a.942.942,0,0,1-.524.114" style="fill:#464648"/><path d="M12.533,4.521c-.111,0-.219.008-.295.011L12,4.538h-.78v4.8h.918a2.677,2.677,0,0,0,1.028-.175,1.71,1.71,0,0,0,.68-.491,1.939,1.939,0,0,0,.373-.749,3.728,3.728,0,0,0,.114-.949,4.416,4.416,0,0,0-.087-1.127,1.777,1.777,0,0,0-.4-.733,1.63,1.63,0,0,0-.535-.4,2.413,2.413,0,0,0-.549-.178,1.282,1.282,0,0,0-.228-.017m-.182,3.937-.1,0V5.392h.013a1.062,1.062,0,0,1,.6.107,1.2,1.2,0,0,1,.324.4,1.3,1.3,0,0,1,.142.526c.009.22,0,.4,0,.549a2.926,2.926,0,0,1-.033.513,1.756,1.756,0,0,1-.169.5,1.13,1.13,0,0,1-.363.36.673.673,0,0,1-.416.106" style="fill:#464648"/><path d="M17.43,4.538H15v4.8h1.028V7.434h1.3V6.542h-1.3V5.43h1.4V4.538" style="fill:#464648"/><path d="M21.781,20.255s3.188-.578,3.188.511S22.994,21.412,21.781,20.255Zm-2.357.083a7.543,7.543,0,0,0-1.473.489l.4-.9c.4-.9.815-2.127.815-2.127a14.216,14.216,0,0,0,1.658,2.252,13.033,13.033,0,0,0-1.4.288Zm-1.262-6.5c0-.949.307-1.208.546-1.208s.508.115.517.939a10.787,10.787,0,0,1-.517,2.434A4.426,4.426,0,0,1,18.161,13.841ZM13.513,24.354c-.978-.585,2.051-2.386,2.6-2.444C16.11,21.911,14.537,24.966,13.513,24.354ZM25.9,20.895c-.01-.1-.1-1.207-2.07-1.16a14.228,14.228,0,0,0-2.453.173,12.542,12.542,0,0,1-2.012-2.655,11.76,11.76,0,0,0,.623-3.1c-.029-1.2-.316-1.888-1.236-1.878s-1.054.815-.933,2.013a9.309,9.309,0,0,0,.665,2.338s-.425,1.323-.987,2.639-.946,2.006-.946,2.006a9.622,9.622,0,0,0-2.725,1.4c-.824.767-1.159,1.356-.725,1.945.374.508,1.683.623,2.853-.91a22.549,22.549,0,0,0,1.7-2.492s1.784-.489,2.339-.623,1.226-.24,1.226-.24,1.629,1.639,3.2,1.581,1.495-.939,1.485-1.035" style="fill:#dd2025"/><path d="M23.954,2.077V7.95h5.633L23.954,2.077Z" style="fill:#909090"/><path d="M24.031,2V7.873h5.633L24.031,2Z" style="fill:#f4f4f4"/><path d="M8.975,4.457h-.03l-.207,0H7.668v4.8H8.7V7.639l.228.013a2.042,2.042,0,0,0,.647-.117,1.428,1.428,0,0,0,.493-.291A1.224,1.224,0,0,0,10.4,6.79a2.13,2.13,0,0,0,.105-.908,2.237,2.237,0,0,0-.114-.644,1.173,1.173,0,0,0-.687-.65,2.149,2.149,0,0,0-.411-.105,2.232,2.232,0,0,0-.319-.026M8.785,6.751l-.089,0V5.271H8.89a.57.57,0,0,1,.459.181.92.92,0,0,1,.183.558c0,.246,0,.469-.222.626a.942.942,0,0,1-.524.114" style="fill:#fff"/><path d="M12.456,4.444c-.111,0-.219.008-.295.011l-.235.006h-.78v4.8h.918a2.677,2.677,0,0,0,1.028-.175,1.71,1.71,0,0,0,.68-.491,1.939,1.939,0,0,0,.373-.749,3.728,3.728,0,0,0,.114-.949,4.416,4.416,0,0,0-.087-1.127,1.777,1.777,0,0,0-.4-.733,1.63,1.63,0,0,0-.535-.4,2.413,2.413,0,0,0-.549-.178,1.282,1.282,0,0,0-.228-.017m-.182,3.937-.1,0V5.315h.013a1.062,1.062,0,0,1,.6.107,1.2,1.2,0,0,1,.324.4,1.3,1.3,0,0,1,.142.526c.009.22,0,.4,0,.549a2.926,2.926,0,0,1-.033.513,1.756,1.756,0,0,1-.169.5,1.13,1.13,0,0,1-.363.36.673.673,0,0,1-.416.106" style="fill:#fff"/><path d="M17.353,4.461h-2.43v4.8h1.028V7.357h1.3V6.465h-1.3V5.353h1.4V4.461" style="fill:#fff"/></svg></div>
-            <div>
-              <h2>PDF Viewer</h2>
-              <div class="repo">pdf-web-viewer</div>
-            </div>
-          </div>
-          <p>A fast, mobile-first, single-file PDF viewer. Drag &amp; drop a <code>.pdf</code> anywhere on the page and start reading instantly.</p>
-          <div class="actions">
-            <a class="btn btn-gh" href="https://github.com/MichalAFerber/pdf-web-viewer" target="_blank" rel="noopener" aria-label="PDF Viewer on GitHub">
-              <svg class="ico"><use href="#i-github"/></svg>
-            </a>
-            <a class="btn btn-site" href="https://pdf-viewer.us/" target="_blank" rel="noopener" aria-label="Open pdf-viewer.us">
-              <svg class="ico"><use href="#i-globe"/></svg> pdf-viewer.us <span class="arrow">↗</span>
-            </a>
-          </div>
-        </article>
-
-        <!-- EPUB -->
-        <article class="card" style="--accent:#16a34a">
-          <div class="card-head">
-            <div class="badge"><svg class="badge-ico" viewBox="0 0 32 32" aria-hidden="true"><path fill="#86b918" d="M16 24.8 7.2 16 16 7.2l2.93 2.93L13.07 16 16 18.93l8.8-8.8-7.67-7.66a1.6 1.6 0 0 0-2.26 0l-12.4 12.4a1.6 1.6 0 0 0 0 2.26l12.4 12.4a1.6 1.6 0 0 0 2.26 0l12.4-12.4a1.6 1.6 0 0 0 0-2.26l-1.8-1.8z"/></svg></div>
-            <div>
-              <h2>EPUB Viewer</h2>
-              <div class="repo">epub-web-viewer</div>
-            </div>
-          </div>
-          <p>A fast, single-file EPUB viewer that runs entirely in your browser — drag &amp; drop a book and read. No build, no uploads, works offline.</p>
-          <div class="actions">
-            <a class="btn btn-gh" href="https://github.com/MichalAFerber/epub-web-viewer" target="_blank" rel="noopener" aria-label="EPUB Viewer on GitHub">
-              <svg class="ico"><use href="#i-github"/></svg>
-            </a>
-            <a class="btn btn-site" href="https://epub-viewer.us/" target="_blank" rel="noopener" aria-label="Open epub-viewer.us">
-              <svg class="ico"><use href="#i-globe"/></svg> epub-viewer.us <span class="arrow">↗</span>
-            </a>
-          </div>
-        </article>
-
-        <!-- Data -->
+        <!-- DATA VIEWER -->
         <article class="card" style="--accent:#0891b2">
           <div class="card-head">
             <div class="badge"><svg class="badge-ico" viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M8.562,15.256A21.159,21.159,0,0,0,16,16.449a21.159,21.159,0,0,0,7.438-1.194c1.864-.727,2.525-1.535,2.525-2V9.7a10.357,10.357,0,0,1-2.084,1.076A22.293,22.293,0,0,1,16,12.078a22.36,22.36,0,0,1-7.879-1.3A10.28,10.28,0,0,1,6.037,9.7v3.55C6.037,13.724,6.7,14.528,8.562,15.256Z"/><path fill="currentColor" d="M8.562,21.961a15.611,15.611,0,0,0,2.6.741A24.9,24.9,0,0,0,16,23.155a24.9,24.9,0,0,0,4.838-.452,15.614,15.614,0,0,0,2.6-.741c1.864-.727,2.525-1.535,2.525-2v-3.39a10.706,10.706,0,0,1-1.692.825A23.49,23.49,0,0,1,16,18.74a23.49,23.49,0,0,1-8.271-1.348,10.829,10.829,0,0,1-1.692-.825V19.96C6.037,20.426,6.7,21.231,8.562,21.961Z"/><path fill="currentColor" d="M16,30c5.5,0,9.963-1.744,9.963-3.894V23.269a10.5,10.5,0,0,1-1.535.762l-.157.063A23.487,23.487,0,0,1,16,25.445a23.422,23.422,0,0,1-8.271-1.351c-.054-.02-.106-.043-.157-.063a10.5,10.5,0,0,1-1.535-.762v2.837C6.037,28.256,10.5,30,16,30Z"/><ellipse cx="16" cy="5.894" rx="9.963" ry="3.894" fill="currentColor"/></svg></div>
@@ -454,7 +390,8 @@
               <div class="repo">data-web-viewer</div>
             </div>
           </div>
-          <p>A fast, single-file data viewer — drop a JSON, YAML, CSV or XML file to explore it as a collapsible tree or table, with a highlighted source view. No build, no uploads, works offline.</p>
+          <p>Explore JSON, YAML, CSV, TSV &amp; XML as a collapsible tree or table, with a highlighted source view.</p>
+          <div class="tags"><span class="tag">json</span><span class="tag">yaml</span><span class="tag">csv</span><span class="tag">xml</span><span class="tag">data-viewer</span><span class="tag">tree-view</span><span class="tag">single-file</span><span class="tag">offline</span><span class="tag">privacy</span></div>
           <div class="actions">
             <a class="btn btn-gh" href="https://github.com/MichalAFerber/data-web-viewer" target="_blank" rel="noopener" aria-label="Data Viewer on GitHub">
               <svg class="ico"><use href="#i-github"/></svg>
@@ -465,7 +402,49 @@
           </div>
         </article>
 
-        <!-- File (hub) -->
+        <!-- DOCX VIEWER -->
+        <article class="card" style="--accent:#2b579a">
+          <div class="card-head">
+            <div class="badge"><svg class="badge-ico" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="wa" x1="4.494" y1="-1712.086" x2="13.832" y2="-1695.914" gradientTransform="translate(0 1720)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2368c4"/><stop offset="0.5" stop-color="#1a5dbe"/><stop offset="1" stop-color="#1146ac"/></linearGradient></defs><title>file_type_word</title><path d="M28.806,3H9.705A1.192,1.192,0,0,0,8.512,4.191h0V9.5l11.069,3.25L30,9.5V4.191A1.192,1.192,0,0,0,28.806,3Z" style="fill:#41a5ee"/><path d="M30,9.5H8.512V16l11.069,1.95L30,16Z" style="fill:#2b7cd3"/><path d="M8.512,16v6.5L18.93,23.8,30,22.5V16Z" style="fill:#185abd"/><path d="M9.705,29h19.1A1.192,1.192,0,0,0,30,27.809h0V22.5H8.512v5.309A1.192,1.192,0,0,0,9.705,29Z" style="fill:#103f91"/><path d="M16.434,8.2H8.512V24.45h7.922a1.2,1.2,0,0,0,1.194-1.191V9.391A1.2,1.2,0,0,0,16.434,8.2Z" style="opacity:0.10000000149011612;isolation:isolate"/><path d="M15.783,8.85H8.512V25.1h7.271a1.2,1.2,0,0,0,1.194-1.191V10.041A1.2,1.2,0,0,0,15.783,8.85Z" style="opacity:0.20000000298023224;isolation:isolate"/><path d="M15.783,8.85H8.512V23.8h7.271a1.2,1.2,0,0,0,1.194-1.191V10.041A1.2,1.2,0,0,0,15.783,8.85Z" style="opacity:0.20000000298023224;isolation:isolate"/><path d="M15.132,8.85H8.512V23.8h6.62a1.2,1.2,0,0,0,1.194-1.191V10.041A1.2,1.2,0,0,0,15.132,8.85Z" style="opacity:0.20000000298023224;isolation:isolate"/><path d="M3.194,8.85H15.132a1.193,1.193,0,0,1,1.194,1.191V21.959a1.193,1.193,0,0,1-1.194,1.191H3.194A1.192,1.192,0,0,1,2,21.959V10.041A1.192,1.192,0,0,1,3.194,8.85Z" style="fill:url(#wa)"/><path d="M6.9,17.988c.023.184.039.344.046.481h.028c.01-.13.032-.287.065-.47s.062-.338.089-.465l1.255-5.407h1.624l1.3,5.326a7.761,7.761,0,0,1,.162,1h.022a7.6,7.6,0,0,1,.135-.975l1.039-5.358h1.477l-1.824,7.748H10.591L9.354,14.742q-.054-.222-.122-.578t-.084-.52H9.127q-.021.189-.084.561c-.042.249-.075.432-.1.552L7.78,19.871H6.024L4.19,12.127h1.5l1.131,5.418A4.469,4.469,0,0,1,6.9,17.988Z" style="fill:#fff"/></svg></div>
+            <div>
+              <h2>DOCX Viewer</h2>
+              <div class="repo">docx-web-viewer</div>
+            </div>
+          </div>
+          <p>View Word documents in your browser — formatting, tables &amp; images intact. Nothing uploaded.</p>
+          <div class="tags"><span class="tag">docx</span><span class="tag">word</span><span class="tag">document-viewer</span><span class="tag">docx-preview</span><span class="tag">office</span><span class="tag">single-file</span><span class="tag">offline</span><span class="tag">privacy</span></div>
+          <div class="actions">
+            <a class="btn btn-gh" href="https://github.com/MichalAFerber/docx-web-viewer" target="_blank" rel="noopener" aria-label="DOCX Viewer on GitHub">
+              <svg class="ico"><use href="#i-github"/></svg>
+            </a>
+            <a class="btn btn-site" href="https://docx-viewer.us/" target="_blank" rel="noopener" aria-label="Open docx-viewer.us">
+              <svg class="ico"><use href="#i-globe"/></svg> docx-viewer.us <span class="arrow">↗</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- EPUB VIEWER -->
+        <article class="card" style="--accent:#16a34a">
+          <div class="card-head">
+            <div class="badge"><svg class="badge-ico" viewBox="0 0 32 32" aria-hidden="true"><path fill="#86b918" d="M16 24.8 7.2 16 16 7.2l2.93 2.93L13.07 16 16 18.93l8.8-8.8-7.67-7.66a1.6 1.6 0 0 0-2.26 0l-12.4 12.4a1.6 1.6 0 0 0 0 2.26l12.4 12.4a1.6 1.6 0 0 0 2.26 0l12.4-12.4a1.6 1.6 0 0 0 0-2.26l-1.8-1.8z"/></svg></div>
+            <div>
+              <h2>EPUB Viewer</h2>
+              <div class="repo">epub-web-viewer</div>
+            </div>
+          </div>
+          <p>Read EPUB books in your browser — chapters + contents. Your books never leave your device.</p>
+          <div class="tags"><span class="tag">epub</span><span class="tag">epub-reader</span><span class="tag">ebook</span><span class="tag">reader</span><span class="tag">single-file</span><span class="tag">offline</span><span class="tag">privacy</span></div>
+          <div class="actions">
+            <a class="btn btn-gh" href="https://github.com/MichalAFerber/epub-web-viewer" target="_blank" rel="noopener" aria-label="EPUB Viewer on GitHub">
+              <svg class="ico"><use href="#i-github"/></svg>
+            </a>
+            <a class="btn btn-site" href="https://epub-viewer.us/" target="_blank" rel="noopener" aria-label="Open epub-viewer.us">
+              <svg class="ico"><use href="#i-globe"/></svg> epub-viewer.us <span class="arrow">↗</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- FILE VIEWER -->
         <article class="card" style="--accent:#6366f1">
           <div class="card-head">
             <div class="badge"><svg class="badge-ico" viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M20.414,2H5V30H27V8.586ZM7,28V4H19v6h6V28Z"/></svg></div>
@@ -474,13 +453,98 @@
               <div class="repo">file-web-viewer</div>
             </div>
           </div>
-          <p>The home of the File Viewer family — one place that ties every viewer together and routes each file to the right tool. No build, no uploads, works offline.</p>
+          <p>Fast, single-file, offline viewers for HTML, Markdown, ePUB, PDF, data, Word &amp; spreadsheets.</p>
+          <div class="tags"><span class="tag">file-viewer</span><span class="tag">viewers</span><span class="tag">single-file</span><span class="tag">offline</span><span class="tag">privacy</span></div>
           <div class="actions">
             <a class="btn btn-gh" href="https://github.com/MichalAFerber/file-web-viewer" target="_blank" rel="noopener" aria-label="File Viewer on GitHub">
               <svg class="ico"><use href="#i-github"/></svg>
             </a>
             <a class="btn btn-site" href="https://file-viewer.us/" target="_blank" rel="noopener" aria-label="Open file-viewer.us">
               <svg class="ico"><use href="#i-globe"/></svg> file-viewer.us <span class="arrow">↗</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- HTML VIEWER -->
+        <article class="card" style="--accent:#e44f26">
+          <div class="card-head">
+            <div class="badge"><svg class="badge-ico" viewBox="0 0 32 32" aria-hidden="true"><polygon points="5.902 27.201 3.655 2 28.345 2 26.095 27.197 15.985 30 5.902 27.201" style="fill:#e44f26"/><polygon points="16 27.858 24.17 25.593 26.092 4.061 16 4.061 16 27.858" style="fill:#f1662a"/><polygon points="16 13.407 11.91 13.407 11.628 10.242 16 10.242 16 7.151 15.989 7.151 8.25 7.151 8.324 7.981 9.083 16.498 16 16.498 16 13.407" style="fill:#ebebeb"/><polygon points="16 21.434 15.986 21.438 12.544 20.509 12.324 18.044 10.651 18.044 9.221 18.044 9.654 22.896 15.986 24.654 16 24.65 16 21.434" style="fill:#ebebeb"/><polygon points="15.989 13.407 15.989 16.498 19.795 16.498 19.437 20.507 15.989 21.437 15.989 24.653 22.326 22.896 22.372 22.374 23.098 14.237 23.174 13.407 22.341 13.407 15.989 13.407" style="fill:#fff"/><polygon points="15.989 7.151 15.989 9.071 15.989 10.235 15.989 10.242 23.445 10.242 23.445 10.242 23.455 10.242 23.517 9.548 23.658 7.981 23.732 7.151 15.989 7.151" style="fill:#fff"/></svg></div>
+            <div>
+              <h2>HTML Viewer</h2>
+              <div class="repo">html-web-viewer</div>
+            </div>
+          </div>
+          <p>Render HTML in a sandboxed frame, or read CSS/SCSS/JS/TS source with syntax highlighting — offline, nothing uploaded.</p>
+          <div class="tags"><span class="tag">html-viewer</span><span class="tag">html</span><span class="tag">css</span><span class="tag">javascript</span><span class="tag">syntax-highlighting</span><span class="tag">single-file</span><span class="tag">offline</span><span class="tag">privacy</span></div>
+          <div class="actions">
+            <a class="btn btn-gh" href="https://github.com/MichalAFerber/html-web-viewer" target="_blank" rel="noopener" aria-label="HTML Viewer on GitHub">
+              <svg class="ico"><use href="#i-github"/></svg>
+            </a>
+            <a class="btn btn-site" href="https://html-viewer.us/" target="_blank" rel="noopener" aria-label="Open html-viewer.us">
+              <svg class="ico"><use href="#i-globe"/></svg> html-viewer.us <span class="arrow">↗</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- MARKDOWN VIEWER -->
+        <article class="card" style="--accent:#3b82f6">
+          <div class="card-head">
+            <div class="badge"><svg class="badge-ico" viewBox="0 0 32 32" aria-hidden="true"><rect x="2.5" y="7.955" width="27" height="16.091" style="fill:none;stroke:#755838"/><polygon points="5.909 20.636 5.909 11.364 8.636 11.364 11.364 14.773 14.091 11.364 16.818 11.364 16.818 20.636 14.091 20.636 14.091 15.318 11.364 18.727 8.636 15.318 8.636 20.636 5.909 20.636" style="fill:#755838"/><polygon points="22.955 20.636 18.864 16.136 21.591 16.136 21.591 11.364 24.318 11.364 24.318 16.136 27.045 16.136 22.955 20.636" style="fill:#755838"/></svg></div>
+            <div>
+              <h2>Markdown Viewer</h2>
+              <div class="repo">markdown-web-viewer</div>
+            </div>
+          </div>
+          <p>Drag &amp; drop a Markdown or text file to render it instantly — offline, nothing uploaded.</p>
+          <div class="tags"><span class="tag">markdown</span><span class="tag">markdown-viewer</span><span class="tag">txt</span><span class="tag">single-file</span><span class="tag">offline</span><span class="tag">privacy</span></div>
+          <div class="actions">
+            <a class="btn btn-gh" href="https://github.com/MichalAFerber/markdown-web-viewer" target="_blank" rel="noopener" aria-label="Markdown Viewer on GitHub">
+              <svg class="ico"><use href="#i-github"/></svg>
+            </a>
+            <a class="btn btn-site" href="https://markdown-viewer.us/" target="_blank" rel="noopener" aria-label="Open markdown-viewer.us">
+              <svg class="ico"><use href="#i-globe"/></svg> markdown-viewer.us <span class="arrow">↗</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- PDF VIEWER -->
+        <article class="card" style="--accent:#dd2025">
+          <div class="card-head">
+            <div class="badge"><svg class="badge-ico" viewBox="0 0 32 32" aria-hidden="true"><path d="M24.1,2.072h0l5.564,5.8V29.928H8.879V30H29.735V7.945L24.1,2.072" style="fill:#909090"/><path d="M24.031,2H8.808V29.928H29.664V7.873L24.03,2" style="fill:#f4f4f4"/><path d="M8.655,3.5H2.265v6.827h20.1V3.5H8.655" style="fill:#7a7b7c"/><path d="M22.472,10.211H2.395V3.379H22.472v6.832" style="fill:#dd2025"/><path d="M9.052,4.534h-.03l-.207,0H7.745v4.8H8.773V7.715L9,7.728a2.042,2.042,0,0,0,.647-.117,1.427,1.427,0,0,0,.493-.291,1.224,1.224,0,0,0,.335-.454,2.13,2.13,0,0,0,.105-.908,2.237,2.237,0,0,0-.114-.644,1.173,1.173,0,0,0-.687-.65A2.149,2.149,0,0,0,9.37,4.56a2.232,2.232,0,0,0-.319-.026M8.862,6.828l-.089,0V5.348h.193a.57.57,0,0,1,.459.181.92.92,0,0,1,.183.558c0,.246,0,.469-.222.626a.942.942,0,0,1-.524.114" style="fill:#464648"/><path d="M12.533,4.521c-.111,0-.219.008-.295.011L12,4.538h-.78v4.8h.918a2.677,2.677,0,0,0,1.028-.175,1.71,1.71,0,0,0,.68-.491,1.939,1.939,0,0,0,.373-.749,3.728,3.728,0,0,0,.114-.949,4.416,4.416,0,0,0-.087-1.127,1.777,1.777,0,0,0-.4-.733,1.63,1.63,0,0,0-.535-.4,2.413,2.413,0,0,0-.549-.178,1.282,1.282,0,0,0-.228-.017m-.182,3.937-.1,0V5.392h.013a1.062,1.062,0,0,1,.6.107,1.2,1.2,0,0,1,.324.4,1.3,1.3,0,0,1,.142.526c.009.22,0,.4,0,.549a2.926,2.926,0,0,1-.033.513,1.756,1.756,0,0,1-.169.5,1.13,1.13,0,0,1-.363.36.673.673,0,0,1-.416.106" style="fill:#464648"/><path d="M17.43,4.538H15v4.8h1.028V7.434h1.3V6.542h-1.3V5.43h1.4V4.538" style="fill:#464648"/><path d="M21.781,20.255s3.188-.578,3.188.511S22.994,21.412,21.781,20.255Zm-2.357.083a7.543,7.543,0,0,0-1.473.489l.4-.9c.4-.9.815-2.127.815-2.127a14.216,14.216,0,0,0,1.658,2.252,13.033,13.033,0,0,0-1.4.288Zm-1.262-6.5c0-.949.307-1.208.546-1.208s.508.115.517.939a10.787,10.787,0,0,1-.517,2.434A4.426,4.426,0,0,1,18.161,13.841ZM13.513,24.354c-.978-.585,2.051-2.386,2.6-2.444C16.11,21.911,14.537,24.966,13.513,24.354ZM25.9,20.895c-.01-.1-.1-1.207-2.07-1.16a14.228,14.228,0,0,0-2.453.173,12.542,12.542,0,0,1-2.012-2.655,11.76,11.76,0,0,0,.623-3.1c-.029-1.2-.316-1.888-1.236-1.878s-1.054.815-.933,2.013a9.309,9.309,0,0,0,.665,2.338s-.425,1.323-.987,2.639-.946,2.006-.946,2.006a9.622,9.622,0,0,0-2.725,1.4c-.824.767-1.159,1.356-.725,1.945.374.508,1.683.623,2.853-.91a22.549,22.549,0,0,0,1.7-2.492s1.784-.489,2.339-.623,1.226-.24,1.226-.24,1.629,1.639,3.2,1.581,1.495-.939,1.485-1.035" style="fill:#dd2025"/><path d="M23.954,2.077V7.95h5.633L23.954,2.077Z" style="fill:#909090"/><path d="M24.031,2V7.873h5.633L24.031,2Z" style="fill:#f4f4f4"/><path d="M8.975,4.457h-.03l-.207,0H7.668v4.8H8.7V7.639l.228.013a2.042,2.042,0,0,0,.647-.117,1.428,1.428,0,0,0,.493-.291A1.224,1.224,0,0,0,10.4,6.79a2.13,2.13,0,0,0,.105-.908,2.237,2.237,0,0,0-.114-.644,1.173,1.173,0,0,0-.687-.65,2.149,2.149,0,0,0-.411-.105,2.232,2.232,0,0,0-.319-.026M8.785,6.751l-.089,0V5.271H8.89a.57.57,0,0,1,.459.181.92.92,0,0,1,.183.558c0,.246,0,.469-.222.626a.942.942,0,0,1-.524.114" style="fill:#fff"/><path d="M12.456,4.444c-.111,0-.219.008-.295.011l-.235.006h-.78v4.8h.918a2.677,2.677,0,0,0,1.028-.175,1.71,1.71,0,0,0,.68-.491,1.939,1.939,0,0,0,.373-.749,3.728,3.728,0,0,0,.114-.949,4.416,4.416,0,0,0-.087-1.127,1.777,1.777,0,0,0-.4-.733,1.63,1.63,0,0,0-.535-.4,2.413,2.413,0,0,0-.549-.178,1.282,1.282,0,0,0-.228-.017m-.182,3.937-.1,0V5.315h.013a1.062,1.062,0,0,1,.6.107,1.2,1.2,0,0,1,.324.4,1.3,1.3,0,0,1,.142.526c.009.22,0,.4,0,.549a2.926,2.926,0,0,1-.033.513,1.756,1.756,0,0,1-.169.5,1.13,1.13,0,0,1-.363.36.673.673,0,0,1-.416.106" style="fill:#fff"/><path d="M17.353,4.461h-2.43v4.8h1.028V7.357h1.3V6.465h-1.3V5.353h1.4V4.461" style="fill:#fff"/></svg></div>
+            <div>
+              <h2>PDF Viewer</h2>
+              <div class="repo">pdf-web-viewer</div>
+            </div>
+          </div>
+          <p>Read PDFs in your browser with pdf.js — offline, nothing uploaded.</p>
+          <div class="tags"><span class="tag">pdf</span><span class="tag">pdf-viewer</span><span class="tag">pdfjs</span><span class="tag">single-file</span><span class="tag">offline</span><span class="tag">privacy</span></div>
+          <div class="actions">
+            <a class="btn btn-gh" href="https://github.com/MichalAFerber/pdf-web-viewer" target="_blank" rel="noopener" aria-label="PDF Viewer on GitHub">
+              <svg class="ico"><use href="#i-github"/></svg>
+            </a>
+            <a class="btn btn-site" href="https://pdf-viewer.us/" target="_blank" rel="noopener" aria-label="Open pdf-viewer.us">
+              <svg class="ico"><use href="#i-globe"/></svg> pdf-viewer.us <span class="arrow">↗</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- SHEETS VIEWER -->
+        <article class="card" style="--accent:#217346">
+          <div class="card-head">
+            <div class="badge"><svg class="badge-ico" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="xa" x1="4.494" y1="-2092.086" x2="13.832" y2="-2075.914" gradientTransform="translate(0 2100)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#18884f"/><stop offset="0.5" stop-color="#117e43"/><stop offset="1" stop-color="#0b6631"/></linearGradient></defs><title>file_type_excel</title><path d="M19.581,15.35,8.512,13.4V27.809A1.192,1.192,0,0,0,9.705,29h19.1A1.192,1.192,0,0,0,30,27.809h0V22.5Z" style="fill:#185c37"/><path d="M19.581,3H9.705A1.192,1.192,0,0,0,8.512,4.191h0V9.5L19.581,16l5.861,1.95L30,16V9.5Z" style="fill:#21a366"/><path d="M8.512,9.5H19.581V16H8.512Z" style="fill:#107c41"/><path d="M16.434,8.2H8.512V24.45h7.922a1.2,1.2,0,0,0,1.194-1.191V9.391A1.2,1.2,0,0,0,16.434,8.2Z" style="opacity:0.10000000149011612;isolation:isolate"/><path d="M15.783,8.85H8.512V25.1h7.271a1.2,1.2,0,0,0,1.194-1.191V10.041A1.2,1.2,0,0,0,15.783,8.85Z" style="opacity:0.20000000298023224;isolation:isolate"/><path d="M15.783,8.85H8.512V23.8h7.271a1.2,1.2,0,0,0,1.194-1.191V10.041A1.2,1.2,0,0,0,15.783,8.85Z" style="opacity:0.20000000298023224;isolation:isolate"/><path d="M15.132,8.85H8.512V23.8h6.62a1.2,1.2,0,0,0,1.194-1.191V10.041A1.2,1.2,0,0,0,15.132,8.85Z" style="opacity:0.20000000298023224;isolation:isolate"/><path d="M3.194,8.85H15.132a1.193,1.193,0,0,1,1.194,1.191V21.959a1.193,1.193,0,0,1-1.194,1.191H3.194A1.192,1.192,0,0,1,2,21.959V10.041A1.192,1.192,0,0,1,3.194,8.85Z" style="fill:url(#xa)"/><path d="M5.7,19.873l2.511-3.884-2.3-3.862H7.758L9.013,14.6c.116.234.2.408.238.524h.017c.082-.188.169-.369.26-.546l1.342-2.447h1.7l-2.359,3.84,2.419,3.905H10.821l-1.45-2.711A2.355,2.355,0,0,1,9.2,16.8H9.176a1.688,1.688,0,0,1-.168.351L7.515,19.873Z" style="fill:#fff"/><path d="M28.806,3H19.581V9.5H30V4.191A1.192,1.192,0,0,0,28.806,3Z" style="fill:#33c481"/><path d="M19.581,16H30v6.5H19.581Z" style="fill:#107c41"/></svg></div>
+            <div>
+              <h2>Sheets Viewer</h2>
+              <div class="repo">sheets-web-viewer</div>
+            </div>
+          </div>
+          <p>Open spreadsheets (.xlsx, .xls, .ods &amp; more) as tables with sheet tabs — offline, nothing uploaded.</p>
+          <div class="tags"><span class="tag">xlsx</span><span class="tag">excel</span><span class="tag">spreadsheet</span><span class="tag">sheets-viewer</span><span class="tag">ods</span><span class="tag">sheetjs</span><span class="tag">single-file</span><span class="tag">offline</span><span class="tag">privacy</span></div>
+          <div class="actions">
+            <a class="btn btn-gh" href="https://github.com/MichalAFerber/sheets-web-viewer" target="_blank" rel="noopener" aria-label="Sheets Viewer on GitHub">
+              <svg class="ico"><use href="#i-github"/></svg>
+            </a>
+            <a class="btn btn-site" href="https://sheets-viewer.us/" target="_blank" rel="noopener" aria-label="Open sheets-viewer.us">
+              <svg class="ico"><use href="#i-globe"/></svg> sheets-viewer.us <span class="arrow">↗</span>
             </a>
           </div>
         </article>

@@ -48,17 +48,18 @@ brand-new viewer green-field, or (b) bring an existing viewer up to parity with
 | **epub** | `epub-web-viewer` ✅ | `epub-viewer.us` | `file_type_epub.svg` | `EPUB Viewer` |
 | **pdf** | `pdf-web-viewer` ✅ | `pdf-viewer.us` | **compact** custom PDF mark † | `PDF Viewer` |
 | **data** | `data-web-viewer` ✅ | `data-viewer.us` | `file_type_db.svg` | `Data Viewer` |
+| **docx** | `docx-web-viewer` ✅ | `docx-viewer.us` | `file_type_word.svg` | `DOCX Viewer` |
+| **sheets** | `sheets-web-viewer` ✅ | `sheets-viewer.us` | `file_type_excel.svg` | `Sheets Viewer` |
 | **file** *(hub)* | `file-web-viewer` ✅ | `file-viewer.us` | 🗂️ folder emoji (SVG `<text>`) | `File Viewer` |
 
 † vscode-icons' `file_type_pdf.svg` is ~46 KB — too heavy to inline (and to reuse
 in every viewer's nav). pdf-viewer uses a **compact ~0.5 KB** red document mark
 instead; that's also the icon used for the **PDF** item in the family nav.
 
-**Candidate viewers (researched, not yet built):** a **docx** viewer via
-**docx-preview + JSZip** (both CSP-clean, ~165 KB total) and an **xlsx/xls**
-viewer via **SheetJS community** (CSP-clean, ~861 KB). See §17 for the
-feasibility findings, library audit, and caveats (legacy `.doc` is the weak
-spot; `.xls` is fine).
+Both **docx** (docx-preview + JSZip) and **sheets** (SheetJS community) shipped
+in 2026-07 — see §17 for the library audit, CSP notes, and legacy-format caveats
+(`.doc/.rtf/.odt` render an accept-with-notice card; `.xls` is fully supported).
+**Roadmap candidates** (considered, not yet built) are catalogued in §17.1.
 
 The **hub** (`file-viewer.us`) is the family home: a single-page landing site
 with a **card per viewer** (icon, name, description, accepted types → link). It
@@ -75,6 +76,8 @@ design/template files (this spec). See §16.
 - **epub:** `.epub`
 - **pdf:** `.pdf`
 - **data:** `.json .jsonc .json5 .jsonld .ndjson .yaml .yml .toml .csv .tsv .xml .rss .atom .graphql .gql`
+- **docx:** `.docx .docm .dotx .dotm` rendered; `.doc .dot .rtf .odt` accepted-with-notice
+- **sheets:** `.xlsx .xlsm .xlsb .xls .xlt .xltx .xltm .xlam .ods .fods .dif .prn .dbf .numbers` *(CSV/TSV stay with **data** — no overlap)*
 
 **Shared constants (identical everywhere):**
 
@@ -720,11 +723,12 @@ sync with each viewer’s real accepted list (§1).
 
 ---
 
-## 17. Candidate viewers: docx & xlsx (feasibility, researched 2026-07)
+## 17. docx & sheets viewers (audit + build notes, 2026-07 — ✅ SHIPPED)
 
-Both are viable **within the family constraints** (single file, offline, strict
-CSP with **no `eval` / `new Function`**). Candidate libraries were downloaded and
-audited against the CSP:
+Both shipped as **`docx-viewer.us`** (`DOCX Viewer`) and **`sheets-viewer.us`**
+(`Sheets Viewer`). Both stay **within the family constraints** (single file,
+offline, strict CSP with **no `eval` / `new Function`**). The libraries were
+downloaded and audited against the CSP before inlining:
 
 | Format | Library | License | Size (min) | CSP-clean? |
 | --- | --- | --- | --- | --- |
@@ -742,11 +746,17 @@ plane (optionally a source plane showing `word/document.xml`).
 **sheet tabs**. Essentially a sibling of the Data viewer (same table styling,
 drop-to-replace). A "mini" build (~300 KB, xlsx/xls/csv only) is a leaner option.
 
+**As built:** docx renders images inline via `useBase64URL` (data: URLs — CSP
+needs **no `blob:`**); legacy `.doc/.dot/.rtf/.odt` are accepted and show an
+**accept-with-notice** card ("open in Word/LibreOffice → Save As .docx"). Sheets
+renders every worksheet as a table with **sheet tabs** and a **CSV source** view;
+`.csv/.tsv` intentionally stay with the **data** viewer. Both verified under the
+production CSP with headless Chromium (docx 17/17, sheets 13/13).
+
 **Honest limits / caveats:**
-- **Legacy `.doc`** (pre-2007 OLE binary): no good pure-browser renderer —
-  **best-effort/unsupported**. The doc viewer is really a **`.docx`** viewer
-  (validate + politely decline `.doc`). Legacy `.xls`, by contrast, **is**
-  handled by SheetJS.
+- **Legacy `.doc`** (pre-2007 OLE binary): no good pure-browser renderer, so the
+  docx viewer is really a **`.docx`** viewer — `.doc/.rtf/.odt` get the
+  accept-with-notice card. Legacy `.xls`, by contrast, **is** handled by SheetJS.
 - **xlsx fidelity:** the free SheetJS build shows **values + structure**, not
   rich cell styling/colors/merged formatting (that's SheetJS Pro); **formulas
   show their cached computed values**; **charts are not rendered**.
@@ -754,10 +764,31 @@ drop-to-replace). A "mini" build (~300 KB, xlsx/xls/csv only) is a leaner option
   engine (complex headers/footers, footnotes, field codes may simplify).
 - **Size:** xlsx (~861 KB) is heavy but under pdf.js's ~1.5 MB precedent; docx
   (~165 KB) is light.
-- Suggested identities: `docx-viewer.us` / `xlsx-viewer.us` (or `sheet-viewer.us`).
-  Adding either = **+1 item in the family nav** (§6.9) on every site + a new hub
-  card (§16). **Re-audit each library's exact pinned version** for `eval`-freeness
-  before shipping (§10).
+- Shipped identities: **`docx-viewer.us`** and **`sheets-viewer.us`**. Each added
+  **+1 item in the family nav** (§6.9, now 8 items A→Z) on every site + a new hub
+  card (§16). Pinned versions audited for `eval`-freeness before shipping:
+  docx-preview `0.3.3`, JSZip `3.10.1`, SheetJS `0.18.5`.
+
+---
+
+## 17.1 Roadmap candidates (considered — not yet built)
+
+Kept here so the family can grow deliberately. Each must clear the same bar:
+single self-contained `index.html`, offline / `file://`-safe, strict CSP with
+**no `eval` / `new Function`**, inlined library, own SEO kit, +1 nav item A→Z,
++1 hub card. Re-audit each library's pinned build before shipping.
+
+| Idea | Domain (suggested) | Scope | Library sketch | CSP watch-out |
+| --- | --- | --- | --- | --- |
+| **EML / MSG viewer** ⭐ | `eml-viewer.us` | Parse `.eml`/`.msg`; show headers, body (text/HTML sandboxed), attachments — **plus SPF / DKIM / DMARC** header analysis | pure-JS MIME parse (emailjs-mime-parser or hand-rolled); `.msg` = CFB via a small OLE reader | sanitize HTML body → sandboxed iframe; no network for auth-result *lookups* (parse the headers that are present) |
+| **Cert / CSR viewer** | `cert-viewer.us` | Decode X.509 `.pem/.crt/.cer/.der/.csr/.p12` — subject, SAN, validity, key usage, chain, fingerprints | `@peculiar/x509` or `PKI.js` (WebCrypto/ASN.1) | verify no `eval`; WebCrypto is CSP-fine; `.p12` needs a password prompt |
+| **PPTX viewer** | `pptx-viewer.us` | Render `.pptx` slides (text, shapes, images) | JSZip + a pptx→HTML/canvas renderer | heavier; fidelity trade-offs like docx; watch bundle size |
+| **Log viewer** | `log-viewer.us` | `.log`/plaintext with search, level filter, **virtualized** scroll for huge files | none (hand-rolled virtual list) | stream/chunk large files; keep DOM node count bounded |
+| **PUB viewer** | `pub-viewer.us` | Microsoft Publisher `.pub` (CFB/OLE) | best-effort OLE parse | niche format, low fidelity — likely accept-with-notice like legacy `.doc` |
+
+⭐ **EML/MSG is the priority pick** — it doubles as a lead magnet for the owner's
+DNS-consulting brand (`fixdns.net` / `brokedns.com`): the SPF/DKIM/DMARC readout
+turns "why did this mail fail auth?" into a shareable, self-serve tool.
 
 ---
 
