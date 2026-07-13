@@ -1,9 +1,16 @@
-# MyKK Viewer Kit — Design & Build Spec
+# File Viewer Kit — Design & Build Spec
 
-A single, agent-ready specification for the **MyKK family of single-file web
-viewers**. Use it to (a) build a brand-new viewer green-field, or (b) bring an
-existing viewer up to parity with **html-viewer** (the reference
-implementation).
+A single, agent-ready specification for the **File Viewer family of single-file
+web viewers** ([file-viewer.us](https://file-viewer.us/)). Use it to (a) build a
+brand-new viewer green-field, or (b) bring an existing viewer up to parity with
+**html-viewer** (the reference implementation).
+
+> **Status (2026-07):** all six family sites are built and live. Since v1 the
+> shared shell gained a **SEO / Open-Graph kit** (§7.1), a **collapse-to-handle
+> auto-hiding header** (§6.6), **site-favicon nav icons** (§6.9), and several
+> parity fixes — a compact centered empty card, `html,body{overflow-x:clip}`, a
+> footer-close specificity fix, and a header-padding media query. This doc
+> reflects the current shell. (The `mykk-bg` storage key is unchanged.)
 
 > **Reference implementation:** [`MichalAFerber/html-web-viewer`](https://github.com/MichalAFerber/html-web-viewer)
 > → `index.html`. When this spec says "copy verbatim from the reference," it
@@ -16,15 +23,17 @@ implementation).
 1. Every viewer is **one self-contained `index.html`** — no build step, no
    framework, no external runtime dependencies. Libraries are **minified and
    pasted inline**. It must work fully offline, even from `file://`.
-2. There is **one shared "shell"** (design tokens, top bar, footer, color
-   picker, drop zone, toast, scroll-driven header, analytics, security headers)
-   that is **identical** across viewers. Copy it verbatim.
+2. There is **one shared "shell"** (design tokens, top bar, family hamburger
+   nav, footer, color picker, drop zone, toast, the **collapse-to-handle
+   auto-hiding header** §6.6, the **SEO/OG kit** §7.1, analytics, security
+   headers) that is **identical** across viewers. Copy it verbatim.
 3. Each viewer supplies a small **adapter**: its identity (title, domain,
-   favicon, repo), its **accepted file types**, and how it turns a file into a
-   **rendered view** (and, for text files, a **source view**).
-4. Ship the four sidecar files (`_headers`, `README.md`, `LICENSE`,
-   `.gitignore`), deploy to **Cloudflare Pages** on `main`, and register the
-   domain in **Plausible**.
+   favicon, repo), its **accepted file types** (listed in the empty-state
+   sub-line), and how it turns a file into a **rendered view** (and, for text
+   files, a **source view**).
+4. Ship the sidecar files (`_headers`, `og.png`, `apple-touch-icon.png`,
+   `robots.txt`, `sitemap.xml`, `README.md`, `LICENSE`, `.gitignore`), deploy to
+   **Cloudflare Pages** on `main`, and register the domain in **Plausible**.
 5. **Verify with the headless-Chromium harness** (§12) under the real CSP
    before opening a PR. Parity = the checklist in §13 passes.
 
@@ -34,12 +43,22 @@ implementation).
 
 | Viewer | Repo (`MichalAFerber/…`) | Domain | Favicon (vscode-icons `icons/…`) | `<title>` / base title |
 | --- | --- | --- | --- | --- |
-| **html** | `html-web-viewer` | `html-viewer.us` | `file_type_html.svg` | `HTML Viewer` |
-| **markdown** | `markdown-web-viewer` | `markdown-viewer.us` | `file_type_markdown.svg` | `Markdown Viewer` |
-| **epub** | `epub-web-viewer` | `epub-viewer.us` | `file_type_epub.svg` | `EPUB Viewer` |
-| **pdf** | `pdf-web-viewer` | `pdf-viewer.us` | `file_type_pdf.svg` | `PDF Viewer` |
-| **data** | `data-web-viewer` ✅ built | `data-viewer.us` | `file_type_db.svg` | `Data Viewer` |
-| **file** *(hub)* | `file-web-viewer` ✅ built | `file-viewer.us` | custom grid mark | `File Viewer` |
+| **html** | `html-web-viewer` ✅ | `html-viewer.us` | `file_type_html.svg` | `HTML Viewer` |
+| **markdown** | `markdown-web-viewer` ✅ | `markdown-viewer.us` | `file_type_markdown.svg` | `Markdown Viewer` |
+| **epub** | `epub-web-viewer` ✅ | `epub-viewer.us` | `file_type_epub.svg` | `EPUB Viewer` |
+| **pdf** | `pdf-web-viewer` ✅ | `pdf-viewer.us` | **compact** custom PDF mark † | `PDF Viewer` |
+| **data** | `data-web-viewer` ✅ | `data-viewer.us` | `file_type_db.svg` | `Data Viewer` |
+| **file** *(hub)* | `file-web-viewer` ✅ | `file-viewer.us` | 🗂️ folder emoji (SVG `<text>`) | `File Viewer` |
+
+† vscode-icons' `file_type_pdf.svg` is ~46 KB — too heavy to inline (and to reuse
+in every viewer's nav). pdf-viewer uses a **compact ~0.5 KB** red document mark
+instead; that's also the icon used for the **PDF** item in the family nav.
+
+**Candidate viewers (researched, not yet built):** a **docx** viewer via
+**docx-preview + JSZip** (both CSP-clean, ~165 KB total) and an **xlsx/xls**
+viewer via **SheetJS community** (CSP-clean, ~861 KB). See §17 for the
+feasibility findings, library audit, and caveats (legacy `.doc` is the weak
+spot; `.xls` is fine).
 
 The **hub** (`file-viewer.us`) is the family home: a single-page landing site
 with a **card per viewer** (icon, name, description, accepted types → link). It
@@ -247,46 +266,88 @@ input in `<span class="swatch-wrap tip" data-tip="Background color">`.
 ### 6.5 Color swatch — native `<input type="color" class="swatch">` styled round
 (`::-webkit-color-swatch{border-radius:50%}`, etc.).
 
-### 6.6 Scroll-driven header (copy verbatim)
-Hides on scroll **down**, returns on scroll **up**, after **5 s idle**, or when
-the pointer hits the top strip. Drives off **both** the internal source scroller
-**and** the rendered pane.
+### 6.6 Auto-hiding header → collapse-to-handle (copy verbatim)
+While the **rendered** plane is open, the header **shows on open, then auto-hides
+after 3 s** of no interaction — collapsing to a **thick tappable "handle"** (a
+short accent line with a center grabber) that sits over the content. **Hover,
+touch, tap the handle, or scroll up** brings the full header back (and re-arms
+the 3 s). The **source** plane *keeps* the header (its content is laid out
+below it, so hiding would leave a gap): `hideHeader()` is a no-op there.
+
+The header still slides fully off-screen via `translateY(-118%)`; what makes it
+read as "shrinking to a line" is the **hover-zone** (`#hoverZone`, a ~22 px
+transparent top strip that catches hover/tap) rendering a visible bar **only when
+collapsed**. The zone sits at `z-index:35`, *below* the topbar (`z-36`), so the
+topbar covers it when shown and it's exposed (as the handle) when the topbar is
+translated away.
 
 ```js
-var HDR_IDLE_MS = 5000, HDR_THRESH = 6, hdrIdleTimer = null;
+var HDR_IDLE_MS = 3000, HDR_THRESH = 6, hdrIdleTimer = null;
 var lastPos = { win:0, code:0, frame:0 };
 function showHeader(){ body.classList.remove("hdr-hidden"); }
-function hideHeader(){ if (body.classList.contains("viewing")) body.classList.add("hdr-hidden"); }
-function armIdleReveal(){ clearTimeout(hdrIdleTimer); hdrIdleTimer = setTimeout(showHeader, HDR_IDLE_MS); }
+// only the rendered plane auto-hides (guard on the current mode, e.g. "preview"/"rendered"):
+function hideHeader(){ if (body.classList.contains("viewing") && mode === RENDERED) body.classList.add("hdr-hidden"); }
+function armIdleHide(){ clearTimeout(hdrIdleTimer); hdrIdleTimer = setTimeout(hideHeader, HDR_IDLE_MS); }
+function revealHeader(){ showHeader(); armIdleHide(); }        // show now, collapse after 3 s
 function onScroll(key, pos){
   if (!body.classList.contains("viewing")) return;
   var d = pos - lastPos[key]; lastPos[key] = pos;
-  if (d > HDR_THRESH){ hideHeader(); armIdleReveal(); }
-  else if (d < -HDR_THRESH){ showHeader(); clearTimeout(hdrIdleTimer); }
-  else { armIdleReveal(); }
+  if (d > HDR_THRESH) hideHeader();            // down -> collapse
+  else if (d < -HDR_THRESH) revealHeader();    // up   -> reveal, then auto-hide
 }
 window.addEventListener("scroll", function(){ onScroll("win", window.pageYOffset||0); }, {passive:true});
 codeView.addEventListener("scroll", function(){ onScroll("code", codeView.scrollTop); }, {passive:true});
-hoverZone.addEventListener("mouseenter", showHeader);
-hoverZone.addEventListener("click", showHeader);
+hoverZone.addEventListener("mouseenter", revealHeader);
+hoverZone.addEventListener("click", revealHeader);
+hoverZone.addEventListener("touchstart", function(){ revealHeader(); }, { passive:true });
+topbar.addEventListener("mouseenter", function(){ showHeader(); clearTimeout(hdrIdleTimer); });  // stay up while hovered
+topbar.addEventListener("mouseleave", function(){ armIdleHide(); });
+// On file open, call revealHeader() for the rendered plane; showHeader()+clearTimeout for the source plane.
 // Measure header height so the source pane clears the fixed bar:
 function measureHeader(){ root.style.setProperty("--hdr-h", (topbar?topbar.offsetHeight:56)+"px"); }
 measureHeader(); window.addEventListener("resize", measureHeader);
 ```
-CSS: `body.viewing .topbar{ position:fixed; … transition:transform .28s }` and
-`body.viewing.hdr-hidden .topbar{ transform:translateY(-118%) }`. If the
-rendered pane is a **same-origin-readable** element you can observe its scroll
-(see the iframe note in §9); otherwise header reacts to the window/source scroll
-only, which is fine.
+
+CSS (topbar + the handle rendered on the hover-zone when collapsed):
+```css
+body.viewing .topbar{ position:fixed; top:0; left:0; right:0; z-index:36; transition:transform .28s ease, box-shadow .28s ease; }
+body.viewing.hdr-hidden .topbar{ transform:translateY(-118%); box-shadow:none }
+.hover-zone{ display:none }
+body.viewing .hover-zone{ display:block; position:fixed; top:0; left:0; right:0; height:22px; z-index:35; cursor:pointer }
+body.viewing.hdr-hidden .hover-zone::before{ content:""; position:absolute; top:0; left:0; right:0; height:7px; background:var(--accent); box-shadow:0 1px 6px var(--shadow) }
+body.viewing.hdr-hidden .hover-zone::after{ content:""; position:absolute; top:1.5px; left:50%; transform:translateX(-50%); width:46px; height:4px; border-radius:2px; background:var(--accent-contrast); opacity:.7 }
+```
+Notes: viewers whose hidden-class is `header-hidden` (markdown) or a `peek` model
+(epub) adapt the class names but keep this behavior. If the rendered pane is a
+**same-origin-readable** element/iframe you can observe its scroll to drive
+this; otherwise it reacts to the window/source scroll only, which is fine.
 
 ### 6.7 Empty state / drop zone / full-screen overlay / toast
-- `.empty` centered card (dashed border, upload glyph, title, sub-line). Acts as
-  an open button (click / Enter / Space → file dialog).
+- `.empty` is a **compact, centered** drop card — `.empty` centers its child
+  (`align-items:center; justify-content:center`) and `.empty-inner` is
+  `max-width:30rem; width:100%` with the dashed border, glyph, title, sub-line.
+  **Do NOT let it stretch full-screen** (`flex:1` / no `max-width` produces a
+  giant edge-to-edge box — a fixed bug). Acts as an open button (click / Enter /
+  Space → dialog).
+- The **sub-line lists the accepted types**, e.g. `Drag & drop anywhere, paste,
+  or tap to open. Accepts .json, .jsonc, .yaml, .csv, .tsv, .xml … & more.`
+  Binary viewers drop "paste" (`Drag & drop anywhere or tap to open. Accepts
+  .pdf — …`). Every viewer must show **its own** list.
 - `.drop-overlay` covers the viewport during drag; its `.drop-card` is
-  **full-screen** (dashed accent border filling the window minus a 12px gutter).
+  **full-screen** (dashed accent border filling the window minus a 12 px gutter).
+  This is the *drag* overlay — distinct from the compact empty card above.
 - `.toast` bottom-center, `role="status" aria-live="polite"`, auto-hides ~1.9 s.
-- Footer `.footer` with the credit line and a far-right **× close** button
-  (`#btnHideFooter`, hides footer for the session).
+- Footer `.footer` (`position:relative`) with the credit line and a far-right
+  **× close** button (`#btnFooterClose`, hides footer for the session), styled
+  `position:absolute; right:.5rem; top:50%; transform:translateY(-50%)`.
+  ⚠️ If tooltips use `[data-tip]{position:relative}` and that rule is declared
+  **after** `.footer-close`, it wins on equal specificity and knocks the button
+  into normal flow (centered below the text). **Scope the position rule as
+  `.footer .footer-close`** so it beats `[data-tip]`.
+- **No horizontal scrollbar:** `html,body{overflow-x:clip}` so the off-screen
+  (closed) flyout nav panel and the `left:-999px` skip link never create an
+  h-scrollbar. (`overflow-x:clip` — not `hidden` — so `position:sticky` still works.)
+- **Header padding parity:** `@media (min-width:640px){ .topbar{padding-left:1rem; padding-right:1rem} }` on every viewer, so header icons sit at the same insets.
 - **Drop-to-replace (required):** the drag/drop + paste handlers live on
   `window` and call the loader, so **dropping a new file while one is already
   open replaces it** (drag anywhere, or paste). ⚠️ **Iframe caveat:** if the
@@ -321,9 +382,15 @@ marks **its own** item active.
 
 - Order & targets: **Home** → `file-viewer.us`, **HTML** → `html-viewer.us`,
   **Markdown** → `markdown-viewer.us`, **ePUB** → `epub-viewer.us`,
-  **Data** → `data-viewer.us`, **PDF** → `pdf-viewer.us`. Each item is a plain
-  `<a href>` with a small stroked line-icon + label; the current site gets
-  `class="nav-active" aria-current="page"`.
+  **Data** → `data-viewer.us`, **PDF** → `pdf-viewer.us`. Each item's icon is
+  **that destination site's actual favicon**, rendered as
+  `<img class="nav-ico" src="data:image/svg+xml,…" alt="" aria-hidden="true">`
+  (Home = the hub's 🗂️ folder-emoji favicon; PDF = the compact PDF mark), + a
+  label; the current site gets `class="nav-active" aria-current="page"`.
+  `.nav-ico` is `width:20px;height:20px;flex:0 0 auto;border-radius:4px`. Because
+  these are `<img>` in the body, the CSP **`img-src` must allow `data:`** (it
+  does on every viewer). The menu markup is **byte-identical** across viewers —
+  only the active item differs.
 - Markup: `#btnMenu` (`.tip.tip-l`, `aria-expanded`, `aria-controls="navPanel"`)
   + `#navBackdrop.nav-backdrop` + `<aside id="navPanel" class="nav-panel">`.
 - Behavior (copy verbatim): toggle `body.nav-open`; the panel slides in from the
@@ -336,8 +403,10 @@ marks **its own** item active.
   navBackdrop.addEventListener("click", function(){ setNav(false); });
   doc.addEventListener("keydown", function(e){ if (e.key === "Escape") setNav(false); });
   ```
-- Add a **`.tip-l`** tooltip variant (`right:auto; left:0`) so the leftmost
-  button's tooltip doesn't run off-screen.
+- Left-anchor the menu button's tooltip so it doesn't run off-screen: a
+  **`.tip-l`** variant (`right:auto; left:0`) for the class-based tooltip (html),
+  or `#btnMenu[data-tip]::after{left:0; transform:none}` for the attribute-based
+  system (markdown / epub / data / pdf).
 - The **hub** (`file-viewer.us`) does **not** include this — it shows the cards.
 
 ---
@@ -366,6 +435,44 @@ if (brandIcon && favLink) brandIcon.src = favLink.href;
 ```
 
 To generate the data URI: `"data:image/svg+xml," + encodeURIComponent(svgText)`.
+
+### 7.1 SEO / Open-Graph / social kit (every viewer + the hub)
+
+Every site ships the following so shared links get a rich preview and it indexes
+cleanly. Paste in `<head>` after `description`, filling in title/description/domain:
+
+```html
+<link rel="canonical" href="https://<domain>/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="File Viewer">
+<meta property="og:title" content="<Title>">
+<meta property="og:description" content="<desc>">
+<meta property="og:url" content="https://<domain>/">
+<meta property="og:image" content="https://<domain>/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="<Title>">
+<meta name="twitter:description" content="<desc>">
+<meta name="twitter:image" content="https://<domain>/og.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"<Title>","url":"https://<domain>/","applicationCategory":"UtilityApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"<desc>"}</script>
+```
+(The **hub** uses `"@type":"WebSite"` and drops `offers`.) The inline `ld+json`
+is allowed by `script-src 'unsafe-inline'`; `og:image` is fetched by scrapers,
+not the page, so it needs no CSP allowance.
+
+**Sidecar assets (repo root, served by Pages):**
+- **`og.png`** — a **1200×630** share card: the file-type favicon on a rounded
+  white tile over a subtle `#4f46e5`→white gradient, the viewer name (bold), a
+  one-line tagline, and `<domain> · part of the File Viewer family`. Generate by
+  rendering an HTML card and screenshotting it with the headless browser.
+- **`apple-touch-icon.png`** — 180×180, favicon centered on white.
+- **`robots.txt`** — `User-agent: *` / `Allow: /` / `Sitemap: https://<domain>/sitemap.xml`.
+- **`sitemap.xml`** — one `<url><loc>https://<domain>/</loc>…</url>`.
+
+⚠️ If a viewer's `img-src` omits `'self'`, the same-origin `apple-touch-icon.png`
+is CSP-blocked — add `'self'` to `img-src`.
 
 ---
 
@@ -493,6 +600,7 @@ A viewer is at parity when **all** of these pass:
 - [ ] Correct `<title>`, `data-domain`, favicon (`file_type_*`), GitHub link, footer credit.
 - [ ] Brand icon (= favicon) left of the title; base title on empty screen; filename while viewing.
 - [ ] Action buttons visible on the empty screen and while viewing.
+- [ ] **Empty card is compact/centered** (`max-width:30rem`, not full-screen); its sub-line **lists the accepted types**.
 
 **Theming**
 - [ ] Color swatch sets any background; text/border/`--hl-*` adapt; light **and** dark legible; `theme-color` + `colorScheme` update.
@@ -501,10 +609,10 @@ A viewer is at parity when **all** of these pass:
 **Interaction**
 - [ ] Drag-drop anywhere (full-screen overlay), paste, and tap-to-open all work.
 - [ ] **Drop-to-replace:** dropping a new file while one is open replaces it — including *over an iframe rendered plane* (browser must not open the file in a new tab).
-- [ ] **Family nav:** the ☰ flyout lists Home/HTML/Markdown/ePUB/Data/PDF with the current site active; opens on click, closes on backdrop/Escape. (Hub excepted.)
+- [ ] **Family nav:** the ☰ flyout lists Home/HTML/Markdown/ePUB/Data/PDF — icons = each destination's **site favicon** (Home = 🗂️) — current site active; opens on click, closes on backdrop/Escape. (Hub excepted.)
 - [ ] **File-type validation:** only this viewer’s types are accepted; others get the rejection toast and are not shown.
-- [ ] Header hides on scroll-down, returns on scroll-up / 5 s idle / top-edge.
-- [ ] Footer × hides the footer. Fast tooltips (~0.1 s) on controls; touch suppresses them.
+- [ ] **Header:** shows on open, **auto-hides after 3 s** collapsing to the **thick tappable handle** over the rendered content; **hover / touch / tap / scroll-up** reveals it; the source plane keeps the header.
+- [ ] Footer × (far-right, vertically centered — `.footer .footer-close` beats `[data-tip]`) hides the footer; **no horizontal scrollbar** (`html,body{overflow-x:clip}`); header padding parity (`1rem` ≥640 px). Fast tooltips (~0.1 s); touch suppresses them.
 - [ ] Copy and Clear work; toasts fire.
 
 **Planes**
@@ -519,6 +627,9 @@ A viewer is at parity when **all** of these pass:
 **A11y**
 - [ ] Skip link, focus rings, aria-labels/pressed/live, reduced-motion, keyboard-operable empty state.
 
+**SEO & social**
+- [ ] `<head>` has canonical + Open Graph + Twitter card + JSON-LD; `og.png` (1200×630), `apple-touch-icon.png`, `robots.txt`, `sitemap.xml` present; `img-src` allows `'self'` + `data:`.
+
 **Verified**
 - [ ] Headless-Chromium harness green under the real CSP.
 
@@ -527,11 +638,15 @@ A viewer is at parity when **all** of these pass:
 ## 14. Repo layout & workflow
 
 ```
-index.html      # the app (self-contained)
-_headers        # Cloudflare Pages security headers (CSP …)
-README.md       # features, supported types, deploy, credits (see reference)
-LICENSE         # MIT + bundled-component notices (highlight.js BSD-3, js-beautify MIT, vscode-icons MIT)
-.gitignore      # OS/editor cruft
+index.html            # the app (self-contained)
+_headers              # Cloudflare Pages security headers (CSP …)
+og.png                # 1200×630 Open Graph / Twitter share card (§7.1)
+apple-touch-icon.png  # 180×180 touch icon (§7.1)
+robots.txt            # allow all + sitemap pointer (§7.1)
+sitemap.xml           # single-URL sitemap (§7.1)
+README.md             # features, supported types, deploy, credits (see reference)
+LICENSE               # MIT + bundled-component notices (highlight.js BSD-3, js-beautify MIT, vscode-icons MIT)
+.gitignore            # OS/editor cruft
 ```
 - Develop on a feature branch; open a PR into `main`; Cloudflare auto-deploys
   `main`. Framework preset **None**, build command blank, output dir `/`.
@@ -602,6 +717,47 @@ machinery, no hamburger** (it is Home).
 
 Card copy + accepted-type summaries live in the hub’s `index.html`; keep them in
 sync with each viewer’s real accepted list (§1).
+
+---
+
+## 17. Candidate viewers: docx & xlsx (feasibility, researched 2026-07)
+
+Both are viable **within the family constraints** (single file, offline, strict
+CSP with **no `eval` / `new Function`**). Candidate libraries were downloaded and
+audited against the CSP:
+
+| Format | Library | License | Size (min) | CSP-clean? |
+| --- | --- | --- | --- | --- |
+| **docx** | **docx-preview** + JSZip | Apache-2.0 / MIT | ~70 KB + ~95 KB | ✅ no `eval`/`Function`/wasm |
+| docx | mammoth.js | BSD-2 | ~627 KB | ❌ bundles bluebird → runtime `new Function` (needs `'unsafe-eval'`) — **avoid** |
+| **xlsx / xls** | **SheetJS** community (`xlsx`) | Apache-2.0 | ~861 KB | ✅ no `eval`/`Function`/wasm |
+
+**docx viewer** — use **docx-preview + JSZip** (JSZip is already the epub unzip
+lib). Renders `.docx` close to Word layout (styles, headings, lists, tables,
+inline images, page framing) into a container. Reuse the shell; single rendered
+plane (optionally a source plane showing `word/document.xml`).
+
+**xlsx viewer** — use **SheetJS**. Parses `.xlsx` **and** legacy binary `.xls`;
+`XLSX.read(data,{type:'array'})` → per-sheet HTML tables (`sheet_to_html`) with
+**sheet tabs**. Essentially a sibling of the Data viewer (same table styling,
+drop-to-replace). A "mini" build (~300 KB, xlsx/xls/csv only) is a leaner option.
+
+**Honest limits / caveats:**
+- **Legacy `.doc`** (pre-2007 OLE binary): no good pure-browser renderer —
+  **best-effort/unsupported**. The doc viewer is really a **`.docx`** viewer
+  (validate + politely decline `.doc`). Legacy `.xls`, by contrast, **is**
+  handled by SheetJS.
+- **xlsx fidelity:** the free SheetJS build shows **values + structure**, not
+  rich cell styling/colors/merged formatting (that's SheetJS Pro); **formulas
+  show their cached computed values**; **charts are not rendered**.
+- **docx fidelity:** faithful for typical documents; not a pixel-perfect Word
+  engine (complex headers/footers, footnotes, field codes may simplify).
+- **Size:** xlsx (~861 KB) is heavy but under pdf.js's ~1.5 MB precedent; docx
+  (~165 KB) is light.
+- Suggested identities: `docx-viewer.us` / `xlsx-viewer.us` (or `sheet-viewer.us`).
+  Adding either = **+1 item in the family nav** (§6.9) on every site + a new hub
+  card (§16). **Re-audit each library's exact pinned version** for `eval`-freeness
+  before shipping (§10).
 
 ---
 
