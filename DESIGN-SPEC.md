@@ -50,6 +50,11 @@ brand-new viewer green-field, or (b) bring an existing viewer up to parity with
 | **data** | `data-web-viewer` ✅ | `data-viewer.us` | `file_type_db.svg` | `Data Viewer` |
 | **docx** | `docx-web-viewer` ✅ | `docx-viewer.us` | `file_type_word.svg` | `DOCX Viewer` |
 | **sheets** | `sheets-web-viewer` ✅ | `sheets-viewer.us` | `file_type_excel.svg` | `Sheets Viewer` |
+| **eml** | `eml-web-viewer` ✅ | `eml-viewer.us` | ✉️ custom envelope | `EML Viewer` |
+| **pptx** | `pptx-web-viewer` ✅ | `pptx-viewer.us` | `file_type_powerpoint.svg` | `PPTX Viewer` |
+| **log** | `log-web-viewer` ✅ | `log-viewer.us` | custom terminal | `Log Viewer` |
+| **cert** | `cert-web-viewer` ✅ | `cert-viewer.us` | custom shield | `Cert Viewer` |
+| **pub** | `pub-web-viewer` ✅ | `pub-viewer.us` | custom publication | `PUB Viewer` |
 | **file** *(hub)* | `file-web-viewer` ✅ | `file-viewer.us` | 🗂️ folder emoji (SVG `<text>`) | `File Viewer` |
 
 † vscode-icons' `file_type_pdf.svg` is ~46 KB — too heavy to inline (and to reuse
@@ -771,12 +776,33 @@ production CSP with headless Chromium (docx 17/17, sheets 13/13).
 
 ---
 
-## 17.1 Roadmap candidates (considered — not yet built)
+## 17.1 Roadmap viewers — ✅ ALL SHIPPED (2026-07)
 
-Kept here so the family can grow deliberately. Each must clear the same bar:
+All five cleared the family bar (single self-contained `index.html`, offline /
+`file://`-safe, strict CSP with **no `eval` / `new Function`**, own SEO kit, +1
+nav item A→Z, +1 hub card) and are live. **As built** — every one uses an
+**original, dependency-free parser** (no third-party lib needed except JSZip for
+pptx), verified headless under the production CSP:
+
+- **EML** (`eml-viewer.us`) — hand-rolled MIME parser (multipart, base64/QP,
+  charset, RFC 2047) + SPF/DKIM/DMARC header analysis; HTML body in a sandboxed
+  iframe with a "load remote images" opt-in; attachments as `data:` downloads.
+  `.msg` → accept-with-notice. **15/15 + 13/13.**
+- **PPTX** (`pptx-viewer.us`) — original OOXML reader lays out text + images by
+  their EMU coordinates (cqw font scaling); JSZip inlined. **14/14.**
+- **Log** (`log-viewer.us`) — no libs; windowed virtual scroll (~40 DOM rows for
+  6k lines), level filters, search-highlight. **13/13.**
+- **Cert** (`cert-viewer.us`) — no libs; original ASN.1/X.509 + PKCS#10 decoder,
+  Web Crypto fingerprints (match openssl). **17/17 + 17/17.**
+- **PUB** (`pub-viewer.us`) — no libs; best-effort OLE/CFB reader (Summary­Information
+  metadata + text extraction) with an honest "Save As PDF" banner. **13/13 + 6/6.**
+
+Original write-up (design intent) retained below for the record.
+
+Each cleared the same bar:
 single self-contained `index.html`, offline / `file://`-safe, strict CSP with
 **no `eval` / `new Function`**, inlined library, own SEO kit, +1 nav item A→Z,
-+1 hub card. Re-audit each library's pinned build before shipping.
++1 hub card.
 
 | Idea | Domain (suggested) | Scope | Library sketch | CSP watch-out |
 | --- | --- | --- | --- | --- |
