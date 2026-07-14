@@ -21,6 +21,7 @@ in every header):
 | **EML** | [eml-viewer.us](https://eml-viewer.us/) | Email messages — headers, HTML/plain body, attachments, SPF/DKIM/DMARC (`.eml`) |
 | **ePUB** | [epub-viewer.us](https://epub-viewer.us/) | EPUB e-books with chapters, images & styling |
 | **HTML** | [html-viewer.us](https://html-viewer.us/) | Rendered HTML plus syntax-highlighted CSS / JS / TS source |
+| **Image** | [image-viewer.us](https://image-viewer.us/) | Any image — PNG, JPEG, WebP, SVG plus TIFF, TGA, QOI, PCX, PPM, farbfeld, DDS; zoom, EXIF, export to PNG |
 | **Log** | [log-viewer.us](https://log-viewer.us/) | Large logs with virtual scrolling, level coloring & search (`.log .txt`) |
 | **Markdown** | [markdown-viewer.us](https://markdown-viewer.us/) | Markdown, TXT, RST & AsciiDoc rendered to formatted HTML |
 | **PDF** | [pdf-viewer.us](https://pdf-viewer.us/) | PDF documents, page by page |
@@ -47,6 +48,7 @@ samples/
 ├─ eml/       sample.eml
 ├─ epub/      sample.epub
 ├─ html/      sample.html · styles.css · app.js · app.ts
+├─ image/     sample.tif · sample.qoi · sample.dds
 ├─ log/       sample.log
 ├─ markdown/  sample.md
 ├─ pdf/       sample.pdf
