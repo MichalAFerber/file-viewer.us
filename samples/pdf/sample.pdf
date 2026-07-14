@@ -1,0 +1,73 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 4 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> /Contents 7 0 R >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> /Contents 8 0 R >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+7 0 obj
+<< /Length 600 >>
+stream
+BT
+/F2 22 Tf
+72 720 Td (Northwind Coffee Co.) Tj
+0 -32 Td
+/F1 12 Tf
+0 -18 Td (A single-file PDF sample. Drop it into the viewer to read it,) Tj
+0 -18 Td (page through it, or open the outline.) Tj
+0 -18 Td () Tj
+0 -18 Td (This roaster runs a 15 kg drum and ships nationwide.) Tj
+0 -18 Td (First crack arrives near 196 C; the drop follows in seconds.) Tj
+0 -18 Td () Tj
+0 -18 Td (Origins on the bench this quarter:) Tj
+0 -18 Td (   - Ethiopia Yirgacheffe  \(washed, light\)) Tj
+0 -18 Td (   - Colombia Huila        \(honey, medium\)) Tj
+0 -18 Td (   - Sumatra Mandheling    \(wet-hulled, dark\)) Tj
+ET
+endstream
+endobj
+8 0 obj
+<< /Length 309 >>
+stream
+BT
+/F2 22 Tf
+72 720 Td (Page Two) Tj
+0 -32 Td
+/F1 12 Tf
+0 -18 Td (Nothing in this document is uploaded anywhere;) Tj
+0 -18 Td (the viewer renders it entirely in your browser.) Tj
+0 -18 Td () Tj
+0 -18 Td (Thanks for trying the File Viewer family.) Tj
+0 -18 Td (                         - file-viewer.us) Tj
+ET
+endstream
+endobj
+xref
+0 9
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000127 00000 n 
+0000000263 00000 n 
+0000000399 00000 n 
+0000000469 00000 n 
+0000000544 00000 n 
+0000001194 00000 n 
+trailer
+<< /Size 9 /Root 1 0 R >>
+startxref
+1553
+%%EOF

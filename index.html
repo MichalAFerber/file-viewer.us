@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>File Viewer — a family of fast, single-file web viewers</title>
-  <meta name="description" content="The File Viewer family: fast, single-file, browser-based viewers for HTML, Markdown, PDF, EPUB and data files. No build, no uploads, works offline." />
+  <meta name="description" content="The File Viewer family: fast, single-file, browser-based viewers for HTML, Markdown, PDF, EPUB, data, Word, Excel, PowerPoint, email, logs, certificates and Publisher files. No build, no uploads, works offline." />
   <meta name="author" content="Michal Ferber" />
   <meta name="color-scheme" content="dark light" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="File Viewer — a family of fast, single-file web viewers" />
-  <meta property="og:description" content="Fast, single-file, browser-based viewers for HTML, Markdown, PDF, EPUB and data files. No build, no uploads, works offline." />
+  <meta property="og:description" content="Fast, single-file, browser-based viewers for HTML, Markdown, PDF, EPUB, data, Office documents, email, logs, certificates and more. No build, no uploads, works offline." />
   <meta property="og:url" content="https://file-viewer.us/" />
   <meta property="og:site_name" content="File Viewer" />
   <meta property="og:image" content="https://file-viewer.us/og.png" />
@@ -19,11 +19,11 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="File Viewer" />
-  <meta name="twitter:description" content="Fast, single-file, offline-friendly viewers for HTML, Markdown, ePUB, Data and PDF." />
+  <meta name="twitter:description" content="Fast, single-file, offline-friendly viewers for HTML, Markdown, ePUB, Data, PDF, Office docs, email, logs, certificates and more." />
   <meta name="twitter:image" content="https://file-viewer.us/og.png" />
   <link rel="canonical" href="https://file-viewer.us/" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"File Viewer","url":"https://file-viewer.us/","description":"A family of fast, single-file, offline-friendly file viewers for HTML, Markdown, ePUB, Data, and PDF."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"File Viewer","url":"https://file-viewer.us/","description":"A family of fast, single-file, offline-friendly file viewers for HTML, Markdown, ePUB, Data, PDF, DOCX, Sheets, EML, PPTX, Log, Cert, and Publisher files."}</script>
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%97%82%EF%B8%8F%3C/text%3E%3C/svg%3E" />
 
@@ -313,6 +313,17 @@
     }
 
     /* ---------- Footer ---------- */
+    .samples { padding: 8px 0 8px; }
+    .samples h2 { font-size: clamp(22px, 4vw, 28px); margin: 0 0 6px; letter-spacing: -.01em; }
+    .samples-sub { color: var(--muted); margin: 0 0 20px; max-width: 60ch; }
+    .sample-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+    .sample-card { border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; background: var(--surface); display: flex; flex-direction: column; gap: 10px; }
+    .sample-open { font-weight: 650; font-size: 15px; text-decoration: none; color: var(--text); width: max-content; }
+    .sample-open:hover { text-decoration: underline; }
+    .sample-files { display: flex; flex-wrap: wrap; gap: 6px; }
+    .sample-files a { font-size: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-decoration: none; padding: 3px 8px; border: 1px solid var(--border); border-radius: 8px; color: var(--muted); }
+    .sample-files a:hover { color: var(--text); border-color: var(--muted); }
+
     footer {
       text-align: center;
       padding: 48px 0 56px;
@@ -329,6 +340,7 @@
     }
     footer a:hover { border-color: currentColor; }
     footer .sep { margin: 0 10px; opacity: 0.5; }
+    footer .foot-links { margin-bottom: 10px; }
 
     @media (max-width: 520px) {
       .grid { grid-template-columns: 1fr; }
@@ -447,7 +459,7 @@
         <!-- EML VIEWER -->
         <article class="card" style="--accent:#7c3aed">
           <div class="card-head">
-            <div class="badge"><svg class="badge-ico" viewBox="0 0 32 32" aria-hidden="true"><rect x="2.5" y="6.5" width="27" height="19" rx="2.5" fill="#7c3aed"/><path d="M4.5 9.5L16 18 27.5 9.5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4.5 22.5L12 16M27.5 22.5L20 16" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/></svg></div>
+            <div class="badge"><svg class="badge-ico" viewBox="0 0 32 32" aria-hidden="true"><title>file_type_outlook</title><path d="M19.484,7.937v5.477L21.4,14.619a.489.489,0,0,0,.21,0l8.238-5.554a1.174,1.174,0,0,0-.959-1.128Z" style="fill:#0072c6"/><path d="M19.484,15.457l1.747,1.2a.522.522,0,0,0,.543,0c-.3.181,8.073-5.378,8.073-5.378V21.345a1.408,1.408,0,0,1-1.49,1.555H19.483V15.457Z" style="fill:#0072c6"/><path d="M10.44,12.932a1.609,1.609,0,0,0-1.42.838,4.131,4.131,0,0,0-.526,2.218A4.05,4.05,0,0,0,9.02,18.2a1.6,1.6,0,0,0,2.771.022,4.014,4.014,0,0,0,.515-2.2,4.369,4.369,0,0,0-.5-2.281A1.536,1.536,0,0,0,10.44,12.932Z" style="fill:#0072c6"/><path d="M2.153,5.155V26.582L18.453,30V2ZM13.061,19.491a3.231,3.231,0,0,1-2.7,1.361,3.19,3.19,0,0,1-2.64-1.318A5.459,5.459,0,0,1,6.706,16.1a5.868,5.868,0,0,1,1.036-3.616A3.267,3.267,0,0,1,10.486,11.1a3.116,3.116,0,0,1,2.61,1.321,5.639,5.639,0,0,1,1,3.484A5.763,5.763,0,0,1,13.061,19.491Z" style="fill:#0072c6"/></svg></div>
             <div>
               <h2>EML Viewer</h2>
               <div class="repo">eml-web-viewer</div>
@@ -482,27 +494,6 @@
             </a>
             <a class="btn btn-site" href="https://epub-viewer.us/" target="_blank" rel="noopener" aria-label="Open epub-viewer.us">
               <svg class="ico"><use href="#i-globe"/></svg> epub-viewer.us <span class="arrow">↗</span>
-            </a>
-          </div>
-        </article>
-
-        <!-- FILE VIEWER -->
-        <article class="card" style="--accent:#6366f1">
-          <div class="card-head">
-            <div class="badge"><svg class="badge-ico" viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M20.414,2H5V30H27V8.586ZM7,28V4H19v6h6V28Z"/></svg></div>
-            <div>
-              <h2>File Viewer</h2>
-              <div class="repo">file-web-viewer</div>
-            </div>
-          </div>
-          <p>Fast, single-file, offline viewers for HTML, Markdown, ePUB, PDF, data, Word &amp; spreadsheets.</p>
-          <div class="tags"><span class="tag">file-viewer</span><span class="tag">viewers</span><span class="tag">single-file</span><span class="tag">offline</span><span class="tag">privacy</span></div>
-          <div class="actions">
-            <a class="btn btn-gh" href="https://github.com/MichalAFerber/file-web-viewer" target="_blank" rel="noopener" aria-label="File Viewer on GitHub">
-              <svg class="ico"><use href="#i-github"/></svg>
-            </a>
-            <a class="btn btn-site" href="https://file-viewer.us/" target="_blank" rel="noopener" aria-label="Open file-viewer.us">
-              <svg class="ico"><use href="#i-globe"/></svg> file-viewer.us <span class="arrow">↗</span>
             </a>
           </div>
         </article>
@@ -615,7 +606,7 @@
         <!-- PUB VIEWER -->
         <article class="card" style="--accent:#0f766e">
           <div class="card-head">
-            <div class="badge"><svg class="badge-ico" viewBox="0 0 32 32" aria-hidden="true"><rect x="6" y="3" width="20" height="26" rx="2.5" fill="#ffffff" stroke="#0f766e" stroke-width="1.6"/><path d="M6 5.5A2.5 2.5 0 0 1 8.5 3h15A2.5 2.5 0 0 1 26 5.5V10H6z" fill="#0f766e"/><rect x="9" y="14" width="14" height="2.2" rx="1.1" fill="#0f766e"/><rect x="9" y="18.5" width="14" height="2" rx="1" fill="#94a3b8"/><rect x="9" y="22.5" width="9" height="2" rx="1" fill="#94a3b8"/></svg></div>
+            <div class="badge"><svg class="badge-ico" viewBox="0 0 32 32" aria-hidden="true"><title>file_type_publisher</title><path d="M16.484,2.475h1.868V8.136h2.214c.088-1.123-.418-2.906,1-3.366,1.956-.23,3.941-.022,5.91-.1.777.069,1.771-.189,2.356.475A4.665,4.665,0,0,1,30,6.561c-.009,4.3-.016,8.6,0,12.893a5.5,5.5,0,0,1-.2,1.711,10.365,10.365,0,0,1-2.96.186,35.2,35.2,0,0,1-.1,4.312c-.267.736-1.142.7-1.78.72-2.2.006-4.407-.009-6.612,0v3.145H16.405c-4.8-.871-9.6-1.673-14.4-2.516Q2,16,2,4.994C6.827,4.154,11.659,3.327,16.484,2.475Z" style="fill:#077467"/><path d="M22.089,5.714c2.312-.2,4.64-.044,6.958-.094V20.089h-2.2c-.006-3.781.009-7.559-.006-11.339C25.36,7.58,23.376,7.092,22.089,5.714Z" style="fill:#fff"/><path d="M18.352,9.08h7.235V25.436H18.352q0-.944,0-1.887H23.7c0-.418,0-.84,0-1.258H18.352c0-.525,0-1.047,0-1.573H23.7c0-.418,0-.84,0-1.258H18.352c0-.525,0-1.047,0-1.573H23.7c0-.418,0-.84,0-1.258H18.352c0-.525,0-1.047,0-1.573H23.7v-4.4H18.352C18.349,10.127,18.349,9.605,18.352,9.08Z" style="fill:#fff"/><path d="M7.029,10.8c1.714.053,3.8-.692,5.218.594,1.349,1.651.988,4.665-1.022,5.649a4.566,4.566,0,0,1-2.306.286c0,1.233-.006,2.466,0,3.7-.635-.063-1.271-.126-1.9-.2C7.045,17.491,7.016,14.147,7.029,10.8Z" style="fill:#fff"/><path d="M8.916,12.49c.623-.035,1.4-.148,1.818.453a2.315,2.315,0,0,1,.028,2.051c-.365.645-1.17.582-1.8.654C8.9,14.6,8.91,13.543,8.916,12.49Z" style="fill:#077467"/></svg></div>
             <div>
               <h2>PUB Viewer</h2>
               <div class="repo">pub-web-viewer</div>
@@ -657,7 +648,31 @@
       </div>
     </main>
 
+    <section class="samples" aria-labelledby="samples-h">
+      <div class="wrap">
+        <h2 id="samples-h">Try it with a sample</h2>
+        <p class="samples-sub">Download a sample file and drop it into the matching viewer. Everything is made up (a fictional “Northwind Coffee Co.”) and safe to share.</p>
+        <div class="sample-grid">
+          <div class="sample-card"><a class="sample-open" href="https://cert-viewer.us/" target="_blank" rel="noopener">Cert</a><div class="sample-files"><a href="samples/cert/sample-cert.der" download>sample-cert.der</a><a href="samples/cert/sample-cert.pem" download>sample-cert.pem</a><a href="samples/cert/sample.csr" download>sample.csr</a></div></div>
+          <div class="sample-card"><a class="sample-open" href="https://data-viewer.us/" target="_blank" rel="noopener">Data</a><div class="sample-files"><a href="samples/data/sample.csv" download>sample.csv</a><a href="samples/data/sample.json" download>sample.json</a><a href="samples/data/sample.toml" download>sample.toml</a><a href="samples/data/sample.xml" download>sample.xml</a><a href="samples/data/sample.yaml" download>sample.yaml</a></div></div>
+          <div class="sample-card"><a class="sample-open" href="https://docx-viewer.us/" target="_blank" rel="noopener">DOCX</a><div class="sample-files"><a href="samples/docx/sample.docx" download>sample.docx</a></div></div>
+          <div class="sample-card"><a class="sample-open" href="https://eml-viewer.us/" target="_blank" rel="noopener">EML</a><div class="sample-files"><a href="samples/eml/sample.eml" download>sample.eml</a></div></div>
+          <div class="sample-card"><a class="sample-open" href="https://epub-viewer.us/" target="_blank" rel="noopener">ePUB</a><div class="sample-files"><a href="samples/epub/sample.epub" download>sample.epub</a></div></div>
+          <div class="sample-card"><a class="sample-open" href="https://html-viewer.us/" target="_blank" rel="noopener">HTML</a><div class="sample-files"><a href="samples/html/app.js" download>app.js</a><a href="samples/html/app.ts" download>app.ts</a><a href="samples/html/sample.html" download>sample.html</a><a href="samples/html/styles.css" download>styles.css</a></div></div>
+          <div class="sample-card"><a class="sample-open" href="https://log-viewer.us/" target="_blank" rel="noopener">Log</a><div class="sample-files"><a href="samples/log/sample.log" download>sample.log</a></div></div>
+          <div class="sample-card"><a class="sample-open" href="https://markdown-viewer.us/" target="_blank" rel="noopener">Markdown</a><div class="sample-files"><a href="samples/markdown/sample.md" download>sample.md</a></div></div>
+          <div class="sample-card"><a class="sample-open" href="https://pdf-viewer.us/" target="_blank" rel="noopener">PDF</a><div class="sample-files"><a href="samples/pdf/sample.pdf" download>sample.pdf</a></div></div>
+          <div class="sample-card"><a class="sample-open" href="https://pptx-viewer.us/" target="_blank" rel="noopener">PPTX</a><div class="sample-files"><a href="samples/pptx/sample.pptx" download>sample.pptx</a></div></div>
+          <div class="sample-card"><a class="sample-open" href="https://pub-viewer.us/" target="_blank" rel="noopener">PUB</a><div class="sample-files"><a href="samples/pub/sample.pub" download>sample.pub</a></div></div>
+          <div class="sample-card"><a class="sample-open" href="https://sheets-viewer.us/" target="_blank" rel="noopener">Sheets</a><div class="sample-files"><a href="samples/sheets/sample.xlsx" download>sample.xlsx</a></div></div>
+        </div>
+      </div>
+    </section>
+
     <footer>
+      <nav class="foot-links">
+        <a href="/privacy.html">Privacy</a><span class="sep">·</span><a href="/terms.html">Terms</a><span class="sep">·</span><a href="/credits.html">Credits</a>
+      </nav>
       <p>&copy; 2026 | Created with ❤️ by <a href="https://michalferber.dev/" target="_blank" rel="noopener">Michal Ferber</a>, aka <a href="https://techguywithabeard.com/" target="_blank" rel="noopener">TechGuyWithABeard</a>.</p>
     </footer>
   </div>

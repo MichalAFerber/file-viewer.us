@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Credits — File Viewer</title>
+  <meta name="description" content="Open-source libraries, original parsers, and tools behind the File Viewer family." />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://file-viewer.us/credits.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%97%82%EF%B8%8F%3C/text%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <style>
+    :root {
+      --bg:#0b0e14; --bg-2:#0e121b; --surface:#141a24; --border:rgba(255,255,255,.09);
+      --border-strong:rgba(255,255,255,.16); --text:#e8eef6; --muted:#97a3b6; --brand:#6366f1;
+      --radius:16px;
+      --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji",sans-serif;
+    }
+    @media (prefers-color-scheme:light){
+      :root{ --bg:#f5f7fb; --bg-2:#eef1f7; --surface:#fff; --border:rgba(15,23,42,.10);
+        --border-strong:rgba(15,23,42,.18); --text:#10151f; --muted:#52607a; }
+    }
+    *{box-sizing:border-box}
+    html{-webkit-text-size-adjust:100%}
+    body{ margin:0; font-family:var(--font); color:var(--text);
+      background:
+        radial-gradient(1100px 640px at 50% -10%, color-mix(in srgb,var(--brand) 22%,transparent), transparent 70%),
+        radial-gradient(900px 520px at 100% 0%, color-mix(in srgb,#06b6d4 12%,transparent), transparent 60%),
+        linear-gradient(var(--bg),var(--bg-2));
+      background-attachment:fixed; line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+    a{color:inherit}
+    .wrap{ max-width:768px; margin:0 auto; padding:0 24px; }
+    .topbar{ display:flex; align-items:center; gap:12px; padding:22px 0; }
+    .brand{ display:inline-flex; align-items:center; gap:10px; font-weight:700; text-decoration:none; font-size:18px; letter-spacing:-.01em; }
+    .brand .logo{ font-size:22px; line-height:1; }
+    .back{ margin-left:auto; font-size:14px; color:var(--muted); text-decoration:none;
+      border:1px solid var(--border); border-radius:999px; padding:7px 15px; transition:color .2s,border-color .2s; }
+    .back:hover{ color:var(--text); border-color:var(--border-strong); }
+    main.legal{ padding:10px 0 40px; }
+    .legal h1{ font-size:clamp(30px,5vw,44px); margin:14px 0 6px; letter-spacing:-.02em; }
+    .legal .updated{ color:var(--muted); font-size:14px; margin:0 0 26px; }
+    .legal h2{ font-size:21px; margin:34px 0 10px; letter-spacing:-.01em; }
+    .legal p{ margin:12px 0; }
+    .legal .lead{ font-size:17px; color:var(--muted); margin:14px 0 6px; }
+    .legal a{ color:var(--text); border-bottom:1px solid var(--border-strong); padding-bottom:1px; transition:border-color .2s; }
+    .legal a:hover{ border-color:currentColor; }
+    .legal ul{ padding-left:20px; margin:12px 0; }
+    .legal li{ margin:8px 0; }
+    .note{ background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:16px 20px; margin:22px 0; }
+    .note p{ margin:6px 0; }
+    .note strong{ color:var(--text); }
+    table.creds{ width:100%; border-collapse:collapse; margin:14px 0 6px; font-size:14.5px; }
+    table.creds th, table.creds td{ text-align:left; padding:10px 10px; border-bottom:1px solid var(--border); vertical-align:top; }
+    table.creds th{ color:var(--muted); font-weight:600; }
+    table.creds tr:last-child td{ border-bottom:none; }
+    .scroll{ overflow-x:auto; }
+    code{ font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.88em;
+      background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:1px 6px; }
+    footer{ text-align:center; padding:40px 0 56px; color:var(--muted); font-size:14px;
+      border-top:1px solid var(--border); margin-top:24px; }
+    footer .foot-links{ margin-bottom:10px; }
+    footer a{ color:var(--text); border-bottom:1px solid var(--border-strong); padding-bottom:1px; transition:border-color .2s; }
+    footer a:hover{ border-color:currentColor; }
+    footer .sep{ margin:0 9px; opacity:.5; }
+    @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="/"><span class="logo">&#128449;&#65039;</span> File Viewer</a>
+      <a class="back" href="/">&#8592; All viewers</a>
+    </div>
+    <main class="legal">
+      <h1>Credits</h1>
+      <p class="updated">Last updated: July 14, 2026</p>
+      <p class="lead">File Viewer stands on the shoulders of excellent open-source work.
+      Everything below is bundled directly into the viewers — nothing is fetched from a
+      CDN at runtime.</p>
+
+      <h2>Bundled libraries</h2>
+      <div class="scroll">
+      <table class="creds">
+        <thead><tr><th>Library</th><th>License</th><th>Used by</th></tr></thead>
+        <tbody>
+          <tr><td><a href="https://stuk.github.io/jszip/" target="_blank" rel="noopener">JSZip</a> 3.10.1</td><td>MIT</td><td>DOCX, ePUB, PPTX</td></tr>
+          <tr><td><a href="https://github.com/VolodymyrBaydalka/docxjs" target="_blank" rel="noopener">docx-preview</a> 0.3.3</td><td>Apache-2.0</td><td>DOCX</td></tr>
+          <tr><td><a href="https://sheetjs.com/" target="_blank" rel="noopener">SheetJS</a> (xlsx) 0.18.5</td><td>Apache-2.0</td><td>Sheets</td></tr>
+          <tr><td><a href="https://mozilla.github.io/pdf.js/" target="_blank" rel="noopener">PDF.js</a></td><td>Apache-2.0</td><td>PDF</td></tr>
+          <tr><td><a href="https://marked.js.org/" target="_blank" rel="noopener">marked</a> 12.0.2</td><td>MIT</td><td>Markdown</td></tr>
+          <tr><td><a href="https://highlightjs.org/" target="_blank" rel="noopener">highlight.js</a> 11.9.0</td><td>BSD-3-Clause</td><td>HTML, Markdown, Data, EML, Log, Cert, PPTX, PUB</td></tr>
+          <tr><td><a href="https://github.com/vscode-icons/vscode-icons" target="_blank" rel="noopener">vscode-icons</a></td><td>MIT</td><td>File-type icons across the family</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h2>Original parsers</h2>
+      <p>Several viewers use small parsers written specifically for this project, with
+      no third-party dependency:</p>
+      <ul>
+        <li><strong>EML</strong> — MIME message parser (headers, bodies, attachments, SPF/DKIM/DMARC)</li>
+        <li><strong>PPTX</strong> — OOXML slide parser</li>
+        <li><strong>Log</strong> — virtual-scrolling log reader</li>
+        <li><strong>Cert</strong> — ASN.1 / X.509 certificate &amp; CSR parser</li>
+        <li><strong>PUB</strong> — OLE / Compound-File reader</li>
+        <li><strong>Data</strong> — JSON, YAML, CSV, XML &amp; TOML parsers</li>
+      </ul>
+
+      <h2>Analytics</h2>
+      <p><a href="https://plausible.io/" target="_blank" rel="noopener">Plausible</a> —
+      self-hosted, cookieless, privacy-friendly analytics.</p>
+
+      <h2>Fonts</h2>
+      <p>The system font stack — no web fonts are downloaded.</p>
+
+      <h2>Built by</h2>
+      <p><a href="https://michalferber.dev/" target="_blank" rel="noopener">Michal Ferber</a>,
+      aka <a href="https://techguywithabeard.com/" target="_blank" rel="noopener">TechGuyWithABeard</a>.
+      With thanks to every maintainer whose work is listed above.</p>
+
+    </main>
+    <footer>
+      <nav class="foot-links">
+        <a href="/privacy.html">Privacy</a><span class="sep">·</span><a href="/terms.html">Terms</a><span class="sep">·</span><a href="/credits.html">Credits</a>
+      </nav>
+      <p>&copy; 2026 · Created with &#10084;&#65039; by <a href="https://michalferber.dev/" target="_blank" rel="noopener">Michal Ferber</a>, aka <a href="https://techguywithabeard.com/" target="_blank" rel="noopener">TechGuyWithABeard</a>.</p>
+    </footer>
+  </div>
+</body>
+</html>

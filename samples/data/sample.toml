@@ -1,0 +1,18 @@
+# Northwind Coffee Co. — sample TOML
+title = "Northwind Coffee Co."
+founded = 2014
+single_origin = true
+
+[roaster]
+model = "Loring S15 Falcon"
+capacity_kg = 15
+
+[[batch]]
+origin = "Ethiopia Yirgacheffe"
+weight_kg = 12.0
+drop_temp_c = 205
+
+[[batch]]
+origin = "Colombia Huila"
+weight_kg = 14.5
+drop_temp_c = 210

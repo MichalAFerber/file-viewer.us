@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — File Viewer</title>
+  <meta name="description" content="File Viewer is private by default: your files are processed locally in your browser and never uploaded. No accounts, no cookies." />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://file-viewer.us/privacy.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%97%82%EF%B8%8F%3C/text%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <style>
+    :root {
+      --bg:#0b0e14; --bg-2:#0e121b; --surface:#141a24; --border:rgba(255,255,255,.09);
+      --border-strong:rgba(255,255,255,.16); --text:#e8eef6; --muted:#97a3b6; --brand:#6366f1;
+      --radius:16px;
+      --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji",sans-serif;
+    }
+    @media (prefers-color-scheme:light){
+      :root{ --bg:#f5f7fb; --bg-2:#eef1f7; --surface:#fff; --border:rgba(15,23,42,.10);
+        --border-strong:rgba(15,23,42,.18); --text:#10151f; --muted:#52607a; }
+    }
+    *{box-sizing:border-box}
+    html{-webkit-text-size-adjust:100%}
+    body{ margin:0; font-family:var(--font); color:var(--text);
+      background:
+        radial-gradient(1100px 640px at 50% -10%, color-mix(in srgb,var(--brand) 22%,transparent), transparent 70%),
+        radial-gradient(900px 520px at 100% 0%, color-mix(in srgb,#06b6d4 12%,transparent), transparent 60%),
+        linear-gradient(var(--bg),var(--bg-2));
+      background-attachment:fixed; line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+    a{color:inherit}
+    .wrap{ max-width:768px; margin:0 auto; padding:0 24px; }
+    .topbar{ display:flex; align-items:center; gap:12px; padding:22px 0; }
+    .brand{ display:inline-flex; align-items:center; gap:10px; font-weight:700; text-decoration:none; font-size:18px; letter-spacing:-.01em; }
+    .brand .logo{ font-size:22px; line-height:1; }
+    .back{ margin-left:auto; font-size:14px; color:var(--muted); text-decoration:none;
+      border:1px solid var(--border); border-radius:999px; padding:7px 15px; transition:color .2s,border-color .2s; }
+    .back:hover{ color:var(--text); border-color:var(--border-strong); }
+    main.legal{ padding:10px 0 40px; }
+    .legal h1{ font-size:clamp(30px,5vw,44px); margin:14px 0 6px; letter-spacing:-.02em; }
+    .legal .updated{ color:var(--muted); font-size:14px; margin:0 0 26px; }
+    .legal h2{ font-size:21px; margin:34px 0 10px; letter-spacing:-.01em; }
+    .legal p{ margin:12px 0; }
+    .legal .lead{ font-size:17px; color:var(--muted); margin:14px 0 6px; }
+    .legal a{ color:var(--text); border-bottom:1px solid var(--border-strong); padding-bottom:1px; transition:border-color .2s; }
+    .legal a:hover{ border-color:currentColor; }
+    .legal ul{ padding-left:20px; margin:12px 0; }
+    .legal li{ margin:8px 0; }
+    .note{ background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:16px 20px; margin:22px 0; }
+    .note p{ margin:6px 0; }
+    .note strong{ color:var(--text); }
+    table.creds{ width:100%; border-collapse:collapse; margin:14px 0 6px; font-size:14.5px; }
+    table.creds th, table.creds td{ text-align:left; padding:10px 10px; border-bottom:1px solid var(--border); vertical-align:top; }
+    table.creds th{ color:var(--muted); font-weight:600; }
+    table.creds tr:last-child td{ border-bottom:none; }
+    .scroll{ overflow-x:auto; }
+    code{ font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.88em;
+      background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:1px 6px; }
+    footer{ text-align:center; padding:40px 0 56px; color:var(--muted); font-size:14px;
+      border-top:1px solid var(--border); margin-top:24px; }
+    footer .foot-links{ margin-bottom:10px; }
+    footer a{ color:var(--text); border-bottom:1px solid var(--border-strong); padding-bottom:1px; transition:border-color .2s; }
+    footer a:hover{ border-color:currentColor; }
+    footer .sep{ margin:0 9px; opacity:.5; }
+    @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="/"><span class="logo">&#128449;&#65039;</span> File Viewer</a>
+      <a class="back" href="/">&#8592; All viewers</a>
+    </div>
+    <main class="legal">
+      <h1>Privacy Policy</h1>
+      <p class="updated">Last updated: July 14, 2026</p>
+      <p class="lead">File Viewer is built to be private by default. Your files are
+      read and rendered entirely inside your own browser — they are never uploaded.</p>
+
+      <div class="note">
+        <p><strong>The short version.</strong> We can't see your files. There are no
+        accounts and no cookies. Analytics, where used, are anonymous and cookieless.
+        Everything a viewer does happens on your device.</p>
+      </div>
+
+      <h2>Your files stay on your device</h2>
+      <p>When you open a file in any File Viewer, it is read and rendered locally by
+      JavaScript running in your browser. Your files are <strong>never transmitted</strong>
+      to us or to any third party, and nothing is stored on a server. Close or refresh
+      the tab and the file is gone from memory — there is nothing to delete.</p>
+
+      <h2>No accounts, no cookies</h2>
+      <p>There is nothing to sign up for, and we do not set cookies or use tracking
+      storage. Any preference a viewer offers (such as your chosen background color)
+      is kept locally in your browser and is never sent anywhere.</p>
+
+      <h2>Analytics</h2>
+      <p>To understand roughly how many people use the sites, we rely on
+      <a href="https://plausible.io/" target="_blank" rel="noopener">Plausible Analytics</a>,
+      self-hosted on our own server and <strong>cookieless</strong>. It records only
+      aggregate, anonymized information — such as page views, referrer, country, and
+      browser — and does not use cookies, does not fingerprint you, and does not track
+      you across other sites. No personal data is collected. If you block the analytics
+      domain, the viewers work exactly the same.</p>
+
+      <h2>Hosting</h2>
+      <p>The sites are served as static files by
+      <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">Cloudflare Pages</a>,
+      which may keep standard, short-lived server logs (for example IP addresses) for
+      security and abuse prevention, as described in Cloudflare's own privacy policy.</p>
+
+      <h2>No third-party trackers</h2>
+      <p>There is no advertising, no third-party analytics, and no data brokers. Each
+      viewer bundles all of its code into a single page and loads no third-party
+      resources at runtime.</p>
+
+      <h2>Changes</h2>
+      <p>We may update this policy from time to time. The date at the top reflects the
+      most recent version.</p>
+
+      <h2>Contact</h2>
+      <p>Questions? Reach the author via
+      <a href="https://michalferber.dev/" target="_blank" rel="noopener">michalferber.dev</a>
+      or <a href="https://techguywithabeard.com/" target="_blank" rel="noopener">TechGuyWithABeard</a>.</p>
+
+    </main>
+    <footer>
+      <nav class="foot-links">
+        <a href="/privacy.html">Privacy</a><span class="sep">·</span><a href="/terms.html">Terms</a><span class="sep">·</span><a href="/credits.html">Credits</a>
+      </nav>
+      <p>&copy; 2026 · Created with &#10084;&#65039; by <a href="https://michalferber.dev/" target="_blank" rel="noopener">Michal Ferber</a>, aka <a href="https://techguywithabeard.com/" target="_blank" rel="noopener">TechGuyWithABeard</a>.</p>
+    </footer>
+  </div>
+</body>
+</html>

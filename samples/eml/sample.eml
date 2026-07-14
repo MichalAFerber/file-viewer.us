@@ -1,0 +1,39 @@
+Return-Path: <ship@northwind.example>
+Authentication-Results: mx.google.com;
+       dkim=pass header.d=northwind.example header.s=mail header.b=Ab1;
+       spf=pass (google.com: domain of ship@northwind.example designates 203.0.113.7 as permitted sender) smtp.mailfrom=ship@northwind.example;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=northwind.example
+Received-SPF: pass (google.com: domain of ship@northwind.example designates 203.0.113.7 as permitted sender) client-ip=203.0.113.7;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=northwind.example; s=mail;
+       t=1736900000; bh=abc; h=From:To:Subject:Date; b=Ab1cD2eF3gH4
+From: "Northwind Shipping" <ship@northwind.example>
+To: Sam Buyer <sam@example.org>
+Subject: =?utf-8?Q?Your_order_has_shipped_=E2=98=95?=
+Date: Mon, 12 Jan 2026 09:15:00 -0800
+Message-ID: <order-4821@northwind.example>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="OUTER"
+
+--OUTER
+Content-Type: multipart/alternative; boundary="ALT"
+
+--ALT
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Welcome to Northwind=21 Your order =234821 shipped.
+Thanks =E2=98=95
+
+--ALT
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
+
+PGh0bWw+PGJvZHk+PGgxPldlbGNvbWUgdG8gTm9ydGh3aW5kPC9oMT48cD5Zb3VyIG9yZGVyIDxiPiM0ODIxPC9iPiBzaGlwcGVkLiA8aW1nIHNyYz0naHR0cDovL3RyYWNrLmV4YW1wbGUuY29tL28uZ2lmJz48L3A+PC9ib2R5PjwvaHRtbD4=
+--ALT--
+--OUTER
+Content-Type: text/csv; name="packing.csv"
+Content-Disposition: attachment; filename="packing.csv"
+Content-Transfer-Encoding: base64
+
+aWQsaXRlbSxxdHkKMSxZaXJnYWNoZWZmZSwyCg==
+--OUTER--
