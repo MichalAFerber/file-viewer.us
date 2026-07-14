@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<roastery name="Northwind Coffee Co." founded="2014">
+  <coffees>
+    <coffee id="yirg" roast="light">
+      <origin>Ethiopia Yirgacheffe</origin>
+      <process>Washed</process>
+      <notes>Jasmine, bergamot, lemon</notes>
+      <price currency="USD">18.00</price>
+    </coffee>
+    <coffee id="huila" roast="medium">
+      <origin>Colombia Huila</origin>
+      <process>Honey</process>
+      <notes>Caramel, red apple</notes>
+      <price currency="USD">17.00</price>
+    </coffee>
+  </coffees>
+</roastery>

@@ -1,0 +1,15 @@
+{
+  "company": "Northwind Coffee Co.",
+  "founded": 2014,
+  "single_origin": true,
+  "locations": [
+    { "city": "Portland", "state": "OR", "seats": 24 },
+    { "city": "Austin", "state": "TX", "seats": 40 }
+  ],
+  "menu": {
+    "espresso": { "price": 3.0, "shots": 2 },
+    "cortado": { "price": 3.75, "shots": 2 },
+    "cold_brew": { "price": 4.5, "shots": null }
+  },
+  "wholesale_partners": ["Blue Door Bakery", "Rivet & Roll", "Green Fern Cafe"]
+}
