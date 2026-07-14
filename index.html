@@ -315,16 +315,6 @@
     }
 
     /* ---------- Footer ---------- */
-    .samples { padding: 8px 0 8px; }
-    .samples h2 { font-size: clamp(22px, 4vw, 28px); margin: 0 0 6px; letter-spacing: -.01em; }
-    .samples-sub { color: var(--muted); margin: 0 0 20px; max-width: 60ch; }
-    .sample-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
-    .sample-card { border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; background: var(--surface); display: flex; flex-direction: column; gap: 10px; }
-    .sample-open { font-weight: 650; font-size: 15px; text-decoration: none; color: var(--text); width: max-content; }
-    .sample-open:hover { text-decoration: underline; }
-    .sample-files { display: flex; flex-wrap: wrap; gap: 6px; }
-    .sample-files a { font-size: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-decoration: none; padding: 3px 8px; border: 1px solid var(--border); border-radius: 8px; color: var(--muted); }
-    .sample-files a:hover { color: var(--text); border-color: var(--muted); }
 
     footer {
       text-align: center;
@@ -343,6 +333,9 @@
     footer a:hover { border-color: currentColor; }
     footer .sep { margin: 0 10px; opacity: 0.5; }
     footer .foot-links { margin-bottom: 10px; }
+    footer .foot-gh { display: inline-flex; color: var(--muted); border-bottom: none; margin-bottom: 14px; transition: color 0.2s ease; }
+    footer .foot-gh:hover { color: var(--text); }
+    footer .foot-gh svg { display: block; }
 
     @media (max-width: 520px) {
       .grid { grid-template-columns: 1fr; }
@@ -650,30 +643,10 @@
       </div>
     </main>
 
-    <section class="samples" aria-labelledby="samples-h">
-      <div class="wrap">
-        <h2 id="samples-h">Try it with a sample</h2>
-        <p class="samples-sub">Download a sample file and drop it into the matching viewer. Everything is made up (a fictional “Northwind Coffee Co.”) and safe to share.</p>
-        <div class="sample-grid">
-          <div class="sample-card"><a class="sample-open" href="https://cert-viewer.us/" target="_blank" rel="noopener">Cert</a><div class="sample-files"><a href="samples/cert/sample-cert.der" download>sample-cert.der</a><a href="samples/cert/sample-cert.pem" download>sample-cert.pem</a><a href="samples/cert/sample.csr" download>sample.csr</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://data-viewer.us/" target="_blank" rel="noopener">Data</a><div class="sample-files"><a href="samples/data/sample.csv" download>sample.csv</a><a href="samples/data/sample.json" download>sample.json</a><a href="samples/data/sample.toml" download>sample.toml</a><a href="samples/data/sample.xml" download>sample.xml</a><a href="samples/data/sample.yaml" download>sample.yaml</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://docx-viewer.us/" target="_blank" rel="noopener">DOCX</a><div class="sample-files"><a href="samples/docx/sample.docx" download>sample.docx</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://eml-viewer.us/" target="_blank" rel="noopener">EML</a><div class="sample-files"><a href="samples/eml/sample.eml" download>sample.eml</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://epub-viewer.us/" target="_blank" rel="noopener">ePUB</a><div class="sample-files"><a href="samples/epub/sample.epub" download>sample.epub</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://html-viewer.us/" target="_blank" rel="noopener">HTML</a><div class="sample-files"><a href="samples/html/app.js" download>app.js</a><a href="samples/html/app.ts" download>app.ts</a><a href="samples/html/sample.html" download>sample.html</a><a href="samples/html/styles.css" download>styles.css</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://log-viewer.us/" target="_blank" rel="noopener">Log</a><div class="sample-files"><a href="samples/log/sample.log" download>sample.log</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://markdown-viewer.us/" target="_blank" rel="noopener">Markdown</a><div class="sample-files"><a href="samples/markdown/sample.md" download>sample.md</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://pdf-viewer.us/" target="_blank" rel="noopener">PDF</a><div class="sample-files"><a href="samples/pdf/sample.pdf" download>sample.pdf</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://pptx-viewer.us/" target="_blank" rel="noopener">PPTX</a><div class="sample-files"><a href="samples/pptx/sample.pptx" download>sample.pptx</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://pub-viewer.us/" target="_blank" rel="noopener">PUB</a><div class="sample-files"><a href="samples/pub/sample.pub" download>sample.pub</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://sheets-viewer.us/" target="_blank" rel="noopener">Sheets</a><div class="sample-files"><a href="samples/sheets/sample.xlsx" download>sample.xlsx</a></div></div>
-        </div>
-      </div>
-    </section>
-
     <footer>
+      <a class="foot-gh" href="https://github.com/MichalAFerber/file-web-viewer" target="_blank" rel="noopener" aria-label="File Viewer hub on GitHub"><svg viewBox="0 0 16 16" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 018 4.58c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>
       <nav class="foot-links">
-        <a href="/privacy.html">Privacy</a><span class="sep">·</span><a href="/terms.html">Terms</a><span class="sep">·</span><a href="/credits.html">Credits</a>
+        <a href="/samples.html">Samples</a><span class="sep">·</span><a href="/privacy.html">Privacy</a><span class="sep">·</span><a href="/terms.html">Terms</a><span class="sep">·</span><a href="/credits.html">Credits</a>
       </nav>
       <p>&copy; 2026 | Created with ❤️ by <a href="https://michalferber.dev/" target="_blank" rel="noopener">Michal Ferber</a>, aka <a href="https://techguywithabeard.com/" target="_blank" rel="noopener">TechGuyWithABeard</a>.</p>
     </footer>
