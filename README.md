@@ -10,7 +10,7 @@ into the one that fits and it renders locally in your browser, nothing uploaded.
 
 ## The family
 
-Twelve dedicated viewers, listed A→Z (the same order as the **☰ Viewers** menu
+Thirteen dedicated viewers, listed A→Z (the same order as the **☰ Viewers** menu
 in every header):
 
 | Viewer | Site | Handles |
