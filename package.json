@@ -1,0 +1,12 @@
+{
+  "name": "file-web-viewer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hub landing page for the File Viewer family (static, single-file, no build step). This package.json exists only for the CI harness tooling.",
+  "scripts": {
+    "test": "node test/harness.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.56.1"
+  }
+}
