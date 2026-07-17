@@ -1,0 +1,13 @@
+{
+  "name": "File Viewer",
+  "short_name": "File Viewer",
+  "description": "The File Viewer family — fast, single-file, offline-friendly web viewers. Drop a file into the one that fits; nothing is uploaded.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b0e14",
+  "theme_color": "#0b0e14",
+  "icons": [
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
+  ]
+}

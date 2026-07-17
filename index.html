@@ -2,13 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>File Viewer — a family of fast, single-file web viewers</title>
   <!-- Privacy-friendly, cookieless analytics (self-hosted Plausible) -->
   <script defer data-domain="file-viewer.us" src="https://plausible.thompsonblack.us/js/script.outbound-links.file-downloads.tagged-events.js"></script>
   <meta name="description" content="The File Viewer family: fast, single-file, browser-based viewers for HTML, Markdown, PDF, EPUB, data, Word, Excel, PowerPoint, email, logs, certificates, Publisher and image files (PNG, JPEG, TIFF and more). No build, no uploads, works offline." />
   <meta name="author" content="Michal Ferber" />
   <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b0e14" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f7fb" />
+  <link rel="manifest" href="/site.webmanifest" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -83,6 +86,21 @@
     }
 
     a { color: inherit; text-decoration: none; }
+
+    .skip-link {
+      position: absolute;
+      left: 12px;
+      top: -56px;
+      z-index: 100;
+      padding: 10px 16px;
+      border-radius: 10px;
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border-strong);
+      box-shadow: var(--shadow);
+      transition: top 0.15s ease;
+    }
+    .skip-link:focus { top: 12px; outline: 2px solid #818cf8; outline-offset: 2px; }
 
     .wrap {
       max-width: 1120px;
@@ -347,6 +365,7 @@
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <!-- Icon sprite -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
     <symbol id="i-github" viewBox="0 0 16 16">
@@ -385,7 +404,7 @@
       </div>
     </header>
 
-    <main>
+    <main id="main">
       <div class="grid">
 
         <!-- CERT VIEWER -->
