@@ -30,10 +30,30 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"File Viewer","url":"https://file-viewer.us/","description":"A family of fast, single-file, offline-friendly file viewers for HTML, Markdown, ePUB, Data, PDF, DOCX, Sheets, EML, PPTX, Log, Cert, Publisher, and image files (PNG, JPEG, TIFF, and more)."}</script>
 
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%97%82%EF%B8%8F%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='23' y='23' width='17' height='17' rx='3' fill='%23e5484d'/%3E%3Crect x='41' y='19' width='17' height='21' rx='3' fill='%234293e6'/%3E%3Crect x='59' y='23' width='17' height='17' rx='3' fill='%2346a758'/%3E%3Crect x='16' y='31' width='68' height='51' rx='9' fill='%23ef9d2a'/%3E%3Crect x='16' y='40' width='68' height='42' rx='9' fill='%23f6d24c'/%3E%3C/svg%3E" />
+  <link rel="alternate icon" href="/favicon.ico" sizes="any" />
 
   <style>
-    :root {
+    /* JetBrains Mono — house display face for headings (self-hosted, subset, OFL-1.1) */
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url("fonts/JetBrainsMono-Bold.subset.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+2013-2014, U+2018-2019, U+201C-201D, U+2026;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 800;
+      font-display: swap;
+      src: url("fonts/JetBrainsMono-ExtraBold.subset.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+2013-2014, U+2018-2019, U+201C-201D, U+2026;
+    }
+
+    :root,
+    :root[data-theme="dark"] {
       --bg: #0b0e14;
       --bg-2: #0e121b;
       --surface: #141a24;
@@ -49,6 +69,8 @@
       --radius: 18px;
       --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
         "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+      --display: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color-scheme: dark;
     }
 
     @media (prefers-color-scheme: light) {
@@ -65,6 +87,22 @@
         --shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 12px 28px rgba(15, 23, 42, 0.08);
         --shadow-hover: 0 2px 4px rgba(15, 23, 42, 0.08), 0 22px 44px rgba(15, 23, 42, 0.14);
       }
+    }
+
+    /* Explicit theme override set by the header toggle (wins over the media query) */
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --bg: #f5f7fb;
+      --bg-2: #eef1f7;
+      --surface: #ffffff;
+      --surface-2: #f7f9fc;
+      --border: rgba(15, 23, 42, 0.10);
+      --border-strong: rgba(15, 23, 42, 0.18);
+      --text: #10151f;
+      --muted: #52607a;
+      --muted-2: #7a869c;
+      --shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 12px 28px rgba(15, 23, 42, 0.08);
+      --shadow-hover: 0 2px 4px rgba(15, 23, 42, 0.08), 0 22px 44px rgba(15, 23, 42, 0.14);
     }
 
     * { box-sizing: border-box; }
@@ -102,6 +140,65 @@
     }
     .skip-link:focus { top: 12px; outline: 2px solid #818cf8; outline-offset: 2px; }
 
+    /* ---------- Top bar ---------- */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: color-mix(in srgb, var(--bg) 72%, transparent);
+      backdrop-filter: saturate(180%) blur(10px);
+      -webkit-backdrop-filter: saturate(180%) blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 9px 24px;
+      padding-top: calc(9px + env(safe-area-inset-top));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .brand-mark {
+      width: 26px; height: 26px;
+      display: block; flex: none;
+      filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.18));
+    }
+    .topbar-actions { display: inline-flex; align-items: center; gap: 4px; }
+    .iconbtn {
+      display: inline-grid;
+      place-items: center;
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid transparent;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+    .iconbtn:hover { background: color-mix(in srgb, var(--text) 9%, transparent); }
+    .iconbtn:focus-visible { outline: 2px solid #818cf8; outline-offset: 2px; }
+    .iconbtn .ico { width: 20px; height: 20px; }
+    #themeToggle .i-moon { display: none; }
+    :root[data-theme="dark"] #themeToggle .i-sun { display: none; }
+    :root[data-theme="dark"] #themeToggle .i-moon { display: block; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme]) #themeToggle .i-sun { display: none; }
+      :root:not([data-theme]) #themeToggle .i-moon { display: block; }
+    }
+
     .wrap {
       max-width: 1120px;
       margin: 0 auto;
@@ -136,9 +233,10 @@
     }
 
     h1 {
-      font-size: clamp(38px, 7vw, 66px);
-      line-height: 1.05;
-      letter-spacing: -0.02em;
+      font-family: var(--display);
+      font-size: clamp(33px, 5.6vw, 55px);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
       margin: 22px 0 0;
       font-weight: 800;
     }
@@ -252,9 +350,10 @@
     }
 
     .card h2 {
-      font-size: 20px;
+      font-family: var(--display);
+      font-size: 19px;
       margin: 0;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.02em;
       font-weight: 700;
     }
     .card .repo {
@@ -363,6 +462,8 @@
       * { transition: none !important; }
     }
   </style>
+  <!-- Set the theme before first paint (no flash); honors a saved choice, else system -->
+  <script>(function(){try{var t=localStorage.getItem("fv-theme");if(t!=="light"&&t!=="dark"){t=(window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches)?"light":"dark";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -386,7 +487,31 @@
     <symbol id="i-law" viewBox="0 0 16 16">
       <path fill="currentColor" d="M8.75.75V2h.985c.304 0 .603.08.867.231l1.29.736c.038.022.08.033.124.033h2.234a.75.75 0 0 1 0 1.5h-.427l2.111 4.692a.75.75 0 0 1-.154.838l-.53-.53.529.531-.001.002-.002.002-.006.006-.006.005-.01.01-.045.04c-.21.176-.441.327-.686.45C14.556 10.78 13.88 11 13 11a4.498 4.498 0 0 1-2.023-.454 3.544 3.544 0 0 1-.686-.45l-.045-.04-.016-.015-.006-.006-.004-.004v-.001a.75.75 0 0 1-.154-.838L12.178 4.5h-.162c-.305 0-.604-.079-.868-.231l-1.29-.736a.245.245 0 0 0-.124-.033H8.75V13h2.5a.75.75 0 0 1 0 1.5h-6.5a.75.75 0 0 1 0-1.5h2.5V3.5h-.984a.245.245 0 0 0-.124.033l-1.289.737c-.265.15-.564.23-.869.23h-.162l2.112 4.692a.75.75 0 0 1-.154.838l-.53-.53.529.531-.001.002-.002.002-.006.006-.016.015-.045.04c-.21.176-.441.327-.686.45C4.556 10.78 3.88 11 3 11a4.498 4.498 0 0 1-2.023-.454 3.544 3.544 0 0 1-.686-.45l-.045-.04-.016-.015-.006-.006-.004-.004v-.001a.75.75 0 0 1-.154-.838L2.178 4.5H1.75a.75.75 0 0 1 0-1.5h2.234a.249.249 0 0 0 .125-.033l1.288-.737c.265-.15.564-.23.869-.23h.984V.75a.75.75 0 0 1 1.5 0Zm2.945 8.477c.285.135.718.273 1.305.273s1.02-.138 1.305-.273L13 6.327Zm-10 0c.285.135.718.273 1.305.273s1.02-.138 1.305-.273L3 6.327Z"/>
     </symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+    </symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>
+    </symbol>
   </svg>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="/" aria-label="File Viewer — home">
+        <svg class="brand-mark" viewBox="0 0 100 100" aria-hidden="true"><rect x="23" y="23" width="17" height="17" rx="3" fill="#e5484d"/><rect x="41" y="19" width="17" height="21" rx="3" fill="#4293e6"/><rect x="59" y="23" width="17" height="17" rx="3" fill="#46a758"/><rect x="16" y="31" width="68" height="51" rx="9" fill="#ef9d2a"/><rect x="16" y="40" width="68" height="42" rx="9" fill="#f6d24c"/></svg>
+        <span>File Viewer</span>
+      </a>
+      <div class="topbar-actions">
+        <button class="iconbtn" id="themeToggle" type="button" aria-label="Switch theme" aria-pressed="false">
+          <svg class="ico i-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+          <svg class="ico i-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+        </button>
+        <a class="iconbtn" href="https://github.com/MichalAFerber/file-web-viewer" target="_blank" rel="noopener" aria-label="File Viewer source on GitHub" title="View source on GitHub">
+          <svg class="ico" aria-hidden="true"><use href="#i-github"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
 
   <div class="wrap">
     <header>
@@ -691,5 +816,29 @@
       <p>&copy; 2026 | Created with ❤️ by <a href="https://michalferber.dev/" target="_blank" rel="noopener">Michal Ferber</a>, aka <a href="https://techguywithabeard.com/" target="_blank" rel="noopener">TechGuyWithABeard</a>.</p>
     </footer>
   </div>
+  <script>
+  (function () {
+    "use strict";
+    var root = document.documentElement, btn = document.getElementById("themeToggle");
+    if (!btn) return;
+    function cur() {
+      var t = root.getAttribute("data-theme");
+      if (t === "light" || t === "dark") return t;
+      return (window.matchMedia && matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark";
+    }
+    function sync() {
+      var dark = cur() === "dark";
+      btn.setAttribute("aria-pressed", dark ? "true" : "false");
+      btn.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+    }
+    sync();
+    btn.addEventListener("click", function () {
+      var next = cur() === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("fv-theme", next); } catch (e) {}
+      sync();
+    });
+  })();
+  </script>
 </body>
 </html>
