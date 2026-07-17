@@ -1,0 +1,28 @@
+# File Viewer
+
+> The home of the File Viewer family — a set of fast, single-file, offline-friendly web viewers. Drop a file into the one that fits and it renders locally in your browser. Nothing is uploaded; everything runs client-side with no accounts and no server-side processing.
+
+Each viewer is one self-contained HTML file (no build step) and works offline. Files never leave the visitor's device.
+
+## Viewers
+
+- [HTML Viewer](https://html-viewer.us/): Rendered HTML plus syntax-highlighted CSS / JS / TS source
+- [Markdown Viewer](https://markdown-viewer.us/): Markdown, TXT, RST & AsciiDoc rendered to formatted HTML
+- [Data Viewer](https://data-viewer.us/): JSON, YAML, CSV, XML & TOML with a collapsible tree + table view
+- [PDF Viewer](https://pdf-viewer.us/): PDF documents, page by page
+- [ePUB Viewer](https://epub-viewer.us/): EPUB e-books with chapters, images & styling
+- [Image Viewer](https://image-viewer.us/): PNG, JPEG, WebP, SVG, TIFF, TGA, QOI, PCX, PPM, farbfeld & DDS; zoom, EXIF, PNG export
+- [DOCX Viewer](https://docx-viewer.us/): Word documents with formatting, styles, tables & images
+- [Sheets Viewer](https://sheets-viewer.us/): Excel / ODS spreadsheets with multiple sheets & formulas
+- [PPTX Viewer](https://pptx-viewer.us/): PowerPoint slides with text, shapes & layout
+- [EML Viewer](https://eml-viewer.us/): Email messages — headers, HTML/plain body, attachments, SPF/DKIM/DMARC
+- [Log Viewer](https://log-viewer.us/): Large logs with virtual scrolling, level coloring & search
+- [Cert Viewer](https://cert-viewer.us/): X.509 certificates, CSRs & keys — subject/issuer, validity, SANs, fingerprints
+- [PUB Viewer](https://pub-viewer.us/): Microsoft Publisher metadata & extracted text (best-effort)
+
+## Links
+
+- [GitHub](https://github.com/MichalAFerber/file-web-viewer): Source for the hub (each viewer has its own repo under MichalAFerber)
+- [Privacy Policy](https://file-viewer.us/privacy.html)
+- [Terms of Use](https://file-viewer.us/terms.html)
+- [Credits](https://file-viewer.us/credits.html)
