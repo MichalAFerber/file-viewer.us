@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Page not found — File Viewer</title>
+  <meta name="description" content="That page does not exist. Head back to the File Viewer home page to pick a viewer." />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b0e14" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f7fb" />
+  <style>
+    :root,
+    :root[data-theme="dark"] {
+      --bg: #0b0e14;
+      --bg-2: #0e121b;
+      --surface: #141a24;
+      --border: rgba(255, 255, 255, 0.09);
+      --text: #e8eef6;
+      --muted: #97a3b6;
+      --brand: #6366f1;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px rgba(0, 0, 0, 0.35);
+      --radius: 18px;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+        "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+      --display: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color-scheme: dark;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f5f7fb;
+        --bg-2: #eef1f7;
+        --surface: #ffffff;
+        --border: rgba(15, 23, 42, 0.10);
+        --text: #10151f;
+        --muted: #52607a;
+        --shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 12px 28px rgba(15, 23, 42, 0.08);
+        color-scheme: light;
+      }
+    }
+
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --bg: #f5f7fb;
+      --bg-2: #eef1f7;
+      --surface: #ffffff;
+      --border: rgba(15, 23, 42, 0.10);
+      --text: #10151f;
+      --muted: #52607a;
+      --shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      font-family: var(--font);
+      color: var(--text);
+      background:
+        radial-gradient(1100px 640px at 50% -10%, color-mix(in srgb, var(--brand) 22%, transparent), transparent 70%),
+        linear-gradient(var(--bg), var(--bg-2));
+      background-attachment: fixed;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    main {
+      max-width: 34rem;
+      width: 100%;
+      text-align: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(28px, 6vw, 48px);
+    }
+
+    .code {
+      font-family: var(--display);
+      font-size: clamp(2.75rem, 12vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin: 0 0 12px;
+      color: var(--brand);
+    }
+
+    h1 {
+      font-size: clamp(1.15rem, 4vw, 1.4rem);
+      margin: 0 0 10px;
+      text-wrap: balance;
+    }
+
+    p { margin: 0 0 24px; color: var(--muted); text-wrap: pretty; }
+
+    a.home {
+      display: inline-block;
+      padding: 11px 22px;
+      border-radius: 999px;
+      background: var(--brand);
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 120ms ease, filter 120ms ease;
+    }
+
+    a.home:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    a.home:focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      a.home { transition: none; }
+      a.home:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="code">404</p>
+    <h1>That page does not exist</h1>
+    <p>The link may be out of date, or the address mistyped. Every viewer is one click away from the home page.</p>
+    <a class="home" href="/">Back to File Viewer</a>
+  </main>
+</body>
+</html>
