@@ -450,9 +450,9 @@
     footer a:hover { border-color: currentColor; }
     footer .sep { margin: 0 10px; opacity: 0.5; }
     footer .foot-links { margin-bottom: 10px; }
-    footer .foot-gh { display: inline-flex; gap:8px; align-items:center; font-weight:600; color: var(--muted); border-bottom: none; margin-bottom: 14px; transition: color 0.2s ease; }
-    footer .foot-gh:hover { color: var(--text); }
-    footer .foot-gh svg { display: block; }
+    footer .foot-gh { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:40px; padding:8px 14px; margin-bottom:14px; border:1px solid var(--border); border-radius:11px; background:var(--surface); color:var(--text); font-size:14px; font-weight:600; transition:border-color .2s ease, background .2s ease; }
+    footer .foot-gh:hover { border-color:var(--border-strong); }
+    footer .foot-gh svg { display:block; width:20px; height:20px; }
 
     @media (max-width: 520px) {
       .grid { grid-template-columns: 1fr; }
