@@ -100,10 +100,6 @@ await check("mobile nav discloses the links (§3)", async () => {
   await page.keyboard.press("Escape");
   return hidden === false && shown === true && expanded === "true";
 });
-await check("no horizontal overflow at the mobile tier (§3)", async () => {
-  await page.setViewportSize({ width: 767, height: 900 });
-  return page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1);
-});
 await page.setViewportSize({ width: 1280, height: 900 });
 
 // ------------------------------------------------- house chrome, every page ---
@@ -145,6 +141,15 @@ for (const path of PAGES) {
     return tools === 1 && ["Resources", "About", "Legal"].every((h) => headings.includes(h));
   });
 
+  // Every page, not just the home page: /support added a two-column field grid,
+  // which is exactly the kind of thing that overflows the mobile tier.
+  await check(`${label}: no horizontal overflow at the mobile tier (§3)`, async () => {
+    await page.setViewportSize({ width: 767, height: 900 });
+    const ok = await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    return ok;
+  });
+
   await check(`${label}: footer credit exact, year rendered (§1)`, async () => {
     const credit = page.locator(".foot-credit");
     if ((await credit.count()) !== 1) return false;
@@ -161,19 +166,56 @@ for (const path of PAGES) {
 await go("/support");
 
 await check("support: contact form fields (§6)", async () => {
-  const form = page.locator("form#contactForm");
+  const form = page.locator("form#contact-form");
   if ((await form.count()) !== 1) return false;
   for (const field of ["name", "email", "subject", "message"]) {
     if ((await form.locator(`[name="${field}"]`).count()) !== 1) return false;
   }
   return (await form.locator(".cf-turnstile").count()) === 1
-    && (await form.locator("#cf-status[aria-live]").count()) === 1;
+    && (await form.locator("#contact-status[aria-live]").count()) === 1;
 });
 
+// The family shares one support page (@wizard/ui SupportPage.astro) and one set
+// of status strings. This site reimplements both — no build step, no component
+// layer — so the wording is asserted rather than assumed. Divergence here is
+// what the owner caught by eye on the first pass.
+await check("support: family page structure and status wording (§1)", async () => {
+  const FAMILY = [
+    "Need help? We're here to assist you.",
+    "Before you write",
+    "Send a message",
+    "Prefer GitHub?",
+    "protected by Cloudflare\n      Turnstile, no account required.".replace(/\s+/g, " "),
+  ];
+  const body = (await page.locator("main").innerText()).replace(/\s+/g, " ");
+  const missingCopy = FAMILY.filter((s) => !body.includes(s.replace(/\s+/g, " ")));
+  if (missingCopy.length) console.log("  missing family copy: " + missingCopy.join(" | "));
+
+  const src = await readFile(join(ROOT, "support.html"), "utf8");
+  const STATUS = [
+    "Thanks — your message is on its way. We'll be in touch.",
+    "Please fill in your name, email, and message.",
+    "Please complete the verification challenge.",
+    "Sending…",
+    "Network error — please email ",
+  ];
+  const missingStatus = STATUS.filter((s) => !src.includes(s));
+  if (missingStatus.length) console.log("  status wording differs from wizard-web: " + missingStatus.join(" | "));
+
+  return missingCopy.length === 0 && missingStatus.length === 0;
+});
+
+// The slug rides in a variable, as it does in @wizard/ui, so host and slug are
+// asserted separately. `file_viewer_us` is the registry row that already exists
+// for this domain — a second row would fork contact_to, from_addr and the notify
+// route away from the one the monitoring config already points at.
 await check("support: posts to the house mailer, nothing else (§6)", async () => {
   const html = await readFile(join(ROOT, "support.html"), "utf8");
-  return /https:\/\/mailer\.thompsonblack\.us\/contact\/[a-z0-9_]+/.test(html)
-    && !/forwardemail|smtp|nodemailer/i.test(html);
+  const host = /https:\/\/mailer\.thompsonblack\.us\/contact\/\$\{product\}/.test(html);
+  const slug = /const product = 'file_viewer_us';/.test(html);
+  if (!host) console.log("  contact endpoint is not the house mailer");
+  if (!slug) console.log("  registry slug is not file_viewer_us");
+  return host && slug && !/forwardemail|smtp|nodemailer/i.test(html);
 });
 
 // Cloudflare's test keys (1x…/2x…/3x…) always pass, always block, or force a
@@ -239,6 +281,24 @@ await check("no mailto: links in any page (§1)", async () => {
     if (/mailto:/.test(await readFile(join(ROOT, f), "utf8"))) offenders.push(f);
   }
   if (offenders.length) console.log("  mailto: found in " + offenders.join(", "));
+  return offenders.length === 0;
+});
+
+// Family rule (owner ruling 2026-08-07, carried by @wizard/ui's PrivacyPage and
+// TermsPage): the legal pages name NO email address at all — every contact route
+// is the /support contact form. The support page itself still publishes
+// support@ per §6; this check is scoped to privacy and terms.
+await check("privacy/terms route contact through /support, no address (§1)", async () => {
+  const ADDRESS = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i;
+  const offenders = [];
+  for (const f of ["privacy.html", "terms.html"]) {
+    const src = await readFile(join(ROOT, f), "utf8");
+    const body = src.slice(src.indexOf('<main class="legal"'));
+    const m = body.match(ADDRESS);
+    if (m) offenders.push(`${f} (${m[0]})`);
+    if (!/href="\/support"/.test(body)) offenders.push(`${f} (no /support link)`);
+  }
+  if (offenders.length) console.log("  " + offenders.join(", "));
   return offenders.length === 0;
 });
 
