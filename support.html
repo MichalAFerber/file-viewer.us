@@ -495,10 +495,11 @@
             <textarea id="cf-message" name="message" maxlength="5000" required></textarea>
             <span class="hint">Which viewer, which browser, and what you expected to see.</span>
           </div>
-          <!-- The Turnstile site key is the public half and ships in the page by
-               design. Its secret half is a mailer Worker secret named by this
-               product's `turnstile_ref`; nothing in this repo verifies anything,
-               and nothing here holds a credential (DS §6/§7). -->
+          <!-- The shared Products widget. A site key is the public half and ships
+               in the page by design; the secret half is the mailer's own
+               TURNSTILE_SECRET, which this product reaches by leaving its
+               registry `turnstile_ref` NULL. Nothing in this repo verifies
+               anything and nothing here holds a credential (DS §6/§7). -->
           <div class="turnstile cf-turnstile" data-sitekey="0x4AAAAAAD3zZhlPo_O_mrmP" data-theme="auto"></div>
           <button class="btn-send" id="cf-send" type="submit">Send message</button>
           <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>

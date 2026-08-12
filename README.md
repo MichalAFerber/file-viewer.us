@@ -96,22 +96,36 @@ MIT, public repo.
 ### Before the contact form goes live
 
 `/support` renders and submits, but the mailer has to know this product first.
-Until all four steps are done a submission gets a `unknown_product` or
-`origin_denied` answer, and the page says so rather than pretending it sent:
+Until all three steps are done a submission gets `unknown_product` or
+`origin_denied`, and the page says so rather than pretending it sent.
+
+This product rides the **shared Products Turnstile widget**, so there is no
+Worker secret to set — `support.html` carries that widget's site key, which is
+the public half and belongs in the page.
 
 1. `notifyctl add fileviewer --domain file-viewer.us --contact-to <addr>` — the
-   route regex is `[a-z0-9_]+`, so the slug cannot be `file-viewer`. The page
-   posts to `/contact/fileviewer`; change one and change the other.
-2. In D1, set `allowed_origins = '["https://file-viewer.us","https://www.file-viewer.us"]'`
-   and `turnstile_ref` — `notifyctl add` has no flag for either.
-3. Add `file-viewer.us` to that Turnstile widget's hostname list. The site key is
-   already in `support.html` — it is the public half and ships in the page by
-   design; the secret half is a mailer Worker secret, set with
-   `wrangler secret put <the name turnstile_ref holds>` **before** step 2 writes
-   that name, or the mailer fails closed on a secret it cannot find. A widget
-   caps at 10 hostnames, and a missing hostname renders normally and then fails
-   verification.
-4. `notifyctl sync-mailer` — until this runs the mailer sees none of the above.
+   mailer's route regex is `[a-z0-9_]+`, so the slug cannot be `file-viewer`.
+   The page posts to `/contact/fileviewer`; change one and change the other.
+2. In D1, set the origins. `notifyctl add` has no flag for them, and a row
+   without them answers `origin_denied` on every submission — both hosts, scheme
+   included, because `originAllowed()` string-compares and does no implicit `www`:
+
+   ```sql
+   UPDATE products
+      SET allowed_origins = '["https://file-viewer.us","https://www.file-viewer.us"]'
+    WHERE slug = 'fileviewer';
+   ```
+
+   **Leave `turnstile_ref` NULL.** That is what makes the mailer fall back to the
+   shared `TURNSTILE_SECRET`; a `turnstile_ref` naming a secret the Worker does
+   not hold fails closed on every submission, deliberately, so it cannot silently
+   verify against the wrong widget.
+3. Add `file-viewer.us` to the shared Products widget's hostname list, then run
+   `notifyctl sync-mailer` — until that runs, the mailer sees none of the above.
+   A widget caps at **10 hostnames**; if that one is full, this product needs its
+   own widget, its own site key in `support.html`, and a `turnstile_ref` naming a
+   secret set on the mailer *first*. A missing hostname renders the widget
+   normally and then fails verification.
 
 ## Deviations
 
