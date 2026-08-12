@@ -359,17 +359,35 @@
       .fcol-tools { display: block; }
     }
 
-    /* ---------- Contact form (DS §6/§7) ---------- */
-    .contact {
+    /* ---------- Support page (mirrors @wizard/ui SupportPage.astro) ----------
+       Same three-card structure and copy as textwizard.us/support and the rest
+       of the family; the treatment is shared, the values are this site's own
+       tokens (DS §1). */
+    .card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 22px 22px 24px;
-      margin: 24px 0 8px;
+      box-shadow: var(--shadow);
+      padding: 24px;
+      margin: 24px 0 0;
     }
-    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
-    .field label { font-size: 14px; font-weight: 600; color: var(--text); }
-    .field input, .field textarea {
+    .card + .card { margin-top: 24px; }
+    .card-gh { margin-top: 44px; }
+    .card h2 { font-family: var(--display); font-size: 20px; margin: 0; letter-spacing: -.01em; }
+    .card > p { margin: 8px 0 0; font-size: 14.5px; color: var(--muted); }
+    .card .fineprint { margin: 16px 0 0; font-size: 12.5px; color: var(--muted-2); }
+    .card strong { color: var(--text); }
+
+    /* ---------- Contact form (DS §6/§7) ---------- */
+    #contact-form { margin-top: 16px; display: flex; flex-direction: column; gap: 16px; }
+    .field-row { display: grid; gap: 16px; }
+    @media (min-width: 768px) { .field-row { grid-template-columns: 1fr 1fr; } }
+    #contact-form label { display: block; font-size: 14px; }
+    #contact-form label > span { font-weight: 600; color: var(--text); }
+    #contact-form label > span .optional { font-weight: 400; color: var(--muted-2); }
+    #contact-form input, #contact-form textarea {
+      margin-top: 4px;
+      width: 100%;
       font-family: inherit;
       font-size: 15px;
       line-height: 1.5;
@@ -377,18 +395,17 @@
       background: var(--bg);
       border: 1px solid var(--border-strong);
       border-radius: 10px;
-      padding: 11px 12px;
+      padding: 10px 12px;
       min-height: 44px;
-      width: 100%;
     }
-    .field textarea { min-height: 160px; resize: vertical; }
-    .field input:focus-visible, .field textarea:focus-visible { outline: 2px solid #818cf8; outline-offset: 1px; }
-    .field .hint { font-size: 13px; color: var(--muted); }
-    .turnstile { margin: 4px 0 18px; min-height: 65px; }
+    #contact-form textarea { min-height: 150px; resize: vertical; }
+    #contact-form input:focus-visible, #contact-form textarea:focus-visible { outline: 2px solid #818cf8; outline-offset: 1px; }
+    .cf-turnstile { min-height: 65px; }
+    .form-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
     .btn-send {
       font-family: inherit;
       font-size: 15px;
-      font-weight: 650;
+      font-weight: 700;
       min-height: 44px;
       padding: 11px 22px;
       border-radius: 11px;
@@ -403,14 +420,7 @@
     .btn-send:hover:not(:disabled) { filter: brightness(1.08); }
     .btn-send:disabled { opacity: 0.6; cursor: default; box-shadow: none; }
     .btn-send:focus-visible { outline: 2px solid #818cf8; outline-offset: 2px; }
-    .form-status {
-      margin: 14px 0 0;
-      font-size: 14.5px;
-      min-height: 1.4em;
-    }
-    .form-status:empty { margin: 0; min-height: 0; }
-    .form-status.ok { color: #46a758; }
-    .form-status.err { color: #e5484d; }
+    #contact-status { margin: 0; font-size: 14px; color: var(--muted); }
 
     @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
   </style>
@@ -448,80 +458,65 @@
   <div class="wrap">
       <main class="legal" id="main">
         <h1>Support</h1>
-        <p class="lead">Something not rendering the way you expect, or a format you
-        wish we handled? Tell us — the form below reaches the maintainer directly.</p>
+        <p class="lead">Need help? We're here to assist you.</p>
 
-        <div class="note">
-          <p><strong>Before you write.</strong> Every viewer runs entirely in your
-          browser, so most problems are about one specific file. If you can, say
-          which viewer, which browser, and what the file is — you never have to
-          send us the file itself, and please don't: we have no way to receive it
-          and no interest in it.</p>
+        <div class="card">
+          <h2>Before you write</h2>
+          <p>Check the <a href="/samples">sample files</a> and the
+          <a href="/#viewers">viewer list</a>—most questions are answered there.
+          Every viewer runs in your browser, so if something will not render, the
+          useful detail is which viewer, which browser, and whether the matching
+          sample opens. Never send us the file itself. Prefer email? Write to
+          <strong class="addr">support@file-viewer.us</strong>—we typically
+          respond within 24–48 hours.</p>
         </div>
 
-        <h2>Things that are already answered</h2>
-        <ul>
-          <li><strong>"Is my file uploaded?"</strong> No. Files are read and rendered
-          locally and never leave your device — see the
-          <a href="/privacy">Privacy Policy</a>.</li>
-          <li><strong>"It won't open my file."</strong> Try the matching
-          <a href="/samples">sample file</a> first. If the sample renders and yours
-          does not, that is the useful detail to report.</li>
-          <li><strong>"Which viewer handles X?"</strong> The
-          <a href="/#viewers">viewer list</a> names the formats each one takes.</li>
-          <li><strong>"Can I use this offline / behind a firewall?"</strong> Yes.
-          Each viewer is one self-contained page with no runtime dependencies.</li>
-          <li><strong>Security reports</strong> go through
-          <a href="/.well-known/security.txt">/.well-known/security.txt</a>, not this form.</li>
-        </ul>
+        <div class="card">
+          <h2>Send a message</h2>
+          <p>Fill this out and it lands in our inbox—protected by Cloudflare
+          Turnstile, no account required.</p>
+          <form id="contact-form" novalidate>
+            <div class="field-row">
+              <label>
+                <span>Name</span>
+                <input name="name" type="text" required maxlength="100" autocomplete="name" />
+              </label>
+              <label>
+                <span>Email</span>
+                <input name="email" type="email" required maxlength="254" autocomplete="email" />
+              </label>
+            </div>
+            <label>
+              <span>Subject <span class="optional">(optional)</span></span>
+              <input name="subject" type="text" maxlength="150" />
+            </label>
+            <label>
+              <span>Message</span>
+              <textarea name="message" required maxlength="5000" rows="6"></textarea>
+            </label>
 
-        <h2>Send a message</h2>
-        <form class="contact" id="contactForm" novalidate>
-          <div class="field">
-            <label for="cf-name">Name</label>
-            <input id="cf-name" name="name" type="text" autocomplete="name" maxlength="100" required />
-          </div>
-          <div class="field">
-            <label for="cf-email">Email</label>
-            <input id="cf-email" name="email" type="email" autocomplete="email" maxlength="254" required />
-            <span class="hint">So a reply can reach you. Used for nothing else.</span>
-          </div>
-          <div class="field">
-            <label for="cf-subject">Subject</label>
-            <input id="cf-subject" name="subject" type="text" maxlength="150" />
-          </div>
-          <div class="field">
-            <label for="cf-message">Message</label>
-            <textarea id="cf-message" name="message" maxlength="5000" required></textarea>
-            <span class="hint">Which viewer, which browser, and what you expected to see.</span>
-          </div>
-          <!-- The shared Products widget. A site key is the public half and ships
-               in the page by design; the secret half is the mailer's own
-               TURNSTILE_SECRET, which this product reaches by leaving its
-               registry `turnstile_ref` NULL. Nothing in this repo verifies
-               anything and nothing here holds a credential (DS §6/§7). -->
-          <div class="turnstile cf-turnstile" data-sitekey="0x4AAAAAAD3zZhlPo_O_mrmP" data-theme="auto"></div>
-          <button class="btn-send" id="cf-send" type="submit">Send message</button>
-          <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
-        </form>
+            <!-- The shared Products widget. A site key is the public half and ships
+                 in the page by design; the secret half is the mailer's
+                 TURNSTILE_SECRET_PRODUCTS, which this product reaches through its
+                 registry `turnstile_ref`. Nothing in this repo verifies anything and
+                 nothing here holds a credential (DS §6/§7). -->
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAAD3zZhlPo_O_mrmP" data-theme="auto"></div>
 
-        <noscript>
-          <div class="note">
-            <p><strong>The form needs JavaScript</strong> for its anti-abuse check.
-            With it off, write to <span class="addr">support@file-viewer.us</span> instead.</p>
-          </div>
-        </noscript>
+            <div class="form-actions">
+              <button type="submit" class="btn-send">Send message</button>
+              <p id="contact-status" role="status" aria-live="polite"></p>
+            </div>
+            <noscript><p>This form needs JavaScript enabled. You can reach us at <strong class="addr">support@file-viewer.us</strong>.</p></noscript>
+          </form>
+          <p class="fineprint">Please don't send secrets or credentials. We aim to reply within a couple of business days.</p>
+        </div>
 
-        <h2>Or email</h2>
-        <p>If the form gives you trouble, the same inbox is reachable at
-        <span class="addr">support@file-viewer.us</span>. Replies come from a person,
-        usually within a few days.</p>
-
-        <h2>Reporting a bug in the open</h2>
-        <p>The hub and every viewer are open source under the MIT License. A public
-        issue is often the faster route for a reproducible bug, and it lets other
-        people find the answer later —
-        <a href="https://github.com/MichalAFerber/file-viewer.us/issues" target="_blank" rel="noopener">open an issue on GitHub</a>.</p>
+        <div class="card card-gh">
+          <h2>Prefer GitHub?</h2>
+          <p>File Viewer is MIT-licensed and developed in the open. File an issue
+          or send a pull request.</p>
+          <a class="foot-gh" href="https://github.com/MichalAFerber/file-viewer.us" target="_blank" rel="noopener" aria-label="File Viewer on GitHub: github.com/MichalAFerber/file-viewer.us"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 018 4.58c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span>github.com/MichalAFerber/file-viewer.us</span></a>
+        </div>
       </main>
   </div>
   <!-- House footer (DS §1, product-site variant) — byte-identical on every page. -->
@@ -615,88 +610,60 @@
     }
   })();
   </script>
-  <!-- Contact form (DS §6/§7). The house mailer Worker is the only transport;
-       this page holds no mail credential and talks to nothing else. Turnstile is
-       verified server-side by the mailer before any send fires. -->
+  <!-- Contact form (DS §6/§7). Ported from @wizard/ui's ContactForm.astro so the
+       status wording, the payload shape and the Turnstile-reset behaviour match
+       the rest of the family byte for byte. The house mailer Worker is the only
+       transport; this page holds no mail credential and talks to nothing else. -->
   <script>
-  (function () {
-    "use strict";
+  (() => {
+    // The registry slug. `file_viewer_us` is the row that already exists for this
+    // domain — the mailer's route regex is [a-z0-9_]+, so underscores are fine
+    // and only `file-viewer` would have been rejected.
+    const product = 'file_viewer_us';
+    const supportEmail = 'support@file-viewer.us';
 
-    // The mailer route regex is /^\/(send|contact)\/([a-z0-9_]+)$/ — hyphens are
-    // rejected, underscores are not, so this is the existing registry slug
-    // "file_viewer_us" rather than a second row invented for the form.
-    var ENDPOINT = "https://mailer.thompsonblack.us/contact/file_viewer_us";
-
-    var form = document.getElementById("contactForm");
-    var status = document.getElementById("cf-status");
-    var send = document.getElementById("cf-send");
+    const form = document.getElementById('contact-form');
     if (!form) return;
-
-    // The mailer's {error, code} envelope, in words a visitor can act on. A
-    // failure that is ours to fix says so rather than blaming the submission.
-    var MESSAGES = {
-      turnstile_failed: "The anti-abuse check did not pass. Reload the page and try once more.",
-      origin_denied: "This form is not accepting submissions right now. Email support@file-viewer.us instead.",
-      unknown_product: "This form is not accepting submissions right now. Email support@file-viewer.us instead.",
-      bad_payload: "Check that the name, email and message fields are filled in.",
-      email_upstream_failed: "The message could not be delivered. Try again shortly, or email support@file-viewer.us."
-    };
-
-    function say(text, kind) {
-      status.textContent = text;
-      status.className = "form-status" + (kind ? " " + kind : "");
-    }
-
-    form.addEventListener("submit", async function (e) {
+    const status = document.getElementById('contact-status');
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-
-      var name = form.elements.name.value.trim();
-      var email = form.elements.email.value.trim();
-      var subject = form.elements.subject.value.trim();
-      var message = form.elements.message.value.trim();
-      if (!name || !email || !message) {
-        say("Name, email and message are all needed.", "err");
+      const btn = form.querySelector('button[type=submit]');
+      const data = Object.fromEntries(new FormData(form).entries());
+      if (!data.name || !data.email || !data.message) {
+        status.textContent = 'Please fill in your name, email, and message.';
         return;
       }
-
-      // Turnstile writes its token into a hidden input inside the form.
-      var tokenField = form.querySelector('[name="cf-turnstile-response"]');
-      var token = tokenField ? tokenField.value : "";
-      if (!token) {
-        say("The anti-abuse check has not finished loading. Give it a moment and try again.", "err");
+      if (!data['cf-turnstile-response']) {
+        status.textContent = 'Please complete the verification challenge.';
         return;
       }
-
-      send.disabled = true;
-      say("Sending…");
-
+      btn.disabled = true;
+      status.textContent = 'Sending…';
       try {
-        var res = await fetch(ENDPOINT, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: name,
-            email: email,
-            subject: subject || "Support",
-            message: message,
-            turnstileToken: token
-          })
+        const res = await fetch(`https://mailer.thompsonblack.us/contact/${product}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
         });
-        var body = await res.json().catch(function () { return {}; });
-
-        if (res.ok && body.sent) {
+        // Parse defensively: an edge error (e.g. 502) returns an HTML page, not JSON.
+        let out = null;
+        try { out = await res.json(); } catch {}
+        if (res.ok && out && out.sent) {
           form.reset();
-          if (window.turnstile) { try { window.turnstile.reset(); } catch (err) {} }
-          say("Sent. A reply will come to the address you gave.", "ok");
+          if (window.turnstile) window.turnstile.reset();
+          status.textContent = "Thanks — your message is on its way. We'll be in touch.";
         } else {
-          say(MESSAGES[body.code] || "The message could not be sent. Email support@file-viewer.us instead.", "err");
+          const detail = (out && out.error) || 'Something went wrong.';
+          status.textContent = detail + ' (HTTP ' + res.status + ') — please email ' + supportEmail + '.';
+          // A Turnstile token is single-use. Without a reset here the retry resubmits
+          // the spent token and fails again for a different reason than the first time.
+          if (window.turnstile) window.turnstile.reset();
+          btn.disabled = false;
         }
-      } catch (err) {
-        // Network-level failure: the request never reached the mailer, so there
-        // is nothing queued and nothing to wait for.
-        say("Could not reach the mail service. Check your connection, or email support@file-viewer.us.", "err");
-      } finally {
-        send.disabled = false;
+      } catch {
+        status.textContent = 'Network error — please email ' + supportEmail + '.';
+        if (window.turnstile) window.turnstile.reset();
+        btn.disabled = false;
       }
     });
   })();
