@@ -495,14 +495,11 @@
             <textarea id="cf-message" name="message" maxlength="5000" required></textarea>
             <span class="hint">Which viewer, which browser, and what you expected to see.</span>
           </div>
-          <!-- PLACEHOLDER SITE KEY. 1x00000000000000000000AA is Cloudflare's
-               documented always-passes test key, used here so the widget renders
-               and the form is exercisable before the product is registered. It
-               fails closed: the mailer verifies server-side against the real
-               secret, so a token minted by this key is refused and no mail is
-               sent. Swap it for file-viewer.us's real site key as step 3 of the
-               DS §6 per-product setup. -->
-          <div class="turnstile cf-turnstile" data-sitekey="1x00000000000000000000AA" data-theme="auto"></div>
+          <!-- The Turnstile site key is the public half and ships in the page by
+               design. Its secret half is a mailer Worker secret named by this
+               product's `turnstile_ref`; nothing in this repo verifies anything,
+               and nothing here holds a credential (DS §6/§7). -->
+          <div class="turnstile cf-turnstile" data-sitekey="0x4AAAAAAD3zZhlPo_O_mrmP" data-theme="auto"></div>
           <button class="btn-send" id="cf-send" type="submit">Send message</button>
           <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
         </form>

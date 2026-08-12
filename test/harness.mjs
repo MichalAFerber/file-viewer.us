@@ -176,6 +176,18 @@ await check("support: posts to the house mailer, nothing else (§6)", async () =
     && !/forwardemail|smtp|nodemailer/i.test(html);
 });
 
+// Cloudflare's test keys (1x…/2x…/3x…) always pass, always block, or force a
+// challenge client-side without touching the real widget. They are the right
+// thing to develop against and the wrong thing to ship: the widget looks healthy
+// and every submission dies at siteverify, which reads like a mailer outage.
+await check("support: real Turnstile site key, not a test key (§7)", async () => {
+  const html = await readFile(join(ROOT, "support.html"), "utf8");
+  const m = html.match(/data-sitekey="([^"]+)"/);
+  if (!m) { console.log("  no data-sitekey on the Turnstile widget"); return false; }
+  if (/^[123]x0{20}[A-Z]{2}$/.test(m[1])) { console.log(`  test site key shipped: ${m[1]}`); return false; }
+  return true;
+});
+
 await check("support: publishes support@, never contact_to (§6)", async () => {
   const body = await page.locator("main").innerText();
   return body.includes("support@file-viewer.us") && !/michal@file-viewer\.us/.test(body);
