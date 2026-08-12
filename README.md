@@ -70,9 +70,17 @@ adapter contract + parity checklist).
 ## What's here
 
 - `index.html` — the hub landing page (self-contained, no build).
+- `support.html` — support page + contact form (posts to the house mailer).
+- `samples.html` · `credits.html` · `privacy.html` · `terms.html` · `404.html` — the rest of the site.
 - `samples/` — one ready-to-test file per viewer.
 - `DESIGN-SPEC.md` — the design & build spec for the whole family.
 - `_headers` — Cloudflare Pages security headers (strict CSP).
+
+Every page carries the same house header and footer. The chrome — the `.topbar`
+block, the `.site-footer` block, and the shared script under them — is
+**byte-identical across pages on purpose**: this family has no build step and no
+component layer, so the copies are the mechanism. Change one, change all six,
+and `npm test` will tell you if you missed one.
 
 ## Deploy
 
@@ -80,10 +88,40 @@ Static site on Cloudflare Pages: framework preset **None**, build command
 blank, output directory `/`. Add the custom domain **file-viewer.us**. Every
 viewer deploys the same way from its own repo.
 
+## Standards
+
+Built to the TGWAB Dev Standards **v2.34.0** (internal). Class A — open source,
+MIT, public repo.
+
+### Before the contact form goes live
+
+`/support` renders and submits, but the mailer has to know this product first.
+Until all four steps are done a submission gets a `unknown_product` or
+`origin_denied` answer, and the page says so rather than pretending it sent:
+
+1. `notifyctl add fileviewer --domain file-viewer.us --contact-to <addr>` — the
+   route regex is `[a-z0-9_]+`, so the slug cannot be `file-viewer`. The page
+   posts to `/contact/fileviewer`; change one and change the other.
+2. In D1, set `allowed_origins = '["https://file-viewer.us","https://www.file-viewer.us"]'`
+   and `turnstile_ref` — `notifyctl add` has no flag for either.
+3. Add `file-viewer.us` to that Turnstile widget's hostname list, then replace
+   the placeholder `data-sitekey` in `support.html` with the widget's real site
+   key. It currently carries Cloudflare's always-passes **test** key so the
+   widget renders before registration; it fails closed, because the mailer still
+   verifies server-side against the real secret.
+4. `notifyctl sync-mailer` — until this runs the mailer sees none of the above.
+
+## Deviations
+
+- §1—footer credit year rendered at build time—this family is static HTML with no build step, so the year is computed at page load from `new Date().getFullYear()`; it is never a literal, which is the failure the rule exists to prevent—2026-08-12—permanent
+- §7—contact form posts to a same-origin path—the File Viewer family ships no Pages Functions to proxy through, so the form posts cross-origin to the mailer route §6 names (`mailer.thompsonblack.us/contact/<product>`), authorized by `connect-src` rather than `form-action`—2026-08-12—permanent
+
 ## Credits
 
 Card/file-type icons from [vscode-icons](https://github.com/vscode-icons/vscode-icons)
 (MIT). Analytics by self-hosted, cookieless [Plausible](https://plausible.io/).
+Anti-abuse by [Cloudflare Turnstile](https://www.cloudflare.com/products/turnstile/);
+transactional mail through the house mailer Worker.
 
 ## License
 

@@ -1,7 +1,22 @@
 # Cloudflare Pages security headers (applied to every response).
+#
+# One CSP block, for /* — Pages joins duplicate headers with a comma and
+# comma-joined policies are enforced as their INTERSECTION, so a second block
+# meant to loosen one page tightens the whole site instead (DS §12).
+#
+# The two third-party origins are both sanctioned exceptions to §2's no-runtime-
+# CDN rule: self-hosted Plausible (§8), and Turnstile + the house mailer Worker,
+# which §7 and §6 require for the contact form on /support.
+#   script-src  challenges.cloudflare.com  — the Turnstile widget script
+#   frame-src   challenges.cloudflare.com  — the challenge iframe it opens
+#   connect-src mailer.thompsonblack.us    — the /contact/<product> fetch(); this
+#               is a connect-src concern, NOT form-action, which is a navigation
+#               directive and does not apply to fetch() (§7).
+# form-action stays 'none': the form has no action attribute and never navigates,
+# so a submit that outruns its JS handler fails closed instead of leaking fields.
 /*
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: no-referrer
   Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
-  Content-Security-Policy: default-src 'none'; script-src 'unsafe-inline' https://plausible.thompsonblack.us; style-src 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; manifest-src 'self'; connect-src https://plausible.thompsonblack.us; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+  Content-Security-Policy: default-src 'none'; script-src 'self' 'unsafe-inline' https://plausible.thompsonblack.us https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; manifest-src 'self'; connect-src 'self' https://plausible.thompsonblack.us https://mailer.thompsonblack.us; frame-src https://challenges.cloudflare.com; base-uri 'none'; form-action 'none'; frame-ancestors 'none'

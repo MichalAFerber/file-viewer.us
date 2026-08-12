@@ -3,14 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Page not found — File Viewer</title>
+  <title>Support — File Viewer</title>
   <!-- Privacy-friendly, cookieless analytics (self-hosted Plausible) -->
   <script defer data-domain="file-viewer.us" src="https://plausible.thompsonblack.us/js/script.js"></script>
-  <meta name="description" content="That page does not exist. Head back to the File Viewer home page to pick a viewer." />
+  <!-- Cloudflare Turnstile — the anti-abuse check on the contact form (DS §7) -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <meta name="description" content="Get help with any File Viewer tool, or send the maintainer a message. Files stay on your device — we never need one to answer a question." />
+  <meta name="author" content="Michal Ferber" />
   <meta name="color-scheme" content="dark light" />
-  <meta name="robots" content="noindex, follow" />
+  <meta name="robots" content="index, follow" />
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b0e14" />
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f7fb" />
+  <link rel="canonical" href="https://file-viewer.us/support" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Support — File Viewer" />
+  <meta property="og:description" content="Get help with any File Viewer tool, or send the maintainer a message." />
+  <meta property="og:url" content="https://file-viewer.us/support" />
+  <meta property="og:site_name" content="File Viewer" />
+  <meta property="og:image" content="https://file-viewer.us/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:creator" content="@michalaferber" />
+  <meta name="twitter:title" content="Support — File Viewer" />
+  <meta name="twitter:description" content="Get help with any File Viewer tool, or send the maintainer a message." />
+  <meta name="twitter:image" content="https://file-viewer.us/og.png" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='23' y='23' width='17' height='17' rx='3' fill='%23e5484d'/%3E%3Crect x='41' y='19' width='17' height='21' rx='3' fill='%234293e6'/%3E%3Crect x='59' y='23' width='17' height='17' rx='3' fill='%2346a758'/%3E%3Crect x='16' y='31' width='68' height='51' rx='9' fill='%23ef9d2a'/%3E%3Crect x='16' y='40' width='68' height='42' rx='9' fill='%23f6d24c'/%3E%3C/svg%3E" />
   <link rel="alternate icon" href="/favicon.ico" sizes="any" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -342,47 +359,58 @@
       .fcol-tools { display: block; }
     }
 
-    /* ---------- 404 card ---------- */
-    /* The card centres in whatever space is left between the house header and
-       footer, so a short page still fills the viewport. */
-    body { display: flex; flex-direction: column; min-height: 100dvh; }
-    body > .wrap { flex: 1; display: flex; flex-direction: column; }
-    main.notfound { flex: 1; display: grid; place-items: center; padding: 48px 0; }
-    .nf-card {
-      max-width: 34rem;
-      width: 100%;
-      text-align: center;
+    /* ---------- Contact form (DS §6/§7) ---------- */
+    .contact {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: clamp(28px, 6vw, 48px);
+      padding: 22px 22px 24px;
+      margin: 24px 0 8px;
     }
-    .nf-code {
-      font-family: var(--display);
-      font-size: clamp(2.75rem, 12vw, 4rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1;
-      margin: 0 0 12px;
-      color: var(--brand);
+    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .field label { font-size: 14px; font-weight: 600; color: var(--text); }
+    .field input, .field textarea {
+      font-family: inherit;
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--text);
+      background: var(--bg);
+      border: 1px solid var(--border-strong);
+      border-radius: 10px;
+      padding: 11px 12px;
+      min-height: 44px;
+      width: 100%;
     }
-    .nf-card h1 { font-family: var(--display); font-size: clamp(1.15rem, 4vw, 1.4rem); margin: 0 0 10px; text-wrap: balance; }
-    .nf-card p { margin: 0 0 24px; color: var(--muted); text-wrap: pretty; }
-    .nf-home {
-      display: inline-block;
+    .field textarea { min-height: 160px; resize: vertical; }
+    .field input:focus-visible, .field textarea:focus-visible { outline: 2px solid #818cf8; outline-offset: 1px; }
+    .field .hint { font-size: 13px; color: var(--muted); }
+    .turnstile { margin: 4px 0 18px; min-height: 65px; }
+    .btn-send {
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 650;
       min-height: 44px;
       padding: 11px 22px;
-      border-radius: 999px;
-      background: var(--brand);
+      border-radius: 11px;
       color: #fff;
-      font-weight: 600;
-      text-decoration: none;
-      transition: transform 120ms ease, filter 120ms ease;
+      background: var(--brand);
+      border: 1px solid color-mix(in srgb, #000 12%, var(--brand));
+      box-shadow: 0 6px 16px color-mix(in srgb, var(--brand) 32%, transparent);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: filter 0.15s ease;
     }
-    .nf-home:hover { filter: brightness(1.08); transform: translateY(-1px); }
-    .nf-home:focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; }
-    @media (prefers-reduced-motion: reduce) { .nf-home:hover { transform: none; } }
+    .btn-send:hover:not(:disabled) { filter: brightness(1.08); }
+    .btn-send:disabled { opacity: 0.6; cursor: default; box-shadow: none; }
+    .btn-send:focus-visible { outline: 2px solid #818cf8; outline-offset: 2px; }
+    .form-status {
+      margin: 14px 0 0;
+      font-size: 14.5px;
+      min-height: 1.4em;
+    }
+    .form-status:empty { margin: 0; min-height: 0; }
+    .form-status.ok { color: #46a758; }
+    .form-status.err { color: #e5484d; }
 
     @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
   </style>
@@ -418,14 +446,85 @@
   </div>
 
   <div class="wrap">
-    <main class="notfound" id="main">
-      <div class="nf-card">
-        <p class="nf-code">404</p>
-        <h1>That page does not exist</h1>
-        <p>The link may be out of date, or the address mistyped. Every viewer is one click away from the home page.</p>
-        <a class="nf-home" href="/">Back to File Viewer</a>
-      </div>
-    </main>
+      <main class="legal" id="main">
+        <h1>Support</h1>
+        <p class="lead">Something not rendering the way you expect, or a format you
+        wish we handled? Tell us — the form below reaches the maintainer directly.</p>
+
+        <div class="note">
+          <p><strong>Before you write.</strong> Every viewer runs entirely in your
+          browser, so most problems are about one specific file. If you can, say
+          which viewer, which browser, and what the file is — you never have to
+          send us the file itself, and please don't: we have no way to receive it
+          and no interest in it.</p>
+        </div>
+
+        <h2>Things that are already answered</h2>
+        <ul>
+          <li><strong>"Is my file uploaded?"</strong> No. Files are read and rendered
+          locally and never leave your device — see the
+          <a href="/privacy">Privacy Policy</a>.</li>
+          <li><strong>"It won't open my file."</strong> Try the matching
+          <a href="/samples">sample file</a> first. If the sample renders and yours
+          does not, that is the useful detail to report.</li>
+          <li><strong>"Which viewer handles X?"</strong> The
+          <a href="/#viewers">viewer list</a> names the formats each one takes.</li>
+          <li><strong>"Can I use this offline / behind a firewall?"</strong> Yes.
+          Each viewer is one self-contained page with no runtime dependencies.</li>
+          <li><strong>Security reports</strong> go through
+          <a href="/.well-known/security.txt">/.well-known/security.txt</a>, not this form.</li>
+        </ul>
+
+        <h2>Send a message</h2>
+        <form class="contact" id="contactForm" novalidate>
+          <div class="field">
+            <label for="cf-name">Name</label>
+            <input id="cf-name" name="name" type="text" autocomplete="name" maxlength="100" required />
+          </div>
+          <div class="field">
+            <label for="cf-email">Email</label>
+            <input id="cf-email" name="email" type="email" autocomplete="email" maxlength="254" required />
+            <span class="hint">So a reply can reach you. Used for nothing else.</span>
+          </div>
+          <div class="field">
+            <label for="cf-subject">Subject</label>
+            <input id="cf-subject" name="subject" type="text" maxlength="150" />
+          </div>
+          <div class="field">
+            <label for="cf-message">Message</label>
+            <textarea id="cf-message" name="message" maxlength="5000" required></textarea>
+            <span class="hint">Which viewer, which browser, and what you expected to see.</span>
+          </div>
+          <!-- PLACEHOLDER SITE KEY. 1x00000000000000000000AA is Cloudflare's
+               documented always-passes test key, used here so the widget renders
+               and the form is exercisable before the product is registered. It
+               fails closed: the mailer verifies server-side against the real
+               secret, so a token minted by this key is refused and no mail is
+               sent. Swap it for file-viewer.us's real site key as step 3 of the
+               DS §6 per-product setup. -->
+          <div class="turnstile cf-turnstile" data-sitekey="1x00000000000000000000AA" data-theme="auto"></div>
+          <button class="btn-send" id="cf-send" type="submit">Send message</button>
+          <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
+        </form>
+
+        <noscript>
+          <div class="note">
+            <p><strong>The form needs JavaScript</strong> for its anti-abuse check.
+            With it off, write to <span class="addr">support@file-viewer.us</span> instead.</p>
+          </div>
+        </noscript>
+
+        <h2>Or email</h2>
+        <p>If the form gives you trouble, the same inbox is reachable at
+        <span class="addr">support@file-viewer.us</span>. Replies come from a person,
+        usually within a few days.</p>
+
+        <h2>Reporting a bug in the open</h2>
+        <p>The hub and every viewer are open source under the MIT License. A public
+        issue is often the faster route for a reproducible bug, and it lets other
+        people find the answer later —
+        <a href="https://github.com/MichalAFerber/file-viewer.us/issues" target="_blank" rel="noopener">open an issue on GitHub</a>.</p>
+      </main>
   </div>
   <!-- House footer (DS §1, product-site variant) — byte-identical on every page. -->
   <footer class="site-footer">
@@ -516,6 +615,91 @@
         if (body.classList.contains("nav-open") && !e.target.closest(".topbar")) setNav(false);
       });
     }
+  })();
+  </script>
+  <!-- Contact form (DS §6/§7). The house mailer Worker is the only transport;
+       this page holds no mail credential and talks to nothing else. Turnstile is
+       verified server-side by the mailer before any send fires. -->
+  <script>
+  (function () {
+    "use strict";
+
+    // The mailer route regex is /^\/(send|contact)\/([a-z0-9_]+)$/ — no hyphens,
+    // so the registered slug cannot be "file-viewer".
+    var ENDPOINT = "https://mailer.thompsonblack.us/contact/fileviewer";
+
+    var form = document.getElementById("contactForm");
+    var status = document.getElementById("cf-status");
+    var send = document.getElementById("cf-send");
+    if (!form) return;
+
+    // The mailer's {error, code} envelope, in words a visitor can act on. A
+    // failure that is ours to fix says so rather than blaming the submission.
+    var MESSAGES = {
+      turnstile_failed: "The anti-abuse check did not pass. Reload the page and try once more.",
+      origin_denied: "This form is not accepting submissions right now. Email support@file-viewer.us instead.",
+      unknown_product: "This form is not accepting submissions right now. Email support@file-viewer.us instead.",
+      bad_payload: "Check that the name, email and message fields are filled in.",
+      email_upstream_failed: "The message could not be delivered. Try again shortly, or email support@file-viewer.us."
+    };
+
+    function say(text, kind) {
+      status.textContent = text;
+      status.className = "form-status" + (kind ? " " + kind : "");
+    }
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      var name = form.elements.name.value.trim();
+      var email = form.elements.email.value.trim();
+      var subject = form.elements.subject.value.trim();
+      var message = form.elements.message.value.trim();
+      if (!name || !email || !message) {
+        say("Name, email and message are all needed.", "err");
+        return;
+      }
+
+      // Turnstile writes its token into a hidden input inside the form.
+      var tokenField = form.querySelector('[name="cf-turnstile-response"]');
+      var token = tokenField ? tokenField.value : "";
+      if (!token) {
+        say("The anti-abuse check has not finished loading. Give it a moment and try again.", "err");
+        return;
+      }
+
+      send.disabled = true;
+      say("Sending…");
+
+      try {
+        var res = await fetch(ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            subject: subject || "Support",
+            message: message,
+            turnstileToken: token
+          })
+        });
+        var body = await res.json().catch(function () { return {}; });
+
+        if (res.ok && body.sent) {
+          form.reset();
+          if (window.turnstile) { try { window.turnstile.reset(); } catch (err) {} }
+          say("Sent. A reply will come to the address you gave.", "ok");
+        } else {
+          say(MESSAGES[body.code] || "The message could not be sent. Email support@file-viewer.us instead.", "err");
+        }
+      } catch (err) {
+        // Network-level failure: the request never reached the mailer, so there
+        // is nothing queued and nothing to wait for.
+        say("Could not reach the mail service. Check your connection, or email support@file-viewer.us.", "err");
+      } finally {
+        send.disabled = false;
+      }
+    });
   })();
   </script>
 </body>

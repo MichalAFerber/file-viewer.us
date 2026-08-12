@@ -22,7 +22,8 @@ Each viewer is one self-contained HTML file (no build step) and works offline. F
 
 ## Links
 
-- [GitHub](https://github.com/MichalAFerber/file-web-viewer): Source for the hub (each viewer has its own repo under MichalAFerber)
-- [Privacy Policy](https://file-viewer.us/privacy.html)
-- [Terms of Use](https://file-viewer.us/terms.html)
-- [Credits](https://file-viewer.us/credits.html)
+- [GitHub](https://github.com/MichalAFerber/file-viewer.us): Source for the hub (each viewer has its own repo under MichalAFerber)
+- [Support](https://file-viewer.us/support): Contact form and answers to the questions that come up most
+- [Privacy Policy](https://file-viewer.us/privacy)
+- [Terms of Use](https://file-viewer.us/terms)
+- [Credits](https://file-viewer.us/credits)
