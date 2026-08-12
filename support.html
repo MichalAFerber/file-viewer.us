@@ -622,9 +622,10 @@
   (function () {
     "use strict";
 
-    // The mailer route regex is /^\/(send|contact)\/([a-z0-9_]+)$/ — no hyphens,
-    // so the registered slug cannot be "file-viewer".
-    var ENDPOINT = "https://mailer.thompsonblack.us/contact/fileviewer";
+    // The mailer route regex is /^\/(send|contact)\/([a-z0-9_]+)$/ — hyphens are
+    // rejected, underscores are not, so this is the existing registry slug
+    // "file_viewer_us" rather than a second row invented for the form.
+    var ENDPOINT = "https://mailer.thompsonblack.us/contact/file_viewer_us";
 
     var form = document.getElementById("contactForm");
     var status = document.getElementById("cf-status");

@@ -99,27 +99,36 @@ MIT, public repo.
 Until all three steps are done a submission gets `unknown_product` or
 `origin_denied`, and the page says so rather than pretending it sent.
 
-This product rides the **shared Products Turnstile widget**, so there is no
-Worker secret to set — `support.html` carries that widget's site key, which is
-the public half and belongs in the page.
+This product rides the **shared Products Turnstile widget** — `support.html`
+carries that widget's site key, which is the public half and belongs in the page.
 
-1. `notifyctl add fileviewer --domain file-viewer.us --contact-to <addr>` — the
-   mailer's route regex is `[a-z0-9_]+`, so the slug cannot be `file-viewer`.
-   The page posts to `/contact/fileviewer`; change one and change the other.
-2. In D1, set the origins. `notifyctl add` has no flag for them, and a row
-   without them answers `origin_denied` on every submission — both hosts, scheme
-   included, because `originAllowed()` string-compares and does no implicit `www`:
+1. **No `notifyctl add`.** The product is already registered as `file_viewer_us`
+   (domain `file-viewer.us`, `from_addr` `noreply@file-viewer.us`), and the
+   mailer's route regex `[a-z0-9_]+` accepts underscores — only hyphens are
+   rejected, so `file-viewer` is out but `file_viewer_us` is fine. The page posts
+   to `/contact/file_viewer_us`; change one and change the other. Adding a second
+   slug for this domain would make it the only product in the registry with two
+   rows, and would fork `contact_to`, `from_addr`, and the notify route away from
+   the row the Gatus client config already uses.
+2. In D1, set the origins and the widget secret. A row without origins answers
+   `origin_denied` on every submission — both hosts, scheme included, because
+   `originAllowed()` string-compares and does no implicit `www`:
 
    ```sql
    UPDATE products
-      SET allowed_origins = '["https://file-viewer.us","https://www.file-viewer.us"]'
-    WHERE slug = 'fileviewer';
+      SET allowed_origins = '["https://file-viewer.us","https://www.file-viewer.us"]',
+          turnstile_ref   = 'TURNSTILE_SECRET_PRODUCTS'
+    WHERE slug = 'file_viewer_us';
    ```
 
-   **Leave `turnstile_ref` NULL.** That is what makes the mailer fall back to the
-   shared `TURNSTILE_SECRET`; a `turnstile_ref` naming a secret the Worker does
-   not hold fails closed on every submission, deliberately, so it cannot silently
-   verify against the wrong widget.
+   **`turnstile_ref` must name the Products widget's secret, not stay NULL.** The
+   mailer falls back to `env.TURNSTILE_SECRET` only when `turnstile_ref` is unset,
+   and that secret belongs to a *different* widget — the one `techguywithabeard.com`
+   ships (`0x4AAAAAAD5MeaGLtwlOoiYM`). This page sends a Products-widget token
+   (`0x4AAAAAAD3zZhlPo_O_mrmP`, the same key `tomatick.us` and `mykk.us` ship, both
+   of which set `TURNSTILE_SECRET_PRODUCTS`). Leaving it NULL verifies a Products
+   token against the tgwab widget's secret, so every submission dies at
+   `siteverify` while the widget itself renders perfectly.
 3. Add `file-viewer.us` to the shared Products widget's hostname list, then run
    `notifyctl sync-mailer` — until that runs, the mailer sees none of the above.
    A widget caps at **10 hostnames**; if that one is full, this product needs its
