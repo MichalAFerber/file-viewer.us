@@ -11,6 +11,9 @@ brand-new viewer green-field, or (b) bring an existing viewer up to parity with
 > parity fixes — a compact centered empty card, `html,body{overflow-x:clip}`, a
 > footer-close specificity fix, and a header-padding media query. This doc
 > reflects the current shell. (The `mykk-bg` storage key is unchanged.)
+> **2026-08:** the shell gains a **family router** (§6.10) — a wrong-viewer
+> redirect offer with an in-browser `postMessage` file hand-off; its canonical
+> data lives in `family-map.json` in this repo.
 
 > **Reference implementation:** [`MichalAFerber/html-web-viewer`](https://github.com/MichalAFerber/html-web-viewer)
 > → `index.html`. When this spec says "copy verbatim from the reference," it
@@ -25,8 +28,9 @@ brand-new viewer green-field, or (b) bring an existing viewer up to parity with
    pasted inline**. It must work fully offline, even from `file://`.
 2. There is **one shared "shell"** (design tokens, top bar, family hamburger
    nav, footer, color picker, drop zone, toast, the **collapse-to-handle
-   auto-hiding header** §6.6, the **SEO/OG kit** §7.1, analytics, security
-   headers) that is **identical** across viewers. Copy it verbatim.
+   auto-hiding header** §6.6, the **family router** §6.10, the **SEO/OG kit**
+   §7.1, analytics, security headers) that is **identical** across viewers.
+   Copy it verbatim.
 3. Each viewer supplies a small **adapter**: its identity (title, domain,
    favicon, repo), its **accepted file types** (listed in the empty-state
    sub-line), and how it turns a file into a **rendered view** (and, for text
@@ -83,6 +87,16 @@ design/template files (this spec). See §16.
 - **data:** `.json .jsonc .json5 .jsonld .ndjson .yaml .yml .toml .csv .tsv .xml .rss .atom .graphql .gql`
 - **docx:** `.docx .docm .dotx .dotm` rendered; `.doc .dot .rtf .odt` accepted-with-notice
 - **sheets:** `.xlsx .xlsm .xlsb .xls .xlt .xltx .xltm .xlam .ods .fods .dif .prn .dbf .numbers` *(CSV/TSV stay with **data** — no overlap)*
+
+> The list above predates the 2026-07 viewers. The **full 13-viewer map** —
+> including eml, pptx, log, cert, pub, and image — is canonical in
+> **`family-map.json`** (this repo) and mirrored as `FAMILY_MAP` in §6.10.
+> One known as-built exception to "no overlap": both markdown and log accept
+> `.txt`; **markdown owns it for routing** (§6.10). Note also that
+> image-viewer.us shipped after the §1 table was last updated, and the repos
+> were renamed 2026-07-30 to match their domains (the hub repo is now
+> `MichalAFerber/file-viewer.us`; older sections still say `file-web-viewer` /
+> `<fmt>-web-viewer`).
 
 **Shared constants (identical everywhere):**
 
@@ -417,6 +431,314 @@ marks **its own** item active.
   system (markdown / epub / data / pdf).
 - The **hub** (`file-viewer.us`) does **not** include this — it shows the cards.
 
+### 6.10 Family router — wrong-viewer redirect offer + in-browser file hand-off
+
+When a dropped / pasted / picked file fails a viewer's own accept gate, don't
+dead-end at the rejection toast. If the extension belongs to a **sibling
+viewer**, show an **offer card** — and, if the user accepts, open that viewer in
+a new tab and **hand the `File` across inside the browser** so they don't have
+to drop it a second time. Accepted files never touch this code path; a file the
+viewer already handles behaves exactly as before.
+
+> **Decision record — no server relay.** An upload-to-a-Worker relay (stash the
+> file, redirect with a token, target pulls it down) was considered and
+> **rejected**: it would falsify the published promise on every page ("files
+> never leave your device" — hero, READMEs, privacy pages, notice cards; §9's
+> "No uploads" rule), require loosening `connect-src` in all 14 CSPs, and stand
+> up an unauthenticated upload endpoint (abuse surface, cost, liability). The
+> hand-off below delivers the same UX with the file never leaving the browser:
+> `postMessage` transfers the `File` between the two tabs via structured clone.
+
+#### Data (byte-identical everywhere)
+
+The canonical source of truth is **`family-map.json` in the hub repo**
+(`MichalAFerber/file-viewer.us`). Each viewer embeds the same data as JS
+constants; the harness keeps them honest (see *Governance* below).
+
+```js
+/* FV-MAP-START — generated from family-map.json (canonical); deep-equality enforced by the harness */
+var FAMILY = {
+  cert:     { domain:"cert-viewer.us",     label:"Cert Viewer",     kind:"a certificate" },
+  data:     { domain:"data-viewer.us",     label:"Data Viewer",     kind:"a data file" },
+  docx:     { domain:"docx-viewer.us",     label:"DOCX Viewer",     kind:"a Word document" },
+  eml:      { domain:"eml-viewer.us",      label:"EML Viewer",      kind:"an email file" },
+  epub:     { domain:"epub-viewer.us",     label:"EPUB Viewer",     kind:"an e-book" },
+  html:     { domain:"html-viewer.us",     label:"HTML Viewer",     kind:"a web or source-code file" },
+  image:    { domain:"image-viewer.us",    label:"Image Viewer",    kind:"an image" },
+  log:      { domain:"log-viewer.us",      label:"Log Viewer",      kind:"a log file" },
+  markdown: { domain:"markdown-viewer.us", label:"Markdown Viewer", kind:"a Markdown or text file" },
+  pdf:      { domain:"pdf-viewer.us",      label:"PDF Viewer",      kind:"a PDF" },
+  pptx:     { domain:"pptx-viewer.us",     label:"PPTX Viewer",     kind:"a presentation" },
+  pub:      { domain:"pub-viewer.us",      label:"PUB Viewer",      kind:"a Publisher file" },
+  sheets:   { domain:"sheets-viewer.us",   label:"Sheets Viewer",   kind:"a spreadsheet" }
+};
+var FAMILY_HUB = "file-viewer.us";
+var FAMILY_NAMES = { "robots.txt": "html" };
+var FAMILY_MAP = {
+  // cert
+  pem:"cert", crt:"cert", cer:"cert", der:"cert", csr:"cert", cert:"cert", p7b:"cert", p12:"cert", pfx:"cert",
+  // data
+  json:"data", jsonc:"data", json5:"data", jsonld:"data", ndjson:"data", yaml:"data", yml:"data", toml:"data",
+  csv:"data", tsv:"data", xml:"data", rss:"data", atom:"data", graphql:"data", gql:"data",
+  // docx (incl. accept-with-notice legacy types — the notice IS the destination's answer)
+  docx:"docx", docm:"docx", dotx:"docx", dotm:"docx", doc:"docx", dot:"docx", rtf:"docx", odt:"docx",
+  // eml
+  eml:"eml", mbox:"eml", emlx:"eml", msg:"eml",
+  // epub
+  epub:"epub",
+  // html (web + source code)
+  html:"html", htm:"html", xhtml:"html", xht:"html", shtml:"html", shtm:"html", stm:"html", hta:"html",
+  mhtml:"html", mht:"html", css:"html", scss:"html", sass:"html", less:"html", styl:"html", pcss:"html",
+  postcss:"html", js:"html", mjs:"html", cjs:"html", jsx:"html", ts:"html", mts:"html", cts:"html",
+  tsx:"html", coffee:"html", htaccess:"html", htpasswd:"html", env:"html", ini:"html", conf:"html",
+  webmanifest:"html", map:"html", php:"html", phtml:"html", asp:"html", aspx:"html", ascx:"html",
+  cshtml:"html", vbhtml:"html", jsp:"html", jspx:"html", cfm:"html", erb:"html", rhtml:"html", ejs:"html",
+  hbs:"html", handlebars:"html", mustache:"html", njk:"html", liquid:"html", jinja:"html", j2:"html",
+  twig:"html", pug:"html", jade:"html", haml:"html", slim:"html", vue:"html", svelte:"html", astro:"html",
+  // image
+  png:"image", jpg:"image", jpeg:"image", jpe:"image", jfif:"image", gif:"image", webp:"image",
+  avif:"image", svg:"image", svgz:"image", bmp:"image", dib:"image", ico:"image", cur:"image",
+  tif:"image", tiff:"image", tga:"image", targa:"image", icb:"image", vda:"image", vst:"image",
+  qoi:"image", pcx:"image", ppm:"image", pgm:"image", pbm:"image", pnm:"image", pam:"image",
+  ff:"image", dds:"image", heic:"image", heif:"image", jxl:"image", psd:"image",
+  // log (NOTE: no txt here — see the ⚠️ below)
+  log:"log", out:"log", err:"log", trace:"log", syslog:"log",
+  // markdown
+  md:"markdown", markdown:"markdown", mdx:"markdown", txt:"markdown", rst:"markdown", adoc:"markdown",
+  // pdf
+  pdf:"pdf",
+  // pptx
+  pptx:"pptx", pptm:"pptx", ppsx:"pptx", ppsm:"pptx", potx:"pptx", potm:"pptx", ppt:"pptx",
+  // pub
+  pub:"pub",
+  // sheets
+  xlsx:"sheets", xlsm:"sheets", xlsb:"sheets", xls:"sheets", xlt:"sheets", xltx:"sheets", xltm:"sheets",
+  xlam:"sheets", ods:"sheets", fods:"sheets", dif:"sheets", prn:"sheets", dbf:"sheets", numbers:"sheets",
+  xlml:"sheets", wk1:"sheets", wk3:"sheets", wks:"sheets", "123":"sheets", et:"sheets", uos:"sheets"
+};
+/* FV-MAP-END */
+var FAMILY_ORIGINS = Object.keys(FAMILY).map(function(k){ return "https://" + FAMILY[k].domain; })
+  .concat("https://" + FAMILY_HUB);   // the hub can send hand-offs; nothing routes to it
+```
+
+⚠️ **`.txt` is accepted by both markdown and log as built.** For routing,
+**markdown owns `.txt`** (per §1). The log viewer keeps `txt` in its own local
+`ACCEPT_EXT` — map ownership decides only where *other* sites send a rejected
+file, never what a viewer accepts for itself.
+
+#### Hook (one line per viewer)
+
+Wherever the "isn't a supported file type" toast fires, try the router first.
+`familyRoute` returns `true` when it showed the offer card (suppress the toast):
+
+```js
+function familyRoute(file){
+  var n = String(file && file.name || "").toLowerCase();
+  var key = FAMILY_NAMES[n];
+  if (!key){
+    var i = n.lastIndexOf(".");
+    var ext = i >= 0 ? n.slice(i + 1) : "";
+    key = FAMILY_MAP[ext];
+  }
+  if (!key || FAMILY[key].domain === DOMAIN) return false;  // unknown type, or our own → caller keeps its toast
+  showRouteCard(file, key);
+  return true;
+}
+// call site (every viewer):
+//   if (!isAccepted(file.name)) { if (!familyRoute(file)) toast("“" + file.name + "” isn’t a supported file type"); return; }
+```
+
+Self-identity comes from the viewer's existing `DOMAIN` constant (§8), so the
+block above stays **byte-identical** on every site. The **image viewer** has no
+accept gate (it sniffs magic bytes); it calls `familyRoute(file)` from its
+"Can't display" path instead, before falling back to its message card.
+
+#### Offer card
+
+The ~2 s toast is too fast for a decision — this is a small dialog styled
+with the shell tokens. Markup (once, near the toast element):
+
+```html
+<div class="route-backdrop" id="routeBackdrop" hidden></div>
+<div class="route-card" id="routeCard" role="alertdialog" aria-modal="true" aria-labelledby="routeMsg" aria-describedby="routeSub" hidden>
+  <p id="routeMsg"></p>
+  <p class="route-sub" id="routeSub" aria-live="polite">Your file stays on this device — nothing is uploaded.</p>
+  <div class="route-actions">
+    <button type="button" class="route-go" id="routeGo"></button>
+    <button type="button" class="route-dismiss" id="routeDismiss">Not now</button>
+  </div>
+</div>
+```
+
+```css
+.route-backdrop{ position:fixed; inset:0; background:var(--shadow); z-index:44 }
+.route-card{ position:fixed; left:50%; top:50%; transform:translate(-50%,-50%); z-index:45;
+  background:var(--surface); color:var(--text); border:1px solid var(--border); border-radius:16px;
+  box-shadow:0 12px 40px var(--shadow); padding:1.1rem 1.25rem; width:min(92vw,26rem) }
+.route-sub{ color:var(--muted); font-size:.85rem; margin-top:.35rem }
+.route-actions{ display:flex; gap:.5rem; justify-content:flex-end; margin-top:.9rem }
+.route-actions button{ border-radius:9px; padding:.55rem .9rem; font:inherit; cursor:pointer }
+.route-go{ background:var(--accent); color:var(--accent-contrast); border:1px solid var(--accent) }
+.route-dismiss{ background:transparent; color:var(--text); border:1px solid var(--border) }
+```
+
+Behavior (verbatim — note every string sink is `textContent`; see the ⚠️ XSS
+rule under the hand-off protocol):
+
+```js
+var routeFile = null, routeKey = "", routePrevFocus = null, handoff = null;
+function cancelHandoff(){                    // tear down a pending hand-off (sender below)
+  if (!handoff) return;
+  window.removeEventListener("message", handoff.onMsg);
+  clearTimeout(handoff.timer);
+  handoff = null;
+}
+function showRouteCard(file, key){
+  cancelHandoff();                           // a new offer aborts any pending hand-off
+  if (id("routeCard").hidden) routePrevFocus = document.activeElement;  // don't capture our own button
+  routeFile = file; routeKey = key;
+  var t = FAMILY[key];
+  // ⁨…⁩ (FSI…PDI) bidi-isolate the untrusted name so U+202E-style
+  // overrides can't visually reorder the sentence.
+  id("routeMsg").textContent = "“⁨" + file.name + "⁩” looks like " + t.kind + " — it belongs to " + t.label + ".";
+  id("routeGo").textContent = "Open " + t.domain + " ↗";
+  id("routeSub").textContent = "Your file stays on this device — nothing is uploaded.";
+  id("routeGo").disabled = false;
+  id("routeBackdrop").hidden = false; id("routeCard").hidden = false;
+  id("routeGo").focus();
+}
+function hideRouteCard(){
+  cancelHandoff();                           // dismissal aborts a pending hand-off
+  id("routeBackdrop").hidden = true; id("routeCard").hidden = true;
+  routeFile = null; routeKey = "";
+  if (routePrevFocus && routePrevFocus.focus) routePrevFocus.focus();
+}
+```
+
+Backdrop click, **Escape** (extend the shell's existing Escape handler), and
+*Not now* all call `hideRouteCard()`; focus returns to the previously focused
+element. **Tab**/**Shift+Tab** cycle between the two buttons while the card is
+open — the dialog claims `aria-modal`, so focus must not walk beneath the
+backdrop. The card carries `aria-describedby="routeSub"` and the sub-line
+`aria-live="polite"`, so the pop-up-blocked and fallback state changes are
+announced. Dropping a different file while the card is open just calls
+`showRouteCard` again — the newest file wins. The card must stack above the
+whole shell: 44/45 clear the topbar (36) and hover zone (35); if a viewer's
+nav panel/backdrop sit higher, raise these two together.
+
+#### Hand-off protocol (sender + receiver)
+
+**Sender** — the `routeGo` click handler (a real user gesture, so no popup
+blocker). Keep the window handle: **no `noopener` on this one `window.open`** —
+the handle is the message channel (acceptable within the trusted family; the
+receiver never touches `window.opener` except for the ready ping).
+
+```js
+id("routeGo").addEventListener("click", function(){
+  if (!routeFile || id("routeGo").disabled) return;               // no double-fire
+  cancelHandoff();
+  var t = FAMILY[routeKey], origin = "https://" + t.domain, file = routeFile;
+  var w = window.open(origin + "/#fvh=" + encodeURIComponent(file.name));
+  if (!w){ id("routeSub").textContent = "Couldn’t open the tab — allow pop-ups for this site and try again."; return; }
+  id("routeGo").disabled = true;
+  var h = {};
+  h.onMsg = function(e){
+    if (e.source !== w || e.origin !== origin || !e.data) return;
+    if (e.data.type === "fv-ready") w.postMessage({ type:"fv-file", file:file }, origin);
+    else if (e.data.type === "fv-ack"){ hideRouteCard(); toast("Sent to " + t.label); }  // hideRouteCard tears the handshake down
+  };
+  h.timer = setTimeout(function(){
+    if (handoff !== h) return;
+    cancelHandoff();
+    id("routeSub").textContent = "Tab opened — drop the file there.";   // Level-1 fallback
+  }, 10000);
+  handoff = h;
+  window.addEventListener("message", h.onMsg);
+});
+```
+
+⚠️ **Tracked hand-off (`handoff`/`cancelHandoff`) is contractual.** Without it,
+a stale listener from an earlier *Open* click survives dismissal: a late
+`fv-ack` from tab A closes a newer card shown for file B, and the old 10 s
+timer rewrites the visible card's sub-line. Dismissing the card or opening a
+new offer must abort the pending hand-off.
+
+**Receiver** — every **viewer** ships this once, in the main IIFE (not the
+hub — nothing routes to it). `handleFile` is the viewer's existing single-file
+entry point:
+
+```js
+window.addEventListener("message", function(e){
+  if (FAMILY_ORIGINS.indexOf(e.origin) === -1) return;      // family origins only
+  var d = e.data;
+  if (d && d.type === "fv-file" && d.file instanceof File){ // clone re-creates a real File in this realm
+    handleFile(d.file);
+    e.source.postMessage({ type:"fv-ack" }, e.origin);      // ack = received and handed to the loader
+  }
+});
+var fvh = /[#&]fvh=([^&]*)/.exec(location.hash);
+if (fvh){
+  var fvhName = decodeURIComponent(fvh[1]);                 // ⚠️ stranger-controlled — textContent only
+  history.replaceState(null, "", location.pathname + location.search);  // always clear, opener or not
+  if (window.opener){
+    try { window.opener.postMessage({ type:"fv-ready" }, "*"); } catch(_){}
+    window.opener = null;    // sever the reverse-navigation channel once the ping is out
+    // SHOULD: empty-state sub-line = "Receiving “" + fvhName + "”…" via textContent; revert after ~10 s
+  }
+}
+```
+
+Rules:
+
+- The `File` crosses via **structured clone** — in-browser, never on the wire.
+  **CSP: no changes** — `postMessage` is not governed by `connect-src`.
+- The ready ping carries **no data** and may go to `"*"`; the sender validates
+  `e.source === w && e.origin === origin` before answering, and posts the file
+  with an **exact** `targetOrigin`. The receiver accepts files only from
+  `FAMILY_ORIGINS`.
+- ⚠️ **XSS:** `file.name` and the decoded `#fvh` value are untrusted input —
+  any page anywhere can open a viewer with an arbitrary hash, no gesture
+  required. Every sink they reach (`routeMsg`, `routeGo`, the toast, the
+  "Receiving…" sub-line, `docTitle`) MUST be assigned via `textContent` (or a
+  text node), never `innerHTML` / `insertAdjacentHTML`. With
+  `script-src 'unsafe-inline'`, one `innerHTML` here is a zero-click DOM XSS.
+- While the hand-off is pending, the receiver SHOULD show
+  `Receiving “<fvhName>”…` in the empty-state sub-line, reverting to normal
+  copy if no file arrives within ~10 s. A direct visit with `#fvh` but no
+  `window.opener` shows the normal empty state (the hash is cleared either
+  way).
+- Unmapped extensions keep today's rejection toast. Multi-file drops route on
+  the first rejected file only (loaders are single-file).
+
+#### Governance
+
+- `family-map.json` (hub repo, `MichalAFerber/file-viewer.us`) is **canonical**.
+  A type changes owners via a hub PR first, then propagates to the viewers.
+- The data block sits between the `/* FV-MAP-START */` and `/* FV-MAP-END */`
+  comments so the harness (§12) can check it **without running the page** (the
+  constants are IIFE-scoped and invisible at runtime): slice `index.html`
+  between the markers, evaluate the object literals in the test process, and
+  deep-compare `FAMILY`, `FAMILY_HUB`, `FAMILY_NAMES`, and `FAMILY_MAP`
+  against the canonical file — read at **test time** from the repo checkout or
+  the hub's raw URL, never fetched at runtime (offline-first). Cross-site
+  parity is **deep-equality** against the canonical file, not byte equality of
+  the block's layout; byte-identity is required between pages of the *same*
+  site that carry the block. Generate the block from `family-map.json` rather
+  than hand-copying a listing.
+- ⚠️ **The allowlist is a domain-trust commitment.** A lapsed or transferred
+  family domain becomes a trusted hand-off target on every site — a
+  file-exfiltration sink that would falsify "files never leave your device."
+  Keep all 14 domains on auto-renew with registrar lock, monitor expiry, and
+  treat the loss of any one as a family-wide incident: remove it from
+  `FAMILY` / `FAMILY_ORIGINS` and redeploy every site immediately.
+- The **hub** ships the **sender side only** — map, offer card, drop/paste
+  plumbing, and toast: a compact drop zone under the hero plus the full-page
+  Universal Viewer at `/universal` (see §16). With `DOMAIN = "file-viewer.us"`
+  every mapped type routes out, making the hub the family's universal front
+  door. Nothing routes *to* the hub, so it ships **no receiver**; its origin is
+  in `FAMILY_ORIGINS` (via `FAMILY_HUB`) so the viewers' receivers accept its
+  hand-offs.
+
 ---
 
 ## 7. Head, favicon & brand icon
@@ -538,6 +860,8 @@ readMode -> "text" | "arraybuffer"
   HTML MUST use the same locked sandbox.
 - **Sanitize** any HTML you inject into the top document (markdown → DOMPurify).
 - **Files never leave the device.** No uploads, no `fetch` of user content.
+  (The §6.10 hand-off moves a `File` between two family tabs via `postMessage`
+  structured clone — in-browser, never over the network.)
 - **`_headers` ships a strict CSP** (§10). Tighten it per viewer:
   - html: needs `style-src/img/font/media … https:` so rendered pages can pull
     external CSS/fonts/images; `script-src` stays `'unsafe-inline'` + Plausible
@@ -622,6 +946,9 @@ A viewer is at parity when **all** of these pass:
 - [ ] **Header:** shows on open, **auto-hides after 3 s** collapsing to the **thick tappable handle** over the rendered content; **hover / touch / tap / scroll-up** reveals it; the source plane keeps the header.
 - [ ] Footer × (far-right, vertically centered — `.footer .footer-close` beats `[data-tip]`) hides the footer; **no horizontal scrollbar** (`html,body{overflow-x:clip}`); header padding parity (`1rem` ≥640 px). Fast tooltips (~0.1 s); touch suppresses them.
 - [ ] Copy and Clear work; toasts fire.
+- [ ] **Family router:** dropping a sibling viewer's type shows the offer card (not the plain toast); *Open* hands the file to the new tab (`fv-ready` → `fv-file` → `fv-ack`); unmapped types still get the rejection toast.
+- [ ] **Router receiver:** a `fv-file` message from a family origin loads the file; non-family origins are ignored; `#fvh` is cleared on load.
+- [ ] **Map parity:** the `/* FV-MAP-START */…/* FV-MAP-END */` block (`FAMILY`, `FAMILY_HUB`, `FAMILY_NAMES`, `FAMILY_MAP`) deep-equals the hub repo's canonical `family-map.json`.
 
 **Planes**
 - [ ] Rendered plane is faithful and **runs no untrusted scripts**.
@@ -725,6 +1052,19 @@ machinery, no hamburger** (it is Home).
 
 Card copy + accepted-type summaries live in the hub’s `index.html`; keep them in
 sync with each viewer’s real accepted list (§1).
+
+> **2026-08 update:** the hub now ships the **family router’s sender side**
+> (§6.10): a compact **universal drop zone** under the hero, a full-page
+> **Universal Viewer** at `/universal` (drag & drop anywhere, paste, or tap to
+> open), and a **`/tools`** directory listing every viewer with the exact
+> extensions it owns (kept in parity with `family-map.json` by the harness).
+> Dropping a file routes it by name — the offer card opens the owning viewer
+> and hands the file across per §6.10. “No file machinery” above is therefore
+> historical: the hub still has **no planes and renders nothing**, but it does
+> carry the drop zone, toast, and router chrome. The header nav and the
+> footer’s Tools column link both pages. Unmapped drops get the hub’s own
+> rejection toast — `“⟨name⟩” isn’t supported by the File Viewer family (yet)`
+> — since the hub speaks for the whole family, not one viewer.
 
 ---
 

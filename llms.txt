@@ -22,6 +22,8 @@ Each viewer is one self-contained HTML file (no build step) and works offline. F
 
 ## Links
 
+- [Universal Viewer](https://file-viewer.us/universal): Drop any file and get routed to the viewer that opens it
+- [All tools](https://file-viewer.us/tools): Every viewer in the family with the exact file types it opens
 - [GitHub](https://github.com/MichalAFerber/file-viewer.us): Source for the hub (each viewer has its own repo under MichalAFerber)
 - [Support](https://file-viewer.us/support): Contact form and answers to the questions that come up most
 - [Privacy Policy](https://file-viewer.us/privacy)
