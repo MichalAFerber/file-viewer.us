@@ -2,14 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sample files — File Viewer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Universal Viewer — File Viewer</title>
   <!-- Privacy-friendly, cookieless analytics (self-hosted Plausible) -->
   <script defer data-domain="file-viewer.us" src="https://plausible.thompsonblack.us/js/script.js"></script>
-  <meta name="description" content="Download a ready-to-test sample file for every File Viewer — Cert, Data, DOCX, EML, ePUB, HTML, Log, Markdown, PDF, PPTX, PUB and Sheets." />
+  <meta name="description" content="Drop any file — the Universal Viewer reads its name on your device and routes you to the right viewer in the family. Nothing is uploaded." />
+  <meta name="author" content="Michal Ferber" />
   <meta name="color-scheme" content="dark light" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://file-viewer.us/samples" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b0e14" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f7fb" />
+  <link rel="canonical" href="https://file-viewer.us/universal" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Universal Viewer — File Viewer" />
+  <meta property="og:description" content="Drop any file — the Universal Viewer reads its name on your device and routes you to the right viewer in the family. Nothing is uploaded." />
+  <meta property="og:url" content="https://file-viewer.us/universal" />
+  <meta property="og:site_name" content="File Viewer" />
+  <meta property="og:image" content="https://file-viewer.us/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:creator" content="@michalaferber" />
+  <meta name="twitter:title" content="Universal Viewer — File Viewer" />
+  <meta name="twitter:description" content="Drop any file — the Universal Viewer reads its name on your device and routes you to the right viewer in the family. Nothing is uploaded." />
+  <meta name="twitter:image" content="https://file-viewer.us/og.png" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='23' y='23' width='17' height='17' rx='3' fill='%23e5484d'/%3E%3Crect x='41' y='19' width='17' height='21' rx='3' fill='%234293e6'/%3E%3Crect x='59' y='23' width='17' height='17' rx='3' fill='%2346a758'/%3E%3Crect x='16' y='31' width='68' height='51' rx='9' fill='%23ef9d2a'/%3E%3Crect x='16' y='40' width='68' height='42' rx='9' fill='%23f6d24c'/%3E%3C/svg%3E" />
   <link rel="alternate icon" href="/favicon.ico" sizes="any" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -118,35 +134,43 @@
     /* ---------- Long-form page body ---------- */
     main.legal { padding: 22px 0 40px; }
     .legal h1 { font-family: var(--display); font-size: clamp(30px, 5vw, 44px); margin: 14px 0 6px; letter-spacing: -.02em; }
-    .legal .updated { color: var(--muted); font-size: 14px; margin: 0 0 26px; }
     .legal h2 { font-family: var(--display); font-size: 21px; margin: 34px 0 10px; letter-spacing: -.01em; }
     .legal p { margin: 12px 0; }
     .legal .lead { font-size: 17px; color: var(--muted); margin: 14px 0 6px; }
     .legal a { color: var(--text); border-bottom: 1px solid var(--border-strong); padding-bottom: 1px; transition: border-color .2s; }
     .legal a:hover { border-color: currentColor; }
-    .legal ul { padding-left: 20px; margin: 12px 0; }
-    .legal li { margin: 8px 0; }
-    .note { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin: 22px 0; }
-    .note p { margin: 6px 0; }
-    .note strong { color: var(--text); }
-    table.creds { width: 100%; border-collapse: collapse; margin: 14px 0 6px; font-size: 14.5px; }
-    table.creds th, table.creds td { text-align: left; padding: 10px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
-    table.creds th { color: var(--muted); font-weight: 600; }
-    table.creds tr:last-child td { border-bottom: none; }
-    .scroll { overflow-x: auto; }
-    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .88em;
-      background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1px 6px; }
-    .sample-lede { font-size: 17px; color: var(--muted); margin: 14px 0 22px; }
-    .sample-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; }
-    .sample-card { border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; background: var(--surface); display: flex; flex-direction: column; gap: 10px; }
-    .sample-open { font-weight: 650; font-size: 15px; text-decoration: none; color: var(--text); border-bottom: none; width: max-content; }
-    .sample-open:hover { text-decoration: underline; }
-    .sample-files { display: flex; flex-wrap: wrap; gap: 6px; }
-    .sample-files a { font-size: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-decoration: none; border-bottom: none; padding: 3px 8px; border: 1px solid var(--border); border-radius: 8px; color: var(--muted); }
-    .sample-files a:hover { color: var(--text); border-color: var(--muted); }
-    /* Addresses are plain text, never a mail link (DS §1 contact surface); the
-       zone's Cloudflare Email Address Obfuscation covers them. */
-    .addr { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.95em; color: var(--text); }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+
+    /* ---------- Universal Viewer drop zone ---------- */
+    .udrop { margin: 26px 0 0; width: 100%; border: 2.5px dashed var(--border-strong); border-radius: 20px; background: var(--surface); padding: clamp(40px, 8vw, 72px) 24px; text-align: center; cursor: pointer; transition: border-color 0.2s ease, transform 0.15s ease; }
+    .udrop:hover { border-color: var(--brand); }
+    .udrop:active { transform: scale(0.995); }
+    .udrop-ico { width: 46px; height: 46px; color: var(--brand); margin: 0 auto 14px; display: block; }
+    .udrop-title { font-family: var(--display); font-size: clamp(20px, 3.4vw, 27px); margin: 0 0 8px; letter-spacing: -.02em; font-weight: 700; }
+    .udrop-sub { color: var(--muted); font-size: 15px; margin: 0 auto; max-width: 46ch; }
+    .uni-note { color: var(--muted); font-size: 14px; margin-top: 18px; }
+
+    /* ---------- FV router (§6.10, hub sender) — byte-identical on / and /universal ---------- */
+    .drop-overlay { position: fixed; inset: 0; z-index: 60; display: none; pointer-events: none; padding: 12px; background: color-mix(in srgb, var(--bg) 55%, transparent); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
+    body.dragging .drop-overlay { display: grid; }
+    .drop-card { width: 100%; height: 100%; display: grid; place-items: center; border: 2.5px dashed var(--brand); border-radius: 20px; font-family: var(--display); font-weight: 700; font-size: clamp(18px, 3vw, 26px); color: var(--text); background: color-mix(in srgb, var(--brand) 8%, transparent); text-align: center; padding: 24px; }
+    .route-backdrop { position: fixed; inset: 0; z-index: 70; background: color-mix(in srgb, var(--bg) 62%, transparent); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); }
+    .route-card { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 71; background: var(--surface); color: var(--text); border: 1px solid var(--border-strong); border-radius: 16px; box-shadow: var(--shadow); padding: 22px 24px; width: min(92vw, 26rem); }
+    .route-card p { margin: 0; overflow-wrap: anywhere; }
+    .route-sub { color: var(--muted); font-size: 13.5px; margin-top: 8px !important; }
+    .route-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 18px; }
+    .route-actions button { font: inherit; font-size: 14px; font-weight: 600; border-radius: 11px; padding: 10px 14px; cursor: pointer; min-height: 44px; }
+    .route-go { background: var(--brand); color: #fff; border: 1px solid color-mix(in srgb, #000 12%, var(--brand)); box-shadow: 0 6px 16px color-mix(in srgb, var(--brand) 32%, transparent); }
+    .route-go:hover { background: color-mix(in srgb, #fff 10%, var(--brand)); }
+    .route-go[disabled] { opacity: 0.6; cursor: default; }
+    .route-dismiss { background: var(--surface-2); color: var(--text); border: 1px solid var(--border-strong); }
+    .route-dismiss:hover { border-color: color-mix(in srgb, var(--text) 35%, var(--border-strong)); }
+    .route-actions button:focus-visible, .hero-drop:focus-visible, .udrop:focus-visible { outline: 2px solid #818cf8; outline-offset: 2px; }
+    .toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 72; background: var(--surface); color: var(--text); border: 1px solid var(--border-strong); border-radius: 12px; box-shadow: var(--shadow); padding: 12px 18px; font-size: 14px; max-width: min(92vw, 34rem); text-align: center; overflow-wrap: anywhere; opacity: 0; pointer-events: none; transition: opacity 0.2s ease; }
+    .toast.show { opacity: 1; }
 
     /* ---------- House header (DS §1) ----------
        Links + CTA + theme toggle. No repo mark here — the Octocat lives in the
@@ -339,14 +363,13 @@
     @media (min-width: 980px) {
       .foot-cols { grid-template-columns: 1.6fr repeat(4, 1fr); }
     }
-
-    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
   </style>
   <!-- Set the theme before first paint (no flash); honors a saved choice, else system -->
   <script>(function(){try{var t=localStorage.getItem("fv-theme");if(t!=="light"&&t!=="dark"){t=(window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches)?"light":"dark";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
+
   <!-- House header (DS §1) — byte-identical on every page; the current item is
        marked by the shared script below, not by hand. -->
   <div class="topbar">
@@ -375,28 +398,38 @@
     </div>
   </div>
 
-  <div class="wrap">
-      <main class="legal" id="main">
-        <h1>Sample files</h1>
-        <p class="sample-lede">Download a sample and drop it into the matching viewer. Everything is invented (a fictional &ldquo;Northwind Coffee Co.&rdquo;) and safe to share.</p>
-        <div class="sample-grid">
-          <div class="sample-card"><a class="sample-open" href="https://cert-viewer.us/" target="_blank" rel="noopener">Cert</a><div class="sample-files"><a href="samples/cert/sample-cert.der" download>sample-cert.der</a><a href="samples/cert/sample-cert.pem" download>sample-cert.pem</a><a href="samples/cert/sample.csr" download>sample.csr</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://data-viewer.us/" target="_blank" rel="noopener">Data</a><div class="sample-files"><a href="samples/data/sample.csv" download>sample.csv</a><a href="samples/data/sample.json" download>sample.json</a><a href="samples/data/sample.toml" download>sample.toml</a><a href="samples/data/sample.xml" download>sample.xml</a><a href="samples/data/sample.yaml" download>sample.yaml</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://docx-viewer.us/" target="_blank" rel="noopener">DOCX</a><div class="sample-files"><a href="samples/docx/sample.docx" download>sample.docx</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://eml-viewer.us/" target="_blank" rel="noopener">EML</a><div class="sample-files"><a href="samples/eml/sample.eml" download>sample.eml</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://epub-viewer.us/" target="_blank" rel="noopener">ePUB</a><div class="sample-files"><a href="samples/epub/sample.epub" download>sample.epub</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://html-viewer.us/" target="_blank" rel="noopener">HTML</a><div class="sample-files"><a href="samples/html/app.js" download>app.js</a><a href="samples/html/app.ts" download>app.ts</a><a href="samples/html/sample.html" download>sample.html</a><a href="samples/html/styles.css" download>styles.css</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://image-viewer.us/" target="_blank" rel="noopener">Image</a><div class="sample-files"><a href="samples/image/sample.tif" download>sample.tif</a><a href="samples/image/sample.qoi" download>sample.qoi</a><a href="samples/image/sample.dds" download>sample.dds</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://log-viewer.us/" target="_blank" rel="noopener">Log</a><div class="sample-files"><a href="samples/log/sample.log" download>sample.log</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://markdown-viewer.us/" target="_blank" rel="noopener">Markdown</a><div class="sample-files"><a href="samples/markdown/sample.md" download>sample.md</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://pdf-viewer.us/" target="_blank" rel="noopener">PDF</a><div class="sample-files"><a href="samples/pdf/sample.pdf" download>sample.pdf</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://pptx-viewer.us/" target="_blank" rel="noopener">PPTX</a><div class="sample-files"><a href="samples/pptx/sample.pptx" download>sample.pptx</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://pub-viewer.us/" target="_blank" rel="noopener">PUB</a><div class="sample-files"><a href="samples/pub/sample.pub" download>sample.pub</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://sheets-viewer.us/" target="_blank" rel="noopener">Sheets</a><div class="sample-files"><a href="samples/sheets/sample.xlsx" download>sample.xlsx</a></div></div>
-        </div>
+  <main class="legal" id="main">
+    <div class="wrap">
+      <h1>Universal Viewer</h1>
+      <p class="lead">One drop zone for every file type the family opens. Drop a file — this page
+      reads its name, finds the right viewer, and offers to take you there.</p>
 
-      </main>
+      <div class="udrop" id="uDrop" data-fv-open role="button" tabindex="0" aria-label="Drop a file to find its viewer, or browse to open one. Nothing is uploaded.">
+        <svg class="udrop-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+        <p class="udrop-title">Drop any file</p>
+        <p class="udrop-sub">Drag &amp; drop anywhere, paste a file, or tap to open. 170+ file types across
+        13 viewers — HTML, Markdown, PDF, EPUB, Office, data, email, logs, certificates, images, and more.</p>
+      </div>
+
+      <p class="uni-note">Everything happens on this device: the file is matched by its name and handed
+      to the viewer in your browser — nothing is uploaded. Not sure what we open? See
+      <a href="/tools">all tools</a> and their file types.</p>
+    </div>
+  </main>
+
+  <!-- FV router chrome (§6.10, hub sender) — byte-identical on / and /universal. -->
+  <input type="file" id="fileInput" hidden>
+  <div class="drop-overlay" aria-hidden="true"><div class="drop-card">Drop it — we’ll route it to the right viewer</div></div>
+  <div class="route-backdrop" id="routeBackdrop" hidden></div>
+  <div class="route-card" id="routeCard" role="alertdialog" aria-modal="true" aria-labelledby="routeMsg" aria-describedby="routeSub" hidden>
+    <p id="routeMsg"></p>
+    <p class="route-sub" id="routeSub" aria-live="polite">Your file stays on this device — nothing is uploaded.</p>
+    <div class="route-actions">
+      <button type="button" class="route-go" id="routeGo"></button>
+      <button type="button" class="route-dismiss" id="routeDismiss">Not now</button>
+    </div>
   </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <!-- House footer (DS §1, product-site variant) — byte-identical on every page. -->
   <footer class="site-footer">
     <div class="foot-inner">
@@ -433,6 +466,202 @@
     </div>
     <p class="foot-credit">&copy; <span data-year></span> | Created with ❤️ by <a href="https://michalferber.dev/" target="_blank" rel="noopener">Michal Ferber</a>, aka <a href="https://techguywithabeard.com/" target="_blank" rel="noopener">TechGuyWithABeard</a>.</p>
   </footer>
+  <!-- FV router behaviour (§6.10, hub sender) — byte-identical on / and /universal. -->
+  <script>
+  (function () {
+    "use strict";
+    /* FV-MAP-START — generated from family-map.json (canonical); deep-equality enforced by the harness */
+    var FAMILY = {
+      cert:     { domain:"cert-viewer.us"      , label:"Cert Viewer"      , kind:"a certificate" },
+      data:     { domain:"data-viewer.us"      , label:"Data Viewer"      , kind:"a data file" },
+      docx:     { domain:"docx-viewer.us"      , label:"DOCX Viewer"      , kind:"a Word document" },
+      eml:      { domain:"eml-viewer.us"       , label:"EML Viewer"       , kind:"an email file" },
+      epub:     { domain:"epub-viewer.us"      , label:"EPUB Viewer"      , kind:"an e-book" },
+      html:     { domain:"html-viewer.us"      , label:"HTML Viewer"      , kind:"a web or source-code file" },
+      image:    { domain:"image-viewer.us"     , label:"Image Viewer"     , kind:"an image" },
+      log:      { domain:"log-viewer.us"       , label:"Log Viewer"       , kind:"a log file" },
+      markdown: { domain:"markdown-viewer.us"  , label:"Markdown Viewer"  , kind:"a Markdown or text file" },
+      pdf:      { domain:"pdf-viewer.us"       , label:"PDF Viewer"       , kind:"a PDF" },
+      pptx:     { domain:"pptx-viewer.us"      , label:"PPTX Viewer"      , kind:"a presentation" },
+      pub:      { domain:"pub-viewer.us"       , label:"PUB Viewer"       , kind:"a Publisher file" },
+      sheets:   { domain:"sheets-viewer.us"    , label:"Sheets Viewer"    , kind:"a spreadsheet" }
+    };
+    var FAMILY_HUB = "file-viewer.us";
+    var FAMILY_NAMES = {"robots.txt":"html"};
+    var FAMILY_MAP = {
+      // sheets
+      "123":"sheets", xlsx:"sheets", xlsm:"sheets", xlsb:"sheets", xls:"sheets", xlt:"sheets", xltx:"sheets", xltm:"sheets",
+      xlam:"sheets", ods:"sheets", fods:"sheets", dif:"sheets", prn:"sheets", dbf:"sheets", numbers:"sheets", xlml:"sheets",
+      wk1:"sheets", wk3:"sheets", wks:"sheets", et:"sheets", uos:"sheets",
+      // cert
+      pem:"cert", crt:"cert", cer:"cert", der:"cert", csr:"cert", cert:"cert", p7b:"cert", p12:"cert",
+      pfx:"cert",
+      // data
+      json:"data", jsonc:"data", json5:"data", jsonld:"data", ndjson:"data", yaml:"data", yml:"data", toml:"data",
+      csv:"data", tsv:"data", xml:"data", rss:"data", atom:"data", graphql:"data", gql:"data",
+      // docx
+      docx:"docx", docm:"docx", dotx:"docx", dotm:"docx", doc:"docx", dot:"docx", rtf:"docx", odt:"docx",
+      // eml
+      eml:"eml", mbox:"eml", emlx:"eml", msg:"eml",
+      // epub
+      epub:"epub",
+      // html
+      html:"html", htm:"html", xhtml:"html", xht:"html", shtml:"html", shtm:"html", stm:"html", hta:"html",
+      mhtml:"html", mht:"html", css:"html", scss:"html", sass:"html", less:"html", styl:"html", pcss:"html",
+      postcss:"html", js:"html", mjs:"html", cjs:"html", jsx:"html", ts:"html", mts:"html", cts:"html",
+      tsx:"html", coffee:"html", htaccess:"html", htpasswd:"html", env:"html", ini:"html", conf:"html", webmanifest:"html",
+      map:"html", php:"html", phtml:"html", asp:"html", aspx:"html", ascx:"html", cshtml:"html", vbhtml:"html",
+      jsp:"html", jspx:"html", cfm:"html", erb:"html", rhtml:"html", ejs:"html", hbs:"html", handlebars:"html",
+      mustache:"html", njk:"html", liquid:"html", jinja:"html", j2:"html", twig:"html", pug:"html", jade:"html",
+      haml:"html", slim:"html", vue:"html", svelte:"html", astro:"html",
+      // image
+      png:"image", jpg:"image", jpeg:"image", jpe:"image", jfif:"image", gif:"image", webp:"image", avif:"image",
+      svg:"image", svgz:"image", bmp:"image", dib:"image", ico:"image", cur:"image", tif:"image", tiff:"image",
+      tga:"image", targa:"image", icb:"image", vda:"image", vst:"image", qoi:"image", pcx:"image", ppm:"image",
+      pgm:"image", pbm:"image", pnm:"image", pam:"image", ff:"image", dds:"image", heic:"image", heif:"image",
+      jxl:"image", psd:"image",
+      // log
+      log:"log", out:"log", err:"log", trace:"log", syslog:"log",
+      // markdown
+      md:"markdown", markdown:"markdown", mdx:"markdown", txt:"markdown", rst:"markdown", adoc:"markdown",
+      // pdf
+      pdf:"pdf",
+      // pptx
+      pptx:"pptx", pptm:"pptx", ppsx:"pptx", ppsm:"pptx", potx:"pptx", potm:"pptx", ppt:"pptx",
+      // pub
+      pub:"pub"
+    };
+    /* FV-MAP-END */
+    var FAMILY_ORIGINS = Object.keys(FAMILY).map(function (k) { return "https://" + FAMILY[k].domain; })
+      .concat("https://" + FAMILY_HUB);
+    var DOMAIN = "file-viewer.us";
+    var body = document.body;
+    function id(s) { return document.getElementById(s); }
+
+    var toastTimer = null, toastClearTimer = null;
+    function toast(msg) {
+      var t = id("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      clearTimeout(toastTimer); clearTimeout(toastClearTimer);
+      toastTimer = setTimeout(function () {
+        t.classList.remove("show");
+        toastClearTimer = setTimeout(function () { t.textContent = ""; }, 300);
+      }, 4000);
+    }
+
+    var routeFile = null, routeKey = "", routePrevFocus = null, handoff = null;
+    function cancelHandoff() {
+      if (!handoff) return;
+      window.removeEventListener("message", handoff.onMsg);
+      clearTimeout(handoff.timer);
+      handoff = null;
+    }
+    function showRouteCard(file, key) {
+      cancelHandoff();
+      if (id("routeCard").hidden) routePrevFocus = document.activeElement;
+      routeFile = file; routeKey = key;
+      var t = FAMILY[key];
+      id("routeMsg").textContent = "\u201C\u2068" + file.name + "\u2069\u201D looks like " + t.kind + " \u2014 it belongs to " + t.label + ".";
+      id("routeGo").textContent = "Open " + t.domain + " \u2197";
+      id("routeSub").textContent = "Your file stays on this device \u2014 nothing is uploaded.";
+      id("routeGo").disabled = false;
+      id("routeBackdrop").hidden = false; id("routeCard").hidden = false;
+      id("routeGo").focus();
+    }
+    function hideRouteCard() {
+      cancelHandoff();
+      id("routeBackdrop").hidden = true; id("routeCard").hidden = true;
+      routeFile = null; routeKey = "";
+      if (routePrevFocus && routePrevFocus.focus) routePrevFocus.focus();
+    }
+
+    function familyRoute(file) {
+      var n = String(file && file.name || "").toLowerCase();
+      var key = FAMILY_NAMES[n];
+      if (!key) {
+        var i = n.lastIndexOf(".");
+        var ext = i >= 0 ? n.slice(i + 1) : "";
+        key = FAMILY_MAP[ext];
+      }
+      if (!key || FAMILY[key].domain === DOMAIN) return false;
+      showRouteCard(file, key);
+      return true;
+    }
+    function route(file) {
+      if (!familyRoute(file)) {
+        toast("\u201C\u2068" + file.name + "\u2069\u201D isn\u2019t supported by the File Viewer family (yet)");
+      }
+    }
+
+    id("routeGo").addEventListener("click", function () {
+      if (!routeFile || id("routeGo").disabled) return;               // no double-fire
+      cancelHandoff();
+      var t = FAMILY[routeKey], origin = "https://" + t.domain, file = routeFile;
+      var w = window.open(origin + "/#fvh=" + encodeURIComponent(file.name));
+      if (!w) { id("routeSub").textContent = "Couldn\u2019t open the tab \u2014 allow pop-ups for this site and try again."; return; }
+      id("routeGo").disabled = true;
+      var h = {};
+      h.onMsg = function (e) {
+        if (e.source !== w || e.origin !== origin || !e.data) return;
+        if (e.data.type === "fv-ready") w.postMessage({ type: "fv-file", file: file }, origin);
+        else if (e.data.type === "fv-ack") { hideRouteCard(); toast("Sent to " + t.label); }   // hideRouteCard tears the handshake down
+      };
+      h.timer = setTimeout(function () {
+        if (handoff !== h) return;
+        cancelHandoff();
+        id("routeSub").textContent = "Tab opened \u2014 drop the file there.";   // Level-1 fallback
+      }, 10000);
+      handoff = h;
+      window.addEventListener("message", h.onMsg);
+    });
+    id("routeDismiss").addEventListener("click", hideRouteCard);
+    id("routeBackdrop").addEventListener("click", hideRouteCard);
+    document.addEventListener("keydown", function (e) {
+      if (id("routeCard").hidden) return;
+      if (e.key === "Escape") { hideRouteCard(); return; }
+      if (e.key === "Tab") {
+        e.preventDefault();
+        var go = id("routeGo"), no = id("routeDismiss");
+        (document.activeElement === go || go.disabled ? no : go).focus();
+      }
+    });
+
+    // Open the picker from any element marked data-fv-open (hero card, /universal card).
+    Array.prototype.forEach.call(document.querySelectorAll("[data-fv-open]"), function (el) {
+      el.addEventListener("click", function () { id("fileInput").click(); });
+      el.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); id("fileInput").click(); }
+      });
+    });
+    id("fileInput").addEventListener("change", function () {
+      if (this.files && this.files[0]) route(this.files[0]);
+      this.value = "";
+    });
+
+    // Drag & drop anywhere on the page (§6.7), full-screen overlay while dragging.
+    var dragDepth = 0;
+    function dragHasFiles(e) {
+      var ts = e.dataTransfer && e.dataTransfer.types;
+      return !!ts && Array.prototype.indexOf.call(ts, "Files") >= 0;
+    }
+    window.addEventListener("dragenter", function (e) { e.preventDefault(); if (!dragHasFiles(e)) return; dragDepth++; body.classList.add("dragging"); });
+    window.addEventListener("dragover", function (e) { e.preventDefault(); });
+    window.addEventListener("dragleave", function () { if (--dragDepth <= 0) { dragDepth = 0; body.classList.remove("dragging"); } });
+    window.addEventListener("drop", function (e) {
+      e.preventDefault();
+      dragDepth = 0; body.classList.remove("dragging");
+      var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+      if (f) route(f);
+    });
+
+    // Pasted files route too; pasted text has no file name, so it can't.
+    document.addEventListener("paste", function (e) {
+      var f = e.clipboardData && e.clipboardData.files && e.clipboardData.files[0];
+      if (f) route(f);
+    });
+  })();
+  </script>
   <!-- House chrome behaviour (DS §1) — byte-identical on every page. -->
   <script>
   (function () {

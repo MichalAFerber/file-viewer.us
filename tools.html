@@ -2,14 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sample files — File Viewer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Tools — File Viewer</title>
   <!-- Privacy-friendly, cookieless analytics (self-hosted Plausible) -->
   <script defer data-domain="file-viewer.us" src="https://plausible.thompsonblack.us/js/script.js"></script>
-  <meta name="description" content="Download a ready-to-test sample file for every File Viewer — Cert, Data, DOCX, EML, ePUB, HTML, Log, Markdown, PDF, PPTX, PUB and Sheets." />
+  <meta name="description" content="All 13 File Viewer tools and the exact file types each one opens — single-file, offline, nothing uploaded." />
+  <meta name="author" content="Michal Ferber" />
   <meta name="color-scheme" content="dark light" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://file-viewer.us/samples" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b0e14" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f7fb" />
+  <link rel="canonical" href="https://file-viewer.us/tools" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Tools — File Viewer" />
+  <meta property="og:description" content="All 13 File Viewer tools and the exact file types each one opens — single-file, offline, nothing uploaded." />
+  <meta property="og:url" content="https://file-viewer.us/tools" />
+  <meta property="og:site_name" content="File Viewer" />
+  <meta property="og:image" content="https://file-viewer.us/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:creator" content="@michalaferber" />
+  <meta name="twitter:title" content="Tools — File Viewer" />
+  <meta name="twitter:description" content="All 13 File Viewer tools and the exact file types each one opens — single-file, offline, nothing uploaded." />
+  <meta name="twitter:image" content="https://file-viewer.us/og.png" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='23' y='23' width='17' height='17' rx='3' fill='%23e5484d'/%3E%3Crect x='41' y='19' width='17' height='21' rx='3' fill='%234293e6'/%3E%3Crect x='59' y='23' width='17' height='17' rx='3' fill='%2346a758'/%3E%3Crect x='16' y='31' width='68' height='51' rx='9' fill='%23ef9d2a'/%3E%3Crect x='16' y='40' width='68' height='42' rx='9' fill='%23f6d24c'/%3E%3C/svg%3E" />
   <link rel="alternate icon" href="/favicon.ico" sizes="any" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -118,36 +134,30 @@
     /* ---------- Long-form page body ---------- */
     main.legal { padding: 22px 0 40px; }
     .legal h1 { font-family: var(--display); font-size: clamp(30px, 5vw, 44px); margin: 14px 0 6px; letter-spacing: -.02em; }
-    .legal .updated { color: var(--muted); font-size: 14px; margin: 0 0 26px; }
     .legal h2 { font-family: var(--display); font-size: 21px; margin: 34px 0 10px; letter-spacing: -.01em; }
     .legal p { margin: 12px 0; }
     .legal .lead { font-size: 17px; color: var(--muted); margin: 14px 0 6px; }
     .legal a { color: var(--text); border-bottom: 1px solid var(--border-strong); padding-bottom: 1px; transition: border-color .2s; }
     .legal a:hover { border-color: currentColor; }
-    .legal ul { padding-left: 20px; margin: 12px 0; }
-    .legal li { margin: 8px 0; }
-    .note { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin: 22px 0; }
-    .note p { margin: 6px 0; }
-    .note strong { color: var(--text); }
-    table.creds { width: 100%; border-collapse: collapse; margin: 14px 0 6px; font-size: 14.5px; }
-    table.creds th, table.creds td { text-align: left; padding: 10px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
-    table.creds th { color: var(--muted); font-weight: 600; }
-    table.creds tr:last-child td { border-bottom: none; }
-    .scroll { overflow-x: auto; }
-    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .88em;
-      background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1px 6px; }
-    .sample-lede { font-size: 17px; color: var(--muted); margin: 14px 0 22px; }
-    .sample-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; }
-    .sample-card { border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; background: var(--surface); display: flex; flex-direction: column; gap: 10px; }
-    .sample-open { font-weight: 650; font-size: 15px; text-decoration: none; color: var(--text); border-bottom: none; width: max-content; }
-    .sample-open:hover { text-decoration: underline; }
-    .sample-files { display: flex; flex-wrap: wrap; gap: 6px; }
-    .sample-files a { font-size: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-decoration: none; border-bottom: none; padding: 3px 8px; border: 1px solid var(--border); border-radius: 8px; color: var(--muted); }
-    .sample-files a:hover { color: var(--text); border-color: var(--muted); }
-    /* Addresses are plain text, never a mail link (DS §1 contact surface); the
-       zone's Cloudflare Email Address Obfuscation covers them. */
-    .addr { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.95em; color: var(--text); }
 
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+
+    /* ---------- Tools directory ---------- */
+    .tool { border: 1px solid var(--border); border-radius: 16px; background: var(--surface); padding: 20px 22px; margin: 18px 0; }
+    .tool-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+    .tool-head h2 { margin: 0; flex: 1 1 auto; }
+    .tool-links { display: inline-flex; gap: 14px; font-size: 14px; font-weight: 600; }
+    .tool-links a { border-bottom: none; }
+    .tool-links a:hover { text-decoration: underline; }
+    .tool-gh { color: var(--muted); }
+    .tool p { margin: 8px 0 12px; color: var(--muted); }
+    .tool-exts { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tool-exts code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; padding: 3px 8px; border: 1px solid var(--border); border-radius: 8px; color: var(--muted); background: transparent; }
+    .tool-exts code.name-chip { border-style: dashed; }
+    .tools-lede a { color: var(--text); border-bottom: 1px solid var(--border-strong); padding-bottom: 1px; }
+    .tools-lede a:hover { border-color: currentColor; }
     /* ---------- House header (DS §1) ----------
        Links + CTA + theme toggle. No repo mark here — the Octocat lives in the
        footer's brand column (DS §1, v2.33.0). This block is byte-identical on
@@ -339,14 +349,13 @@
     @media (min-width: 980px) {
       .foot-cols { grid-template-columns: 1.6fr repeat(4, 1fr); }
     }
-
-    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
   </style>
   <!-- Set the theme before first paint (no flash); honors a saved choice, else system -->
   <script>(function(){try{var t=localStorage.getItem("fv-theme");if(t!=="light"&&t!=="dark"){t=(window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches)?"light":"dark";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
+
   <!-- House header (DS §1) — byte-identical on every page; the current item is
        marked by the shared script below, not by hand. -->
   <div class="topbar">
@@ -375,28 +384,172 @@
     </div>
   </div>
 
-  <div class="wrap">
-      <main class="legal" id="main">
-        <h1>Sample files</h1>
-        <p class="sample-lede">Download a sample and drop it into the matching viewer. Everything is invented (a fictional &ldquo;Northwind Coffee Co.&rdquo;) and safe to share.</p>
-        <div class="sample-grid">
-          <div class="sample-card"><a class="sample-open" href="https://cert-viewer.us/" target="_blank" rel="noopener">Cert</a><div class="sample-files"><a href="samples/cert/sample-cert.der" download>sample-cert.der</a><a href="samples/cert/sample-cert.pem" download>sample-cert.pem</a><a href="samples/cert/sample.csr" download>sample.csr</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://data-viewer.us/" target="_blank" rel="noopener">Data</a><div class="sample-files"><a href="samples/data/sample.csv" download>sample.csv</a><a href="samples/data/sample.json" download>sample.json</a><a href="samples/data/sample.toml" download>sample.toml</a><a href="samples/data/sample.xml" download>sample.xml</a><a href="samples/data/sample.yaml" download>sample.yaml</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://docx-viewer.us/" target="_blank" rel="noopener">DOCX</a><div class="sample-files"><a href="samples/docx/sample.docx" download>sample.docx</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://eml-viewer.us/" target="_blank" rel="noopener">EML</a><div class="sample-files"><a href="samples/eml/sample.eml" download>sample.eml</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://epub-viewer.us/" target="_blank" rel="noopener">ePUB</a><div class="sample-files"><a href="samples/epub/sample.epub" download>sample.epub</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://html-viewer.us/" target="_blank" rel="noopener">HTML</a><div class="sample-files"><a href="samples/html/app.js" download>app.js</a><a href="samples/html/app.ts" download>app.ts</a><a href="samples/html/sample.html" download>sample.html</a><a href="samples/html/styles.css" download>styles.css</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://image-viewer.us/" target="_blank" rel="noopener">Image</a><div class="sample-files"><a href="samples/image/sample.tif" download>sample.tif</a><a href="samples/image/sample.qoi" download>sample.qoi</a><a href="samples/image/sample.dds" download>sample.dds</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://log-viewer.us/" target="_blank" rel="noopener">Log</a><div class="sample-files"><a href="samples/log/sample.log" download>sample.log</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://markdown-viewer.us/" target="_blank" rel="noopener">Markdown</a><div class="sample-files"><a href="samples/markdown/sample.md" download>sample.md</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://pdf-viewer.us/" target="_blank" rel="noopener">PDF</a><div class="sample-files"><a href="samples/pdf/sample.pdf" download>sample.pdf</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://pptx-viewer.us/" target="_blank" rel="noopener">PPTX</a><div class="sample-files"><a href="samples/pptx/sample.pptx" download>sample.pptx</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://pub-viewer.us/" target="_blank" rel="noopener">PUB</a><div class="sample-files"><a href="samples/pub/sample.pub" download>sample.pub</a></div></div>
-          <div class="sample-card"><a class="sample-open" href="https://sheets-viewer.us/" target="_blank" rel="noopener">Sheets</a><div class="sample-files"><a href="samples/sheets/sample.xlsx" download>sample.xlsx</a></div></div>
-        </div>
+  <main class="legal" id="main">
+    <div class="wrap">
+      <h1>Tools</h1>
+      <p class="lead tools-lede">Every tool in the File Viewer family, with the exact file types each one
+      opens. Each viewer is a single HTML file that runs offline — nothing is ever uploaded. Not sure
+      which one you need? Drop your file on the <a href="/universal">Universal Viewer</a> and it will
+      route you. Want to try one first? Grab a file from the <a href="/samples">samples</a>.</p>
 
-      </main>
-  </div>
+      <section class="tool">
+        <div class="tool-head">
+          <h2>Cert Viewer</h2>
+          <span class="tool-links">
+            <a class="tool-gh" href="https://github.com/MichalAFerber/cert-viewer.us" target="_blank" rel="noopener" aria-label="Cert Viewer on GitHub">GitHub</a>
+            <a class="tool-open" href="https://cert-viewer.us/" target="_blank" rel="noopener">Open cert-viewer.us <span aria-hidden="true">↗</span></a>
+          </span>
+        </div>
+        <p>X.509 certificates, CSRs &amp; keys — subject/issuer, validity, SANs, fingerprints.</p>
+        <div class="tool-exts" data-viewer="cert"><code>.pem</code> <code>.crt</code> <code>.cer</code> <code>.der</code> <code>.csr</code> <code>.cert</code> <code>.p7b</code> <code>.p12</code> <code>.pfx</code></div>
+      </section>
+
+      <section class="tool">
+        <div class="tool-head">
+          <h2>Data Viewer</h2>
+          <span class="tool-links">
+            <a class="tool-gh" href="https://github.com/MichalAFerber/data-viewer.us" target="_blank" rel="noopener" aria-label="Data Viewer on GitHub">GitHub</a>
+            <a class="tool-open" href="https://data-viewer.us/" target="_blank" rel="noopener">Open data-viewer.us <span aria-hidden="true">↗</span></a>
+          </span>
+        </div>
+        <p>JSON, YAML, CSV, XML &amp; TOML with a collapsible tree + table view.</p>
+        <div class="tool-exts" data-viewer="data"><code>.json</code> <code>.jsonc</code> <code>.json5</code> <code>.jsonld</code> <code>.ndjson</code> <code>.yaml</code> <code>.yml</code> <code>.toml</code> <code>.csv</code> <code>.tsv</code> <code>.xml</code> <code>.rss</code> <code>.atom</code> <code>.graphql</code> <code>.gql</code></div>
+      </section>
+
+      <section class="tool">
+        <div class="tool-head">
+          <h2>DOCX Viewer</h2>
+          <span class="tool-links">
+            <a class="tool-gh" href="https://github.com/MichalAFerber/docx-viewer.us" target="_blank" rel="noopener" aria-label="DOCX Viewer on GitHub">GitHub</a>
+            <a class="tool-open" href="https://docx-viewer.us/" target="_blank" rel="noopener">Open docx-viewer.us <span aria-hidden="true">↗</span></a>
+          </span>
+        </div>
+        <p>Word documents with formatting, styles, tables &amp; images.</p>
+        <div class="tool-exts" data-viewer="docx"><code>.docx</code> <code>.docm</code> <code>.dotx</code> <code>.dotm</code> <code>.doc</code> <code>.dot</code> <code>.rtf</code> <code>.odt</code></div>
+      </section>
+
+      <section class="tool">
+        <div class="tool-head">
+          <h2>EML Viewer</h2>
+          <span class="tool-links">
+            <a class="tool-gh" href="https://github.com/MichalAFerber/eml-viewer.us" target="_blank" rel="noopener" aria-label="EML Viewer on GitHub">GitHub</a>
+            <a class="tool-open" href="https://eml-viewer.us/" target="_blank" rel="noopener">Open eml-viewer.us <span aria-hidden="true">↗</span></a>
+          </span>
+        </div>
+        <p>Email messages — headers, HTML/plain body, attachments, SPF/DKIM/DMARC.</p>
+        <div class="tool-exts" data-viewer="eml"><code>.eml</code> <code>.mbox</code> <code>.emlx</code> <code>.msg</code></div>
+      </section>
+
+      <section class="tool">
+        <div class="tool-head">
+          <h2>EPUB Viewer</h2>
+          <span class="tool-links">
+            <a class="tool-gh" href="https://github.com/MichalAFerber/epub-viewer.us" target="_blank" rel="noopener" aria-label="EPUB Viewer on GitHub">GitHub</a>
+            <a class="tool-open" href="https://epub-viewer.us/" target="_blank" rel="noopener">Open epub-viewer.us <span aria-hidden="true">↗</span></a>
+          </span>
+        </div>
+        <p>EPUB e-books with chapters, images &amp; styling.</p>
+        <div class="tool-exts" data-viewer="epub"><code>.epub</code></div>
+      </section>
+
+      <section class="tool">
+        <div class="tool-head">
+          <h2>HTML Viewer</h2>
+          <span class="tool-links">
+            <a class="tool-gh" href="https://github.com/MichalAFerber/html-viewer.us" target="_blank" rel="noopener" aria-label="HTML Viewer on GitHub">GitHub</a>
+            <a class="tool-open" href="https://html-viewer.us/" target="_blank" rel="noopener">Open html-viewer.us <span aria-hidden="true">↗</span></a>
+          </span>
+        </div>
+        <p>Rendered HTML plus syntax-highlighted CSS / JS / TS source.</p>
+        <div class="tool-exts" data-viewer="html"><code>.html</code> <code>.htm</code> <code>.xhtml</code> <code>.xht</code> <code>.shtml</code> <code>.shtm</code> <code>.stm</code> <code>.hta</code> <code>.mhtml</code> <code>.mht</code> <code>.css</code> <code>.scss</code> <code>.sass</code> <code>.less</code> <code>.styl</code> <code>.pcss</code> <code>.postcss</code> <code>.js</code> <code>.mjs</code> <code>.cjs</code> <code>.jsx</code> <code>.ts</code> <code>.mts</code> <code>.cts</code> <code>.tsx</code> <code>.coffee</code> <code>.htaccess</code> <code>.htpasswd</code> <code>.env</code> <code>.ini</code> <code>.conf</code> <code>.webmanifest</code> <code>.map</code> <code>.php</code> <code>.phtml</code> <code>.asp</code> <code>.aspx</code> <code>.ascx</code> <code>.cshtml</code> <code>.vbhtml</code> <code>.jsp</code> <code>.jspx</code> <code>.cfm</code> <code>.erb</code> <code>.rhtml</code> <code>.ejs</code> <code>.hbs</code> <code>.handlebars</code> <code>.mustache</code> <code>.njk</code> <code>.liquid</code> <code>.jinja</code> <code>.j2</code> <code>.twig</code> <code>.pug</code> <code>.jade</code> <code>.haml</code> <code>.slim</code> <code>.vue</code> <code>.svelte</code> <code>.astro</code> <code class="name-chip">robots.txt</code></div>
+      </section>
+
+      <section class="tool">
+        <div class="tool-head">
+          <h2>Image Viewer</h2>
+          <span class="tool-links">
+            <a class="tool-gh" href="https://github.com/MichalAFerber/image-viewer.us" target="_blank" rel="noopener" aria-label="Image Viewer on GitHub">GitHub</a>
+            <a class="tool-open" href="https://image-viewer.us/" target="_blank" rel="noopener">Open image-viewer.us <span aria-hidden="true">↗</span></a>
+          </span>
+        </div>
+        <p>PNG, JPEG, WebP, SVG, TIFF, TGA, QOI, PCX, PPM, farbfeld &amp; DDS — zoom, EXIF, PNG export.</p>
+        <div class="tool-exts" data-viewer="image"><code>.png</code> <code>.jpg</code> <code>.jpeg</code> <code>.jpe</code> <code>.jfif</code> <code>.gif</code> <code>.webp</code> <code>.avif</code> <code>.svg</code> <code>.svgz</code> <code>.bmp</code> <code>.dib</code> <code>.ico</code> <code>.cur</code> <code>.tif</code> <code>.tiff</code> <code>.tga</code> <code>.targa</code> <code>.icb</code> <code>.vda</code> <code>.vst</code> <code>.qoi</code> <code>.pcx</code> <code>.ppm</code> <code>.pgm</code> <code>.pbm</code> <code>.pnm</code> <code>.pam</code> <code>.ff</code> <code>.dds</code> <code>.heic</code> <code>.heif</code> <code>.jxl</code> <code>.psd</code></div>
+      </section>
+
+      <section class="tool">
+        <div class="tool-head">
+          <h2>Log Viewer</h2>
+          <span class="tool-links">
+            <a class="tool-gh" href="https://github.com/MichalAFerber/log-viewer.us" target="_blank" rel="noopener" aria-label="Log Viewer on GitHub">GitHub</a>
+            <a class="tool-open" href="https://log-viewer.us/" target="_blank" rel="noopener">Open log-viewer.us <span aria-hidden="true">↗</span></a>
+          </span>
+        </div>
+        <p>Large logs with virtual scrolling, level coloring &amp; search.</p>
+        <div class="tool-exts" data-viewer="log"><code>.log</code> <code>.out</code> <code>.err</code> <code>.trace</code> <code>.syslog</code></div>
+      </section>
+
+      <section class="tool">
+        <div class="tool-head">
+          <h2>Markdown Viewer</h2>
+          <span class="tool-links">
+            <a class="tool-gh" href="https://github.com/MichalAFerber/markdown-viewer.us" target="_blank" rel="noopener" aria-label="Markdown Viewer on GitHub">GitHub</a>
+            <a class="tool-open" href="https://markdown-viewer.us/" target="_blank" rel="noopener">Open markdown-viewer.us <span aria-hidden="true">↗</span></a>
+          </span>
+        </div>
+        <p>Markdown, TXT, RST &amp; AsciiDoc rendered to formatted HTML.</p>
+        <div class="tool-exts" data-viewer="markdown"><code>.md</code> <code>.markdown</code> <code>.mdx</code> <code>.txt</code> <code>.rst</code> <code>.adoc</code></div>
+      </section>
+
+      <section class="tool">
+        <div class="tool-head">
+          <h2>PDF Viewer</h2>
+          <span class="tool-links">
+            <a class="tool-gh" href="https://github.com/MichalAFerber/pdf-viewer.us" target="_blank" rel="noopener" aria-label="PDF Viewer on GitHub">GitHub</a>
+            <a class="tool-open" href="https://pdf-viewer.us/" target="_blank" rel="noopener">Open pdf-viewer.us <span aria-hidden="true">↗</span></a>
+          </span>
+        </div>
+        <p>PDF documents, page by page.</p>
+        <div class="tool-exts" data-viewer="pdf"><code>.pdf</code></div>
+      </section>
+
+      <section class="tool">
+        <div class="tool-head">
+          <h2>PPTX Viewer</h2>
+          <span class="tool-links">
+            <a class="tool-gh" href="https://github.com/MichalAFerber/pptx-viewer.us" target="_blank" rel="noopener" aria-label="PPTX Viewer on GitHub">GitHub</a>
+            <a class="tool-open" href="https://pptx-viewer.us/" target="_blank" rel="noopener">Open pptx-viewer.us <span aria-hidden="true">↗</span></a>
+          </span>
+        </div>
+        <p>PowerPoint slides with text, shapes &amp; layout.</p>
+        <div class="tool-exts" data-viewer="pptx"><code>.pptx</code> <code>.pptm</code> <code>.ppsx</code> <code>.ppsm</code> <code>.potx</code> <code>.potm</code> <code>.ppt</code></div>
+      </section>
+
+      <section class="tool">
+        <div class="tool-head">
+          <h2>PUB Viewer</h2>
+          <span class="tool-links">
+            <a class="tool-gh" href="https://github.com/MichalAFerber/pub-viewer.us" target="_blank" rel="noopener" aria-label="PUB Viewer on GitHub">GitHub</a>
+            <a class="tool-open" href="https://pub-viewer.us/" target="_blank" rel="noopener">Open pub-viewer.us <span aria-hidden="true">↗</span></a>
+          </span>
+        </div>
+        <p>Microsoft Publisher metadata &amp; extracted text (best-effort).</p>
+        <div class="tool-exts" data-viewer="pub"><code>.pub</code></div>
+      </section>
+
+      <section class="tool">
+        <div class="tool-head">
+          <h2>Sheets Viewer</h2>
+          <span class="tool-links">
+            <a class="tool-gh" href="https://github.com/MichalAFerber/sheets-viewer.us" target="_blank" rel="noopener" aria-label="Sheets Viewer on GitHub">GitHub</a>
+            <a class="tool-open" href="https://sheets-viewer.us/" target="_blank" rel="noopener">Open sheets-viewer.us <span aria-hidden="true">↗</span></a>
+          </span>
+        </div>
+        <p>Excel / ODS spreadsheets with multiple sheets &amp; formulas.</p>
+        <div class="tool-exts" data-viewer="sheets"><code>.123</code> <code>.xlsx</code> <code>.xlsm</code> <code>.xlsb</code> <code>.xls</code> <code>.xlt</code> <code>.xltx</code> <code>.xltm</code> <code>.xlam</code> <code>.ods</code> <code>.fods</code> <code>.dif</code> <code>.prn</code> <code>.dbf</code> <code>.numbers</code> <code>.xlml</code> <code>.wk1</code> <code>.wk3</code> <code>.wks</code> <code>.et</code> <code>.uos</code></div>
+      </section>
+    </div>
+  </main>
+
   <!-- House footer (DS §1, product-site variant) — byte-identical on every page. -->
   <footer class="site-footer">
     <div class="foot-inner">

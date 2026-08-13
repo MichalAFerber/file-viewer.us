@@ -233,8 +233,10 @@
       :root:not([data-theme]) #themeToggle .i-sun { display: none; }
       :root:not([data-theme]) #themeToggle .i-moon { display: block; }
     }
-    /* Mobile: the links collapse behind the ☰ button and drop out of the bar. */
-    @media (max-width: 767px) {
+    /* Mobile + tablet: the links collapse behind the ☰ button and drop out of
+       the bar. The threshold sits at 900px — six links plus the CTA need more
+       room than the classic 768px tier leaves. */
+    @media (max-width: 899px) {
       .sitenav {
         position: absolute;
         left: 0; right: 0; top: 100%;
@@ -249,7 +251,7 @@
       body.nav-open .sitenav { display: flex; }
       .sitenav .nav-cta { margin: 6px 0 0; justify-content: center; }
     }
-    @media (min-width: 768px) {
+    @media (min-width: 900px) {
       .sitenav { display: inline-flex; }
       #navToggle { display: none; }
     }
@@ -257,9 +259,8 @@
     /* ---------- House footer (DS §1, product-site variant) ----------
        Brand column (mark + tagline + Class A repo button), then
        Tools · Resources · About · Legal, over the exact ❤️ credit line.
-       `Tools` has nothing to hold here — every viewer is its own domain, not an
-       on-site page — so the column keeps its grid slot at the desktop tier and
-       is hidden below it, which is what lines the family's footers up. */
+       `Tools` holds the hub's own tool pages — the Universal Viewer drop zone
+       and the all-tools directory — so the column is a real nav at every tier. */
     .site-footer {
       border-top: 1px solid var(--border);
       margin-top: 48px;
@@ -319,7 +320,6 @@
     }
     .fcol a:hover, .fcol a[aria-current="page"] { color: var(--text); }
     .fcol a:focus-visible { outline: 2px solid #818cf8; outline-offset: 2px; }
-    .fcol-tools { display: none; }
     .foot-credit {
       max-width: 1120px;
       margin: 32px auto 0;
@@ -338,7 +338,6 @@
     @media (min-width: 768px) { .foot-cols { grid-template-columns: repeat(2, 1fr); } }
     @media (min-width: 980px) {
       .foot-cols { grid-template-columns: 1.6fr repeat(4, 1fr); }
-      .fcol-tools { display: block; }
     }
 
     @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
@@ -358,6 +357,8 @@
       </a>
       <div class="topbar-actions">
         <nav class="sitenav" id="siteNav" aria-label="Site">
+          <a href="/universal">Universal Viewer</a>
+          <a href="/tools">Tools</a>
           <a href="/samples">Samples</a>
           <a href="/credits">Credits</a>
           <a href="/support">Support</a>
@@ -476,7 +477,11 @@
           <p class="foot-tagline">Fast, single-file viewers that open your files right in the browser. Nothing is uploaded.</p>
           <a class="foot-gh" href="https://github.com/MichalAFerber/file-viewer.us" target="_blank" rel="noopener" aria-label="File Viewer on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 018 4.58c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a>
         </div>
-        <div class="fcol fcol-tools" aria-hidden="true"></div>
+        <nav class="fcol fcol-tools" aria-labelledby="foot-tools">
+          <h2 id="foot-tools">Tools</h2>
+          <a href="/universal">Universal Viewer</a>
+          <a href="/tools">All tools</a>
+        </nav>
         <nav class="fcol" aria-labelledby="foot-resources">
           <h2 id="foot-resources">Resources</h2>
           <a href="/samples">Samples</a>

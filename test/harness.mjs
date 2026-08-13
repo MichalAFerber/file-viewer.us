@@ -103,7 +103,7 @@ await check("mobile nav discloses the links (§3)", async () => {
 await page.setViewportSize({ width: 1280, height: 900 });
 
 // ------------------------------------------------- house chrome, every page ---
-const PAGES = ["/", "/samples", "/credits", "/privacy", "/terms", "/support", "/does-not-exist"];
+const PAGES = ["/", "/samples", "/credits", "/privacy", "/terms", "/support", "/tools", "/universal", "/does-not-exist"];
 
 for (const path of PAGES) {
   await go(path);
@@ -138,7 +138,7 @@ for (const path of PAGES) {
   await check(`${label}: footer columns Tools · Resources · About · Legal (§1)`, async () => {
     const headings = await page.locator(".foot-cols .fcol h2").allTextContents();
     const tools = await page.locator(".foot-cols .fcol-tools").count();
-    return tools === 1 && ["Resources", "About", "Legal"].every((h) => headings.includes(h));
+    return tools === 1 && ["Tools", "Resources", "About", "Legal"].every((h) => headings.includes(h));
   });
 
   // Every page, not just the home page: /support added a two-column field grid,
@@ -149,6 +149,14 @@ for (const path of PAGES) {
     await page.setViewportSize({ width: 1280, height: 900 });
     return ok;
   });
+
+  await check(`${label}: footer Tools column links /universal + /tools`, async () =>
+    (await page.locator('.fcol-tools a[href="/universal"]').count()) === 1 &&
+    (await page.locator('.fcol-tools a[href="/tools"]').count()) === 1);
+
+  await check(`${label}: nav links Universal Viewer + Tools`, async () =>
+    (await page.locator('.sitenav a[href="/universal"]').count()) === 1 &&
+    (await page.locator('.sitenav a[href="/tools"]').count()) === 1);
 
   await check(`${label}: footer credit exact, year rendered (§1)`, async () => {
     const credit = page.locator(".foot-credit");
@@ -235,6 +243,146 @@ await check("support: publishes support@, never contact_to (§6)", async () => {
   return body.includes("support@file-viewer.us") && !/michal@file-viewer\.us/.test(body);
 });
 
+// ------------------------------------------------- family router (§6.10) ---
+const mapJson = JSON.parse(await readFile(join(ROOT, "family-map.json"), "utf8"));
+
+await go("/");
+await check("home: hero drop zone under the hero, linked to /universal", async () =>
+  (await page.locator("#heroDrop[data-fv-open]").count()) === 1 &&
+  (await page.locator('.hero-drop-more a[href="/universal"]').count()) === 1);
+
+await check("home: routed file shows the offer card (pdf → PDF Viewer)", async () => {
+  await page.setInputFiles("#fileInput", join(ROOT, "samples/pdf/sample.pdf"));
+  await page.locator("#routeCard").waitFor({ state: "visible", timeout: 3000 });
+  const msg = await page.locator("#routeMsg").textContent();
+  const cta = await page.locator("#routeGo").textContent();
+  const focused = await page.evaluate(() => document.activeElement && document.activeElement.id);
+  return msg.includes("belongs to PDF Viewer") && cta.includes("Open pdf-viewer.us") && focused === "routeGo";
+});
+
+await check("home: Escape dismisses the offer card", async () => {
+  await page.keyboard.press("Escape");
+  return page.locator("#routeCard").isHidden();
+});
+
+await check("home: unmapped type gets the family toast, no card", async () => {
+  await page.setInputFiles("#fileInput", join(ROOT, "test/fixtures/sample.xyz"));
+  await page.locator("#toast.show").waitFor({ state: "visible", timeout: 3000 });
+  const text = await page.locator("#toast").textContent();
+  return text.includes("isn’t supported by the File Viewer family") && (await page.locator("#routeCard").isHidden());
+});
+
+await check("home: sheets sample routes to Sheets Viewer", async () => {
+  await page.setInputFiles("#fileInput", join(ROOT, "samples/sheets/sample.xlsx"));
+  await page.locator("#routeCard").waitFor({ state: "visible", timeout: 3000 });
+  const msg = await page.locator("#routeMsg").textContent();
+  await page.click("#routeDismiss");
+  return msg.includes("belongs to Sheets Viewer");
+});
+
+await check("no horizontal overflow at the tablet tier (nav collapses < 900)", async () => {
+  await page.setViewportSize({ width: 899, height: 900 });
+  const collapsed = !(await page.locator(".sitenav").isVisible());
+  const fits = await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1);
+  await page.setViewportSize({ width: 1280, height: 900 });
+  return collapsed && fits;
+});
+
+await check("universal: full-size drop zone routes (json → Data Viewer)", async () => {
+  await go("/universal");
+  if ((await page.locator("#uDrop[data-fv-open]").count()) !== 1) return false;
+  await page.setInputFiles("#fileInput", join(ROOT, "samples/data/sample.json"));
+  await page.locator("#routeCard").waitFor({ state: "visible", timeout: 3000 });
+  return (await page.locator("#routeMsg").textContent()).includes("belongs to Data Viewer");
+});
+
+await check("universal: Not now dismisses the offer card", async () => {
+  await page.click("#routeDismiss");
+  return page.locator("#routeCard").isHidden();
+});
+
+// The router block is the §6.10 copy-verbatim contract: identical on both
+// pages that carry it, and its data deep-equal to canonical family-map.json.
+await check("FV router blocks byte-identical on / and /universal (§6.10)", async () => {
+  const a = await readFile(join(ROOT, "index.html"), "utf8");
+  const b = await readFile(join(ROOT, "universal.html"), "utf8");
+  const FV_BLOCKS = [
+    ["router script", "  <!-- FV router behaviour (§6.10, hub sender)", "  </script>\n"],
+    ["router chrome", "  <!-- FV router chrome (§6.10, hub sender)", '  <div class="toast" id="toast" role="status" aria-live="polite"></div>\n'],
+  ];
+  for (const [name, open, close] of FV_BLOCKS) {
+    const cut = (s, f) => {
+      const i = s.indexOf(open);
+      if (i < 0) { console.log(`  ${f}: no ${name} block`); return null; }
+      const j = s.indexOf(close, i);
+      if (j < 0) { console.log(`  ${f}: unterminated ${name} block`); return null; }
+      return s.slice(i, j + close.length);
+    };
+    const ba = cut(a, "index.html"), bb = cut(b, "universal.html");
+    if (ba === null || bb === null) return false;
+    if (ba !== bb) { console.log(`  ${name} differs between the two pages`); return false; }
+  }
+  return true;
+});
+
+await check("FV-MAP deep-equals canonical family-map.json (§6.10 governance)", async () => {
+  const src = await readFile(join(ROOT, "index.html"), "utf8");
+  const i = src.indexOf("/* FV-MAP-START");
+  const j = src.indexOf("/* FV-MAP-END */");
+  if (i < 0 || j < 0) { console.log("  FV-MAP markers missing"); return false; }
+  const got = new Function(src.slice(i, j) + "\nreturn { FAMILY, FAMILY_HUB, FAMILY_NAMES, FAMILY_MAP };")();
+  const stable = (v) => JSON.stringify(v, (k, val) =>
+    val && typeof val === "object" && !Array.isArray(val)
+      ? Object.fromEntries(Object.keys(val).sort().map((kk) => [kk, val[kk]]))
+      : val);
+  const pairs = [
+    ["FAMILY", got.FAMILY, mapJson.family],
+    ["FAMILY_HUB", got.FAMILY_HUB, mapJson.hub],
+    ["FAMILY_NAMES", got.FAMILY_NAMES, mapJson.names],
+    ["FAMILY_MAP", got.FAMILY_MAP, mapJson.map],
+  ];
+  let ok = true;
+  for (const [name, a, b] of pairs) {
+    if (stable(a) !== stable(b)) { console.log(`  ${name} drifted from family-map.json`); ok = false; }
+  }
+  return ok;
+});
+
+await check("tools: every viewer listed, extensions in parity with family-map.json", async () => {
+  const src = await readFile(join(ROOT, "tools.html"), "utf8");
+  const byViewer = {};
+  for (const [ext, v] of Object.entries(mapJson.map)) (byViewer[v] ||= new Set()).add("." + ext);
+  const re = /<div class="tool-exts" data-viewer="([a-z]+)">([\s\S]*?)<\/div>/g;
+  let m, seen = 0, ok = true;
+  while ((m = re.exec(src))) {
+    seen++;
+    const viewer = m[1];
+    const chips = [...m[2].matchAll(/<code(?: class="name-chip")?>([^<]+)<\/code>/g)].map((x) => x[1]);
+    const exts = new Set(chips.filter((c) => c.startsWith(".")));
+    const want = byViewer[viewer] || new Set();
+    if (exts.size !== want.size || [...want].some((e) => !exts.has(e))) { console.log(`  ${viewer}: extension drift`); ok = false; }
+    const names = chips.filter((c) => !c.startsWith("."));
+    const wantNames = Object.entries(mapJson.names).filter(([, v]) => v === viewer).map(([n]) => n);
+    if (names.length !== wantNames.length || wantNames.some((n) => !names.includes(n))) { console.log(`  ${viewer}: exact-name drift`); ok = false; }
+  }
+  if (seen !== Object.keys(mapJson.family).length) { console.log(`  ${seen} tool sections, expected ${Object.keys(mapJson.family).length}`); ok = false; }
+  return ok;
+});
+
+await check("tools: links to every viewer domain + /universal", async () => {
+  await go("/tools");
+  for (const k of Object.keys(mapJson.family)) {
+    const d = mapJson.family[k].domain;
+    if ((await page.locator(`a[href="https://${d}/"]`).count()) < 1) { console.log(`  missing link to ${d}`); return false; }
+  }
+  return (await page.locator('main a[href="/universal"]').count()) >= 1;
+});
+
+await check("sitemap lists /tools and /universal", async () => {
+  const sm = await readFile(join(ROOT, "sitemap.xml"), "utf8");
+  return sm.includes("<loc>https://file-viewer.us/tools</loc>") && sm.includes("<loc>https://file-viewer.us/universal</loc>");
+});
+
 // ------------------------------------------------------------- source scans ---
 const htmlFiles = (await readdir(ROOT)).filter((f) => f.endsWith(".html"));
 
@@ -249,7 +397,7 @@ await check("house chrome is byte-identical across pages (§1)", async () => {
     ["footer", "  <!-- House footer (DS §1", "  </footer>\n"],
     ["script", "  <!-- House chrome behaviour", "  </script>\n"],
     ["header css", "    /* ---------- House header (DS §1) ----------", "\n      #navToggle { display: none; }\n    }\n"],
-    ["footer css", "    /* ---------- House footer (DS §1, product-site variant) ----------", "      .fcol-tools { display: block; }\n    }\n"],
+    ["footer css", "    /* ---------- House footer (DS §1, product-site variant) ----------", "      .foot-cols { grid-template-columns: 1.6fr repeat(4, 1fr); }\n    }\n"],
   ];
   let ok = true;
   for (const [name, open, close] of BLOCKS) {
