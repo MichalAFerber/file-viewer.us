@@ -280,12 +280,12 @@ await check("home: sheets sample routes to Sheets Viewer", async () => {
   return msg.includes("belongs to Sheets Viewer");
 });
 
-await check("no horizontal overflow at the tablet tier (nav collapses < 900)", async () => {
-  await page.setViewportSize({ width: 899, height: 900 });
-  const collapsed = !(await page.locator(".sitenav").isVisible());
+await check("slim nav fits expanded at the 768px tier", async () => {
+  await page.setViewportSize({ width: 768, height: 900 });
+  const expanded = await page.locator(".sitenav").isVisible();
   const fits = await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1);
   await page.setViewportSize({ width: 1280, height: 900 });
-  return collapsed && fits;
+  return expanded && fits;
 });
 
 await check("universal: full-size drop zone routes (json → Data Viewer)", async () => {
