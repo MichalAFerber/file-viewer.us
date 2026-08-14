@@ -280,6 +280,17 @@ await check("home: sheets sample routes to Sheets Viewer", async () => {
   return msg.includes("belongs to Sheets Viewer");
 });
 
+await check("home: mp3 and webm route to the new viewers (map v2)", async () => {
+  await page.setInputFiles("#fileInput", join(ROOT, "samples/audio/sample.mp3"));
+  await page.locator("#routeCard").waitFor({ state: "visible", timeout: 3000 });
+  const audioMsg = await page.locator("#routeMsg").textContent();
+  await page.setInputFiles("#fileInput", join(ROOT, "samples/video/sample.webm"));
+  await page.waitForTimeout(300);
+  const videoMsg = await page.locator("#routeMsg").textContent();
+  await page.keyboard.press("Escape");
+  return audioMsg.includes("belongs to Audio Viewer") && videoMsg.includes("belongs to Video Viewer");
+});
+
 await check("slim nav fits expanded at the 768px tier", async () => {
   await page.setViewportSize({ width: 768, height: 900 });
   const expanded = await page.locator(".sitenav").isVisible();
