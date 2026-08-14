@@ -1180,17 +1180,14 @@ router (sender + receiver + FV-MAP) baked in from day one.
 - **audio:** `.mp3 .wav .flac .m4a .aac .ogg .oga .opus .weba .mka .aif .aiff`
   rendered; `.wma .mid .midi` accept-with-notice (no native decoder — suggest
   converting). **`.ogg` routes to audio** (video gets `.ogv`).
-- **video:** `.mp4 .m4v .ogv .mov .mkv` rendered (`.mov`/`.mkv`/HEVC-in-MP4 are
-  **browser-dependent** — on failure show a format hint card, the image
-  viewer's `.heic` pattern); `.avi .wmv` accept-with-notice (no native decoder).
-- ⚠️ **`.webm` routes to IMAGE — owner ruling (2026-08-14).** The dominant
-  `.webm` use case is the silent GIF-replacement loop, so the **image viewer
-  gains a `<video>` playback path** for it (muted + `loop` + `autoplay
-  playsinline`, controls revealed on interaction, sound available for files
-  that carry it). Per the `.txt` precedent, the **video viewer still accepts
-  `.webm` locally** — map ownership decides only where *other* sites send it.
+- **video:** `.webm .mp4 .m4v .ogv .mov .mkv` rendered (`.mov`/`.mkv`/
+  HEVC-in-MP4 are **browser-dependent** — on failure show a format hint card,
+  the image viewer's `.heic` pattern); `.avi .wmv` accept-with-notice (no
+  native decoder). **`.webm` routes to video**; audio-only WebM uses `.weba`,
+  which routes to audio. (`.webp` — the *picture* format — is the image
+  viewer's and is unaffected.)
 - **`.ts` stays with the html viewer** (TypeScript beats MPEG transport
-  stream — same precedent).
+  stream — the `.txt`-precedent class of ruling).
 - FAMILY gains the two rows above; every FV-MAP embed re-generates from
   `family-map.json` v2 (never hand-edited — §6.10 governance).
 
@@ -1213,9 +1210,7 @@ viewers per §3, full shell otherwise.
   volume, `f` fullscreen, `m` mute); metadata line (dimensions, duration);
   ⭐ **grab-frame-as-PNG** — pause, `canvas.drawImage(video)` →
   `canvas.toBlob("image/png")` → download `<name>-<timestamp>.png`; a local
-  object URL never taints the canvas, so this works offline by design. The
-  image viewer's `.webm` path reuses its existing PNG-export machinery for the
-  same feature.
+  object URL never taints the canvas, so this works offline by design.
 
 **CSP:** template §10 with `media-src 'self' blob:`; `img-src 'self' data:`
 (cover art); everything else per the strict default. No new external origins.
@@ -1236,11 +1231,10 @@ bump in all embeds. REGISTRY.md's File Viewer row grows to 15 `<fmt>` repos.
   domains live. **New domains must be live before any map routes to them.**
 - **P2 — map/nav wave:** hub PR first (family-map v2, FV-MAP on `/` +
   `/universal`, two new cards, `/tools` rows, llms.txt, sitemap), then the 13
-  viewer PRs (FV-MAP v2 + nav +2 items; the **image viewer's PR additionally
-  carries its `.webm` playback path**).
+  viewer PRs (FV-MAP v2 + nav +2 items).
 - **P3 — verify & record:** fleet cross-check (map parity + byte-parity), live
-  E2E hand-offs (`.mp3` → Audio, `.mp4` → Video, `.webm` → Image plays it),
-  REGISTRY.md update, changelog.
+  E2E hand-offs (`.mp3` → Audio, `.mp4` and `.webm` → Video), REGISTRY.md
+  update, changelog.
 
 ---
 
