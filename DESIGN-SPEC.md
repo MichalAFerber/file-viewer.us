@@ -1163,6 +1163,87 @@ turns "why did this mail fail auth?" into a shareable, self-serve tool.
 
 ---
 
+## 17.2 Roadmap viewers — **audio & video** (planned 2026-08; owner-approved)
+
+Two new viewers, the simplest builds in the family: native `<audio>` / `<video>`
+elements playing a local `File` via `URL.createObjectURL(file)` — no libraries,
+no network, the object URL never leaves the device. Both ship with the §6.10
+router (sender + receiver + FV-MAP) baked in from day one.
+
+| Viewer | Repo (`MichalAFerber/…`) | Domain | Favicon (vscode-icons) | Base title | Kind (FAMILY) |
+| --- | --- | --- | --- | --- | --- |
+| **audio** | `audio-viewer.us` | `audio-viewer.us` | `file_type_audio.svg` | `Audio Viewer` | `an audio file` |
+| **video** | `video-viewer.us` | `video-viewer.us` | `file_type_video.svg` | `Video Viewer` | `a video` |
+
+**Accepted types & map deltas (`family-map.json` → version 2):**
+
+- **audio:** `.mp3 .wav .flac .m4a .aac .ogg .oga .opus .weba .mka .aif .aiff`
+  rendered; `.wma .mid .midi` accept-with-notice (no native decoder — suggest
+  converting). **`.ogg` routes to audio** (video gets `.ogv`).
+- **video:** `.mp4 .m4v .ogv .mov .mkv` rendered (`.mov`/`.mkv`/HEVC-in-MP4 are
+  **browser-dependent** — on failure show a format hint card, the image
+  viewer's `.heic` pattern); `.avi .wmv` accept-with-notice (no native decoder).
+- ⚠️ **`.webm` routes to IMAGE — owner ruling (2026-08-14).** The dominant
+  `.webm` use case is the silent GIF-replacement loop, so the **image viewer
+  gains a `<video>` playback path** for it (muted + `loop` + `autoplay
+  playsinline`, controls revealed on interaction, sound available for files
+  that carry it). Per the `.txt` precedent, the **video viewer still accepts
+  `.webm` locally** — map ownership decides only where *other* sites send it.
+- **`.ts` stays with the html viewer** (TypeScript beats MPEG transport
+  stream — same precedent).
+- FAMILY gains the two rows above; every FV-MAP embed re-generates from
+  `family-map.json` v2 (never hand-edited — §6.10 governance).
+
+**Adapters (§8 note):** both use a new `readMode: "objectURL"` — no FileReader;
+`renderInto` mounts the element and sets `src = URL.createObjectURL(file)`.
+**Revoke the previous object URL on drop-to-replace and on Clear** (long
+sessions leak otherwise). No Source plane, no `</>`, no Format — binary
+viewers per §3, full shell otherwise.
+
+**v1 features (owner-endorsed ⭐):**
+
+- **audio:** player + metadata line (duration, type, size); ⭐ **hand-rolled
+  ID3v2 tag reader** (title / artist / album / year / embedded cover art as a
+  `data:` URI — the eml/cert dependency-free-parser precedent; ID3v2.3+v2.4
+  text frames + APIC only, syncsafe sizes, no external lib); **Web Audio
+  waveform** on a canvas (`decodeAudioData` on a copy of the bytes; skip
+  silently over ~50 MB). Cover art + title feed the empty chrome, not a
+  rendered document — the §5 color system themes everything.
+- **video:** player with keyboard shortcuts (Space play/pause, ←/→ ±5 s, ↑/↓
+  volume, `f` fullscreen, `m` mute); metadata line (dimensions, duration);
+  ⭐ **grab-frame-as-PNG** — pause, `canvas.drawImage(video)` →
+  `canvas.toBlob("image/png")` → download `<name>-<timestamp>.png`; a local
+  object URL never taints the canvas, so this works offline by design. The
+  image viewer's `.webm` path reuses its existing PNG-export machinery for the
+  same feature.
+
+**CSP:** template §10 with `media-src 'self' blob:`; `img-src 'self' data:`
+(cover art); everything else per the strict default. No new external origins.
+
+**Family-wide deltas when these ship:** +2 nav items in §6.9's A→Z flyout on
+every viewer (order becomes Home · **Audio** · Cert · Data · DOCX · EML · ePUB
+· HTML · Image · Log · Markdown · PDF · PPTX · PUB · Sheets · **Video**), +2
+hub cards, +2 `/tools` rows, llms.txt + sitemap entries, and the FV-MAP v2
+bump in all embeds. REGISTRY.md's File Viewer row grows to 15 `<fmt>` repos.
+
+**Rollout phases (gate on each):**
+
+- **P0 — owner:** register both domains (Cloudflare registrar, **auto-renew +
+  registrar lock** per §6.10's domain-trust warning), create the two Pages
+  projects, add both domains to Plausible.
+- **P1 — build:** the two repos green-field to §13 parity (§6.10 checklist
+  items included), harness green under production CSP, PR → merge → custom
+  domains live. **New domains must be live before any map routes to them.**
+- **P2 — map/nav wave:** hub PR first (family-map v2, FV-MAP on `/` +
+  `/universal`, two new cards, `/tools` rows, llms.txt, sitemap), then the 13
+  viewer PRs (FV-MAP v2 + nav +2 items; the **image viewer's PR additionally
+  carries its `.webm` playback path**).
+- **P3 — verify & record:** fleet cross-check (map parity + byte-parity), live
+  E2E hand-offs (`.mp3` → Audio, `.mp4` → Video, `.webm` → Image plays it),
+  REGISTRY.md update, changelog.
+
+---
+
 ### Appendix — where to copy from
 
 For any block marked "verbatim," lift it from the reference
