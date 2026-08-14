@@ -19,6 +19,8 @@ Each viewer is one self-contained HTML file (no build step) and works offline. F
 - [Log Viewer](https://log-viewer.us/): Large logs with virtual scrolling, level coloring & search
 - [Cert Viewer](https://cert-viewer.us/): X.509 certificates, CSRs & keys — subject/issuer, validity, SANs, fingerprints
 - [PUB Viewer](https://pub-viewer.us/): Microsoft Publisher metadata & extracted text (best-effort)
+- [Audio Viewer](https://audio-viewer.us/): MP3, WAV, FLAC, OGG & more with ID3 tags, cover art & a waveform
+- [Video Viewer](https://video-viewer.us/): MP4, WebM, MKV & more with keyboard shortcuts & frame capture
 
 ## Links
 
