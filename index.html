@@ -6,7 +6,7 @@
   <title>File Viewer — a family of fast, single-file web viewers</title>
   <!-- Privacy-friendly, cookieless analytics (self-hosted Plausible) -->
   <script defer data-domain="file-viewer.us" src="https://plausible.thompsonblack.us/js/script.outbound-links.file-downloads.tagged-events.js"></script>
-  <meta name="description" content="Fast, single-file browser viewers for HTML, Markdown, PDF, EPUB, Office, email, logs and images. No build, no uploads — works offline." />
+  <meta name="description" content="Fast, single-file browser viewers for HTML, Markdown, PDF, EPUB, Office, email, logs, images, audio and video. No build, no uploads — works offline." />
   <meta name="author" content="Michal Ferber" />
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b0e14" />
@@ -683,6 +683,27 @@
     <main id="main">
       <div class="grid" id="viewers">
 
+        <!-- AUDIO VIEWER -->
+        <article class="card" style="--accent:#f59e0b">
+          <div class="card-head">
+            <div class="badge"><svg class="badge-ico" viewBox="0 0 32 32" aria-hidden="true"><title>file_type_audio</title><path d="M17.229,4a.9.9,0,0,0-.569.232l-7.6,6.32a1.158,1.158,0,0,1-.955.328H3.208A1.2,1.2,0,0,0,2,12.088v7.826A1.2,1.2,0,0,0,3.208,21.12H8.1a1.158,1.158,0,0,1,.955.328l7.6,6.32c.521.433,1.081.224,1.081-.289V4.522A.494.494,0,0,0,17.229,4ZM27,6.3,25.209,8.093a14.708,14.708,0,0,1,0,15.844l1.785,1.776A17.19,17.19,0,0,0,27,6.3Zm-4.333,4.323L20.905,12.4a6.035,6.035,0,0,1,0,7.237l1.756,1.756a8.554,8.554,0,0,0,.01-10.769Z" style="fill:#00007f"/></svg></div>
+            <div>
+              <h2>Audio Viewer</h2>
+              <div class="repo">audio-viewer.us</div>
+            </div>
+          </div>
+          <p>Play MP3, WAV, FLAC, OGG &amp; more right in your browser — ID3 tags, cover art &amp; waveform. Nothing uploaded.</p>
+          <div class="tags"><span class="tag">mp3</span><span class="tag">audio-player</span><span class="tag">flac</span><span class="tag">id3</span><span class="tag">waveform</span><span class="tag">single-file</span><span class="tag">offline</span><span class="tag">privacy</span></div>
+          <div class="actions">
+            <a class="btn btn-gh" href="https://github.com/MichalAFerber/audio-viewer.us" target="_blank" rel="noopener" aria-label="Audio Viewer on GitHub">
+              <svg class="ico"><use href="#i-github"/></svg>
+            </a>
+            <a class="btn btn-site" href="https://audio-viewer.us/" target="_blank" rel="noopener" aria-label="Open audio-viewer.us">
+              <svg class="ico"><use href="#i-globe"/></svg> audio-viewer.us <span class="arrow">↗</span>
+            </a>
+          </div>
+        </article>
+
         <!-- CERT VIEWER -->
         <article class="card" style="--accent:#0369a1">
           <div class="card-head">
@@ -956,6 +977,27 @@
           </div>
         </article>
 
+
+        <!-- VIDEO VIEWER -->
+        <article class="card" style="--accent:#8b5cf6">
+          <div class="card-head">
+            <div class="badge"><svg class="badge-ico" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="6" width="26" height="20" rx="4" fill="#8b5cf6"/><rect x="6" y="9" width="3" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="6" y="14.5" width="3" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="6" y="20" width="3" height="3" rx="1" fill="#fff" opacity=".85"/><path d="M14 11.5v9l8.5-4.5z" fill="#fff"/></svg></div>
+            <div>
+              <h2>Video Viewer</h2>
+              <div class="repo">video-viewer.us</div>
+            </div>
+          </div>
+          <p>Play MP4, WebM, MKV &amp; more right in your browser — keyboard shortcuts &amp; frame capture. Nothing uploaded.</p>
+          <div class="tags"><span class="tag">mp4</span><span class="tag">webm</span><span class="tag">video-player</span><span class="tag">mkv</span><span class="tag">frame-capture</span><span class="tag">single-file</span><span class="tag">offline</span><span class="tag">privacy</span></div>
+          <div class="actions">
+            <a class="btn btn-gh" href="https://github.com/MichalAFerber/video-viewer.us" target="_blank" rel="noopener" aria-label="Video Viewer on GitHub">
+              <svg class="ico"><use href="#i-github"/></svg>
+            </a>
+            <a class="btn btn-site" href="https://video-viewer.us/" target="_blank" rel="noopener" aria-label="Open video-viewer.us">
+              <svg class="ico"><use href="#i-globe"/></svg> video-viewer.us <span class="arrow">↗</span>
+            </a>
+          </div>
+        </article>
       </div>
     </main>
 
@@ -1013,8 +1055,9 @@
   <script>
   (function () {
     "use strict";
-    /* FV-MAP-START — generated from family-map.json (canonical); deep-equality enforced by the harness */
+        /* FV-MAP-START — generated from family-map.json (canonical); deep-equality enforced by the harness */
     var FAMILY = {
+      audio:    { domain:"audio-viewer.us"     , label:"Audio Viewer"     , kind:"an audio file" },
       cert:     { domain:"cert-viewer.us"      , label:"Cert Viewer"      , kind:"a certificate" },
       data:     { domain:"data-viewer.us"      , label:"Data Viewer"      , kind:"a data file" },
       docx:     { domain:"docx-viewer.us"      , label:"DOCX Viewer"      , kind:"a Word document" },
@@ -1027,7 +1070,8 @@
       pdf:      { domain:"pdf-viewer.us"       , label:"PDF Viewer"       , kind:"a PDF" },
       pptx:     { domain:"pptx-viewer.us"      , label:"PPTX Viewer"      , kind:"a presentation" },
       pub:      { domain:"pub-viewer.us"       , label:"PUB Viewer"       , kind:"a Publisher file" },
-      sheets:   { domain:"sheets-viewer.us"    , label:"Sheets Viewer"    , kind:"a spreadsheet" }
+      sheets:   { domain:"sheets-viewer.us"    , label:"Sheets Viewer"    , kind:"a spreadsheet" },
+      video:    { domain:"video-viewer.us"     , label:"Video Viewer"     , kind:"a video" }
     };
     var FAMILY_HUB = "file-viewer.us";
     var FAMILY_NAMES = {"robots.txt":"html"};
@@ -1072,7 +1116,12 @@
       // pptx
       pptx:"pptx", pptm:"pptx", ppsx:"pptx", ppsm:"pptx", potx:"pptx", potm:"pptx", ppt:"pptx",
       // pub
-      pub:"pub"
+      pub:"pub",
+      // audio
+      mp3:"audio", wav:"audio", flac:"audio", m4a:"audio", aac:"audio", ogg:"audio", oga:"audio", opus:"audio",
+      weba:"audio", mka:"audio", aif:"audio", aiff:"audio", wma:"audio", mid:"audio", midi:"audio",
+      // video
+      webm:"video", mp4:"video", m4v:"video", ogv:"video", mov:"video", mkv:"video", avi:"video", wmv:"video"
     };
     /* FV-MAP-END */
     var FAMILY_ORIGINS = Object.keys(FAMILY).map(function (k) { return "https://" + FAMILY[k].domain; })
