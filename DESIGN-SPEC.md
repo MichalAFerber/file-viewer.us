@@ -575,6 +575,7 @@ with the shell tokens. Markup (once, near the toast element):
 .route-card{ position:fixed; left:50%; top:50%; transform:translate(-50%,-50%); z-index:45;
   background:var(--surface); color:var(--text); border:1px solid var(--border); border-radius:16px;
   box-shadow:0 12px 40px var(--shadow); padding:1.1rem 1.25rem; width:min(92vw,26rem) }
+.route-card p{ margin:0; overflow-wrap:anywhere }  /* shells without a global p reset need both */
 .route-sub{ color:var(--muted); font-size:.85rem; margin-top:.35rem }
 .route-actions{ display:flex; gap:.5rem; justify-content:flex-end; margin-top:.9rem }
 .route-actions button{ border-radius:9px; padding:.55rem .9rem; font:inherit; cursor:pointer }
@@ -624,7 +625,9 @@ backdrop. The card carries `aria-describedby="routeSub"` and the sub-line
 announced. Dropping a different file while the card is open just calls
 `showRouteCard` again — the newest file wins. The card must stack above the
 whole shell: 44/45 clear the topbar (36) and hover zone (35); if a viewer's
-nav panel/backdrop sit higher, raise these two together.
+nav panel/backdrop sit higher, raise these two together. (As built, every
+viewer shell's nav sits at 80/81, so the fleet ships the pair at **84/85** —
+the 44/45 in the snippet is the floor, not the observed norm.)
 
 #### Hand-off protocol (sender + receiver)
 
@@ -678,12 +681,14 @@ window.addEventListener("message", function(e){
 });
 var fvh = /[#&]fvh=([^&]*)/.exec(location.hash);
 if (fvh){
-  var fvhName = decodeURIComponent(fvh[1]);                 // ⚠️ stranger-controlled — textContent only
+  var fvhName = fvh[1];                                     // ⚠️ stranger-controlled — textContent only
+  try { fvhName = decodeURIComponent(fvhName); } catch (_) {}  // malformed %-escapes must not abort the receiver
   history.replaceState(null, "", location.pathname + location.search);  // always clear, opener or not
   if (window.opener){
     try { window.opener.postMessage({ type:"fv-ready" }, "*"); } catch(_){}
     window.opener = null;    // sever the reverse-navigation channel once the ping is out
-    // SHOULD: empty-state sub-line = "Receiving “" + fvhName + "”…" via textContent; revert after ~10 s
+    // SHOULD: empty-state sub-line = "Receiving “⁨" + fvhName + "⁩”…" via textContent (FSI…PDI
+    // isolate the untrusted name, as in routeMsg); revert after ~10 s
   }
 }
 ```
