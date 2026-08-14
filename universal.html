@@ -405,8 +405,8 @@
       <div class="udrop" id="uDrop" data-fv-open role="button" tabindex="0" aria-label="Drop a file to find its viewer, or browse to open one. Nothing is uploaded.">
         <svg class="udrop-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
         <p class="udrop-title">Drop any file</p>
-        <p class="udrop-sub">Drag &amp; drop anywhere, paste a file, or tap to open. 170+ file types across
-        13 viewers — HTML, Markdown, PDF, EPUB, Office, data, email, logs, certificates, images, and more.</p>
+        <p class="udrop-sub">Drag &amp; drop anywhere, paste a file, or tap to open. 190+ file types across
+        15 viewers — HTML, Markdown, PDF, EPUB, Office, audio, video, data, email, logs, certificates, images, and more.</p>
       </div>
 
       <p class="uni-note">Everything happens on this device: the file is matched by its name and handed
@@ -468,8 +468,9 @@
   <script>
   (function () {
     "use strict";
-    /* FV-MAP-START — generated from family-map.json (canonical); deep-equality enforced by the harness */
+        /* FV-MAP-START — generated from family-map.json (canonical); deep-equality enforced by the harness */
     var FAMILY = {
+      audio:    { domain:"audio-viewer.us"     , label:"Audio Viewer"     , kind:"an audio file" },
       cert:     { domain:"cert-viewer.us"      , label:"Cert Viewer"      , kind:"a certificate" },
       data:     { domain:"data-viewer.us"      , label:"Data Viewer"      , kind:"a data file" },
       docx:     { domain:"docx-viewer.us"      , label:"DOCX Viewer"      , kind:"a Word document" },
@@ -482,7 +483,8 @@
       pdf:      { domain:"pdf-viewer.us"       , label:"PDF Viewer"       , kind:"a PDF" },
       pptx:     { domain:"pptx-viewer.us"      , label:"PPTX Viewer"      , kind:"a presentation" },
       pub:      { domain:"pub-viewer.us"       , label:"PUB Viewer"       , kind:"a Publisher file" },
-      sheets:   { domain:"sheets-viewer.us"    , label:"Sheets Viewer"    , kind:"a spreadsheet" }
+      sheets:   { domain:"sheets-viewer.us"    , label:"Sheets Viewer"    , kind:"a spreadsheet" },
+      video:    { domain:"video-viewer.us"     , label:"Video Viewer"     , kind:"a video" }
     };
     var FAMILY_HUB = "file-viewer.us";
     var FAMILY_NAMES = {"robots.txt":"html"};
@@ -527,7 +529,12 @@
       // pptx
       pptx:"pptx", pptm:"pptx", ppsx:"pptx", ppsm:"pptx", potx:"pptx", potm:"pptx", ppt:"pptx",
       // pub
-      pub:"pub"
+      pub:"pub",
+      // audio
+      mp3:"audio", wav:"audio", flac:"audio", m4a:"audio", aac:"audio", ogg:"audio", oga:"audio", opus:"audio",
+      weba:"audio", mka:"audio", aif:"audio", aiff:"audio", wma:"audio", mid:"audio", midi:"audio",
+      // video
+      webm:"video", mp4:"video", m4v:"video", ogv:"video", mov:"video", mkv:"video", avi:"video", wmv:"video"
     };
     /* FV-MAP-END */
     var FAMILY_ORIGINS = Object.keys(FAMILY).map(function (k) { return "https://" + FAMILY[k].domain; })
