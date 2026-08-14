@@ -1163,7 +1163,17 @@ turns "why did this mail fail auth?" into a shareable, self-serve tool.
 
 ---
 
-## 17.2 Roadmap viewers — **audio & video** (planned 2026-08; owner-approved)
+## 17.2 Roadmap viewers — **audio & video** — ✅ SHIPPED (2026-08-14)
+
+Both live same-day: **audio-viewer.us** and **video-viewer.us**, built to this
+brief and §13 parity (audio 40/40, video 38/38 in CI), family map **v2** (196
+extensions, 15 viewers) deployed across all 16 pages that embed it
+(byte-identical, verified), and the cross-origin hand-off verified live in
+production — `.mp3` → Audio and `.webm`/`.mp4` → Video arrive *playing*.
+As-built notes: Theora is dead in Chromium ≥120, so `.ogv` is honesty-card
+territory there; `decodeAudioData`'s callback form also returns a promise —
+give it a no-op catch or a missing codec surfaces as a page error.
+Original brief retained below for the record.
 
 Two new viewers, the simplest builds in the family: native `<audio>` / `<video>`
 elements playing a local `File` via `URL.createObjectURL(file)` — no libraries,
