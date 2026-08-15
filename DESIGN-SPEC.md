@@ -1222,6 +1222,33 @@ viewers per §3, full shell otherwise.
   `canvas.toBlob("image/png")` → download `<name>-<timestamp>.png`; a local
   object URL never taints the canvas, so this works offline by design.
 
+**v2 features (owner-requested 2026-08-14; all native browser APIs, zero
+libraries, no CSP changes, no map changes):**
+
+- **both:** loop toggle (header iconbtn, `aria-pressed`, `l` key);
+  playback-speed control cycling 0.75× → 1× → 1.25× → 1.5× → 2× (the button
+  shows the current rate); **Media Session API** —
+  `navigator.mediaSession.metadata` from the file (audio: ID3 title / artist /
+  album + APIC artwork as a `data:` URL; video: the file name) plus
+  play/pause/seek action handlers, so OS media keys and lock screens work;
+  volume + mute persist (`fv-vol` / `fv-muted`, localStorage), applied on
+  load. Shortcuts never fire while the §6.10 route card is open.
+- **audio:** waveform **click-to-seek** — a canvas click maps x →
+  `currentTime` — with a live playhead drawn at the current position;
+  keyboard shortcuts reach parity with video (Space, ←/→ ±5 s, ↑/↓ volume,
+  `m` mute, `l` loop).
+- **video:** **frame-step while paused** — `,` / `.` nudge ∓/± one frame
+  (~1/30 s; pairs with grab-frame); **Picture-in-Picture** header button
+  (`requestPictureInPicture()` on click; button hidden when
+  `document.pictureInPictureEnabled` is false); **subtitle sidecars** —
+  dropping or picking a `.vtt`/`.srt` while a video is open **attaches** it
+  as a `<track>` (SRT → WebVTT via an original ~20-line converter; served as
+  a `blob:` URL, covered by `media-src blob:`) instead of replacing the
+  video, with a `c` key / header button toggle. Sidecars are contextual
+  only: neither extension joins `ACCEPT_EXT` or `FAMILY_MAP`, and with no
+  video open they take the normal rejection path. Revoke sidecar blob URLs
+  alongside the media object URL on replace and Clear.
+
 **CSP:** template §10 with `media-src 'self' blob:`; `img-src 'self' data:`
 (cover art); everything else per the strict default. No new external origins.
 
