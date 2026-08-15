@@ -457,66 +457,74 @@ constants; the harness keeps them honest (see *Governance* below).
 
 ```js
 /* FV-MAP-START — generated from family-map.json (canonical); deep-equality enforced by the harness */
-var FAMILY = {
-  cert:     { domain:"cert-viewer.us",     label:"Cert Viewer",     kind:"a certificate" },
-  data:     { domain:"data-viewer.us",     label:"Data Viewer",     kind:"a data file" },
-  docx:     { domain:"docx-viewer.us",     label:"DOCX Viewer",     kind:"a Word document" },
-  eml:      { domain:"eml-viewer.us",      label:"EML Viewer",      kind:"an email file" },
-  epub:     { domain:"epub-viewer.us",     label:"EPUB Viewer",     kind:"an e-book" },
-  html:     { domain:"html-viewer.us",     label:"HTML Viewer",     kind:"a web or source-code file" },
-  image:    { domain:"image-viewer.us",    label:"Image Viewer",    kind:"an image" },
-  log:      { domain:"log-viewer.us",      label:"Log Viewer",      kind:"a log file" },
-  markdown: { domain:"markdown-viewer.us", label:"Markdown Viewer", kind:"a Markdown or text file" },
-  pdf:      { domain:"pdf-viewer.us",      label:"PDF Viewer",      kind:"a PDF" },
-  pptx:     { domain:"pptx-viewer.us",     label:"PPTX Viewer",     kind:"a presentation" },
-  pub:      { domain:"pub-viewer.us",      label:"PUB Viewer",      kind:"a Publisher file" },
-  sheets:   { domain:"sheets-viewer.us",   label:"Sheets Viewer",   kind:"a spreadsheet" }
-};
-var FAMILY_HUB = "file-viewer.us";
-var FAMILY_NAMES = { "robots.txt": "html" };
-var FAMILY_MAP = {
-  // cert
-  pem:"cert", crt:"cert", cer:"cert", der:"cert", csr:"cert", cert:"cert", p7b:"cert", p12:"cert", pfx:"cert",
-  // data
-  json:"data", jsonc:"data", json5:"data", jsonld:"data", ndjson:"data", yaml:"data", yml:"data", toml:"data",
-  csv:"data", tsv:"data", xml:"data", rss:"data", atom:"data", graphql:"data", gql:"data",
-  // docx (incl. accept-with-notice legacy types — the notice IS the destination's answer)
-  docx:"docx", docm:"docx", dotx:"docx", dotm:"docx", doc:"docx", dot:"docx", rtf:"docx", odt:"docx",
-  // eml
-  eml:"eml", mbox:"eml", emlx:"eml", msg:"eml",
-  // epub
-  epub:"epub",
-  // html (web + source code)
-  html:"html", htm:"html", xhtml:"html", xht:"html", shtml:"html", shtm:"html", stm:"html", hta:"html",
-  mhtml:"html", mht:"html", css:"html", scss:"html", sass:"html", less:"html", styl:"html", pcss:"html",
-  postcss:"html", js:"html", mjs:"html", cjs:"html", jsx:"html", ts:"html", mts:"html", cts:"html",
-  tsx:"html", coffee:"html", htaccess:"html", htpasswd:"html", env:"html", ini:"html", conf:"html",
-  webmanifest:"html", map:"html", php:"html", phtml:"html", asp:"html", aspx:"html", ascx:"html",
-  cshtml:"html", vbhtml:"html", jsp:"html", jspx:"html", cfm:"html", erb:"html", rhtml:"html", ejs:"html",
-  hbs:"html", handlebars:"html", mustache:"html", njk:"html", liquid:"html", jinja:"html", j2:"html",
-  twig:"html", pug:"html", jade:"html", haml:"html", slim:"html", vue:"html", svelte:"html", astro:"html",
-  // image
-  png:"image", jpg:"image", jpeg:"image", jpe:"image", jfif:"image", gif:"image", webp:"image",
-  avif:"image", svg:"image", svgz:"image", bmp:"image", dib:"image", ico:"image", cur:"image",
-  tif:"image", tiff:"image", tga:"image", targa:"image", icb:"image", vda:"image", vst:"image",
-  qoi:"image", pcx:"image", ppm:"image", pgm:"image", pbm:"image", pnm:"image", pam:"image",
-  ff:"image", dds:"image", heic:"image", heif:"image", jxl:"image", psd:"image",
-  // log (NOTE: no txt here — see the ⚠️ below)
-  log:"log", out:"log", err:"log", trace:"log", syslog:"log",
-  // markdown
-  md:"markdown", markdown:"markdown", mdx:"markdown", txt:"markdown", rst:"markdown", adoc:"markdown",
-  // pdf
-  pdf:"pdf",
-  // pptx
-  pptx:"pptx", pptm:"pptx", ppsx:"pptx", ppsm:"pptx", potx:"pptx", potm:"pptx", ppt:"pptx",
-  // pub
-  pub:"pub",
-  // sheets
-  xlsx:"sheets", xlsm:"sheets", xlsb:"sheets", xls:"sheets", xlt:"sheets", xltx:"sheets", xltm:"sheets",
-  xlam:"sheets", ods:"sheets", fods:"sheets", dif:"sheets", prn:"sheets", dbf:"sheets", numbers:"sheets",
-  xlml:"sheets", wk1:"sheets", wk3:"sheets", wks:"sheets", "123":"sheets", et:"sheets", uos:"sheets"
-};
-/* FV-MAP-END */
+    var FAMILY = {
+      audio:    { domain:"audio-viewer.us"     , label:"Audio Viewer"     , kind:"an audio file" },
+      cert:     { domain:"cert-viewer.us"      , label:"Cert Viewer"      , kind:"a certificate" },
+      data:     { domain:"data-viewer.us"      , label:"Data Viewer"      , kind:"a data file" },
+      docx:     { domain:"docx-viewer.us"      , label:"DOCX Viewer"      , kind:"a Word document" },
+      eml:      { domain:"eml-viewer.us"       , label:"EML Viewer"       , kind:"an email file" },
+      epub:     { domain:"epub-viewer.us"      , label:"EPUB Viewer"      , kind:"an e-book" },
+      html:     { domain:"html-viewer.us"      , label:"HTML Viewer"      , kind:"a web or source-code file" },
+      image:    { domain:"image-viewer.us"     , label:"Image Viewer"     , kind:"an image" },
+      log:      { domain:"log-viewer.us"       , label:"Log Viewer"       , kind:"a log file" },
+      markdown: { domain:"markdown-viewer.us"  , label:"Markdown Viewer"  , kind:"a Markdown or text file" },
+      pdf:      { domain:"pdf-viewer.us"       , label:"PDF Viewer"       , kind:"a PDF" },
+      pptx:     { domain:"pptx-viewer.us"      , label:"PPTX Viewer"      , kind:"a presentation" },
+      pub:      { domain:"pub-viewer.us"       , label:"PUB Viewer"       , kind:"a Publisher file" },
+      sheets:   { domain:"sheets-viewer.us"    , label:"Sheets Viewer"    , kind:"a spreadsheet" },
+      video:    { domain:"video-viewer.us"     , label:"Video Viewer"     , kind:"a video" }
+    };
+    var FAMILY_HUB = "file-viewer.us";
+    var FAMILY_NAMES = {"robots.txt":"html"};
+    var FAMILY_MAP = {
+      // sheets
+      "123":"sheets", xlsx:"sheets", xlsm:"sheets", xlsb:"sheets", xls:"sheets", xlt:"sheets", xltx:"sheets", xltm:"sheets",
+      xlam:"sheets", ods:"sheets", fods:"sheets", dif:"sheets", prn:"sheets", dbf:"sheets", numbers:"sheets", xlml:"sheets",
+      wk1:"sheets", wk3:"sheets", wks:"sheets", et:"sheets", uos:"sheets",
+      // cert
+      pem:"cert", crt:"cert", cer:"cert", der:"cert", csr:"cert", cert:"cert", p7b:"cert", p12:"cert",
+      pfx:"cert",
+      // data
+      json:"data", jsonc:"data", json5:"data", jsonld:"data", ndjson:"data", yaml:"data", yml:"data", toml:"data",
+      csv:"data", tsv:"data", xml:"data", rss:"data", atom:"data", graphql:"data", gql:"data",
+      // docx
+      docx:"docx", docm:"docx", dotx:"docx", dotm:"docx", doc:"docx", dot:"docx", rtf:"docx", odt:"docx",
+      // eml
+      eml:"eml", mbox:"eml", emlx:"eml", msg:"eml",
+      // epub
+      epub:"epub",
+      // html
+      html:"html", htm:"html", xhtml:"html", xht:"html", shtml:"html", shtm:"html", stm:"html", hta:"html",
+      mhtml:"html", mht:"html", css:"html", scss:"html", sass:"html", less:"html", styl:"html", pcss:"html",
+      postcss:"html", js:"html", mjs:"html", cjs:"html", jsx:"html", ts:"html", mts:"html", cts:"html",
+      tsx:"html", coffee:"html", htaccess:"html", htpasswd:"html", env:"html", ini:"html", conf:"html", webmanifest:"html",
+      map:"html", php:"html", phtml:"html", asp:"html", aspx:"html", ascx:"html", cshtml:"html", vbhtml:"html",
+      jsp:"html", jspx:"html", cfm:"html", erb:"html", rhtml:"html", ejs:"html", hbs:"html", handlebars:"html",
+      mustache:"html", njk:"html", liquid:"html", jinja:"html", j2:"html", twig:"html", pug:"html", jade:"html",
+      haml:"html", slim:"html", vue:"html", svelte:"html", astro:"html",
+      // image
+      png:"image", jpg:"image", jpeg:"image", jpe:"image", jfif:"image", gif:"image", webp:"image", avif:"image",
+      svg:"image", svgz:"image", bmp:"image", dib:"image", ico:"image", cur:"image", tif:"image", tiff:"image",
+      tga:"image", targa:"image", icb:"image", vda:"image", vst:"image", qoi:"image", pcx:"image", ppm:"image",
+      pgm:"image", pbm:"image", pnm:"image", pam:"image", ff:"image", dds:"image", heic:"image", heif:"image",
+      jxl:"image", psd:"image",
+      // log
+      log:"log", out:"log", err:"log", trace:"log", syslog:"log",
+      // markdown
+      md:"markdown", markdown:"markdown", mdx:"markdown", txt:"markdown", rst:"markdown", adoc:"markdown",
+      // pdf
+      pdf:"pdf",
+      // pptx
+      pptx:"pptx", pptm:"pptx", ppsx:"pptx", ppsm:"pptx", potx:"pptx", potm:"pptx", ppt:"pptx",
+      // pub
+      pub:"pub",
+      // audio
+      mp3:"audio", wav:"audio", flac:"audio", m4a:"audio", aac:"audio", ogg:"audio", oga:"audio", opus:"audio",
+      weba:"audio", mka:"audio", aif:"audio", aiff:"audio", wma:"audio", mid:"audio", midi:"audio",
+      // video
+      webm:"video", mp4:"video", m4v:"video", ogv:"video", mov:"video", mkv:"video", avi:"video", wmv:"video"
+    };
+    /* FV-MAP-END */
 var FAMILY_ORIGINS = Object.keys(FAMILY).map(function(k){ return "https://" + FAMILY[k].domain; })
   .concat("https://" + FAMILY_HUB);   // the hub can send hand-offs; nothing routes to it
 ```
@@ -1160,6 +1168,118 @@ single self-contained `index.html`, offline / `file://`-safe, strict CSP with
 ⭐ **EML/MSG is the priority pick** — it doubles as a lead magnet for the owner's
 DNS-consulting brand (`fixdns.net` / `brokedns.com`): the SPF/DKIM/DMARC readout
 turns "why did this mail fail auth?" into a shareable, self-serve tool.
+
+---
+
+## 17.2 Roadmap viewers — **audio & video** — ✅ SHIPPED (2026-08-14)
+
+Both live same-day: **audio-viewer.us** and **video-viewer.us**, built to this
+brief and §13 parity (audio 40/40, video 38/38 in CI), family map **v2** (196
+extensions, 15 viewers) deployed across all 16 pages that embed it
+(byte-identical, verified), and the cross-origin hand-off verified live in
+production — `.mp3` → Audio and `.webm`/`.mp4` → Video arrive *playing*.
+As-built notes: Theora is dead in Chromium ≥120, so `.ogv` is honesty-card
+territory there; `decodeAudioData`'s callback form also returns a promise —
+give it a no-op catch or a missing codec surfaces as a page error.
+Original brief retained below for the record.
+
+Two new viewers, the simplest builds in the family: native `<audio>` / `<video>`
+elements playing a local `File` via `URL.createObjectURL(file)` — no libraries,
+no network, the object URL never leaves the device. Both ship with the §6.10
+router (sender + receiver + FV-MAP) baked in from day one.
+
+| Viewer | Repo (`MichalAFerber/…`) | Domain | Favicon (vscode-icons) | Base title | Kind (FAMILY) |
+| --- | --- | --- | --- | --- | --- |
+| **audio** | `audio-viewer.us` | `audio-viewer.us` | `file_type_audio.svg` | `Audio Viewer` | `an audio file` |
+| **video** | `video-viewer.us` | `video-viewer.us` | `file_type_video.svg` | `Video Viewer` | `a video` |
+
+**Accepted types & map deltas (`family-map.json` → version 2):**
+
+- **audio:** `.mp3 .wav .flac .m4a .aac .ogg .oga .opus .weba .mka .aif .aiff`
+  rendered; `.wma .mid .midi` accept-with-notice (no native decoder — suggest
+  converting). **`.ogg` routes to audio** (video gets `.ogv`).
+- **video:** `.webm .mp4 .m4v .ogv .mov .mkv` rendered (`.mov`/`.mkv`/
+  HEVC-in-MP4 are **browser-dependent** — on failure show a format hint card,
+  the image viewer's `.heic` pattern); `.avi .wmv` accept-with-notice (no
+  native decoder). **`.webm` routes to video**; audio-only WebM uses `.weba`,
+  which routes to audio. (`.webp` — the *picture* format — is the image
+  viewer's and is unaffected.)
+- **`.ts` stays with the html viewer** (TypeScript beats MPEG transport
+  stream — the `.txt`-precedent class of ruling).
+- FAMILY gains the two rows above; every FV-MAP embed re-generates from
+  `family-map.json` v2 (never hand-edited — §6.10 governance).
+
+**Adapters (§8 note):** both use a new `readMode: "objectURL"` — no FileReader;
+`renderInto` mounts the element and sets `src = URL.createObjectURL(file)`.
+**Revoke the previous object URL on drop-to-replace and on Clear** (long
+sessions leak otherwise). No Source plane, no `</>`, no Format — binary
+viewers per §3, full shell otherwise.
+
+**v1 features (owner-endorsed ⭐):**
+
+- **audio:** player + metadata line (duration, type, size); ⭐ **hand-rolled
+  ID3v2 tag reader** (title / artist / album / year / embedded cover art as a
+  `data:` URI — the eml/cert dependency-free-parser precedent; ID3v2.3+v2.4
+  text frames + APIC only, syncsafe sizes, no external lib); **Web Audio
+  waveform** on a canvas (`decodeAudioData` on a copy of the bytes; skip
+  silently over ~50 MB). Cover art + title feed the empty chrome, not a
+  rendered document — the §5 color system themes everything.
+- **video:** player with keyboard shortcuts (Space play/pause, ←/→ ±5 s, ↑/↓
+  volume, `f` fullscreen, `m` mute); metadata line (dimensions, duration);
+  ⭐ **grab-frame-as-PNG** — pause, `canvas.drawImage(video)` →
+  `canvas.toBlob("image/png")` → download `<name>-<timestamp>.png`; a local
+  object URL never taints the canvas, so this works offline by design.
+
+**v2 features (owner-requested 2026-08-14; all native browser APIs, zero
+libraries, no CSP changes, no map changes):**
+
+- **both:** loop toggle (header iconbtn, `aria-pressed`, `l` key);
+  playback-speed control cycling 0.75× → 1× → 1.25× → 1.5× → 2× (the button
+  shows the current rate); **Media Session API** —
+  `navigator.mediaSession.metadata` from the file (audio: ID3 title / artist /
+  album + APIC artwork as a `data:` URL; video: the file name) plus
+  play/pause/seek action handlers, so OS media keys and lock screens work;
+  volume + mute persist (`fv-vol` / `fv-muted`, localStorage), applied on
+  load. Shortcuts never fire while the §6.10 route card is open.
+- **audio:** waveform **click-to-seek** — a canvas click maps x →
+  `currentTime` — with a live playhead drawn at the current position;
+  keyboard shortcuts reach parity with video (Space, ←/→ ±5 s, ↑/↓ volume,
+  `m` mute, `l` loop).
+- **video:** **frame-step while paused** — `,` / `.` nudge ∓/± one frame
+  (~1/30 s; pairs with grab-frame); **Picture-in-Picture** header button
+  (`requestPictureInPicture()` on click; button hidden when
+  `document.pictureInPictureEnabled` is false); **subtitle sidecars** —
+  dropping or picking a `.vtt`/`.srt` while a video is open **attaches** it
+  as a `<track>` (SRT → WebVTT via an original ~20-line converter; served as
+  a `blob:` URL, covered by `media-src blob:`) instead of replacing the
+  video, with a `c` key / header button toggle. Sidecars are contextual
+  only: neither extension joins `ACCEPT_EXT` or `FAMILY_MAP`, and with no
+  video open they take the normal rejection path. Revoke sidecar blob URLs
+  alongside the media object URL on replace and Clear.
+
+**CSP:** template §10 with `media-src 'self' blob:`; `img-src 'self' data:`
+(cover art); everything else per the strict default. No new external origins.
+
+**Family-wide deltas when these ship:** +2 nav items in §6.9's A→Z flyout on
+every viewer (order becomes Home · **Audio** · Cert · Data · DOCX · EML · ePUB
+· HTML · Image · Log · Markdown · PDF · PPTX · PUB · Sheets · **Video**), +2
+hub cards, +2 `/tools` rows, llms.txt + sitemap entries, and the FV-MAP v2
+bump in all embeds. REGISTRY.md's File Viewer row grows to 15 `<fmt>` repos.
+
+**Rollout phases (gate on each):**
+
+- **P0 — owner:** register both domains (Cloudflare registrar, **auto-renew +
+  registrar lock** per §6.10's domain-trust warning), create the two Pages
+  projects, add both domains to Plausible.
+- **P1 — build:** the two repos green-field to §13 parity (§6.10 checklist
+  items included), harness green under production CSP, PR → merge → custom
+  domains live. **New domains must be live before any map routes to them.**
+- **P2 — map/nav wave:** hub PR first (family-map v2, FV-MAP on `/` +
+  `/universal`, two new cards, `/tools` rows, llms.txt, sitemap), then the 13
+  viewer PRs (FV-MAP v2 + nav +2 items).
+- **P3 — verify & record:** fleet cross-check (map parity + byte-parity), live
+  E2E hand-offs (`.mp3` → Audio, `.mp4` and `.webm` → Video), REGISTRY.md
+  update, changelog.
 
 ---
 
