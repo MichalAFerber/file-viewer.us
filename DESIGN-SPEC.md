@@ -457,66 +457,74 @@ constants; the harness keeps them honest (see *Governance* below).
 
 ```js
 /* FV-MAP-START — generated from family-map.json (canonical); deep-equality enforced by the harness */
-var FAMILY = {
-  cert:     { domain:"cert-viewer.us",     label:"Cert Viewer",     kind:"a certificate" },
-  data:     { domain:"data-viewer.us",     label:"Data Viewer",     kind:"a data file" },
-  docx:     { domain:"docx-viewer.us",     label:"DOCX Viewer",     kind:"a Word document" },
-  eml:      { domain:"eml-viewer.us",      label:"EML Viewer",      kind:"an email file" },
-  epub:     { domain:"epub-viewer.us",     label:"EPUB Viewer",     kind:"an e-book" },
-  html:     { domain:"html-viewer.us",     label:"HTML Viewer",     kind:"a web or source-code file" },
-  image:    { domain:"image-viewer.us",    label:"Image Viewer",    kind:"an image" },
-  log:      { domain:"log-viewer.us",      label:"Log Viewer",      kind:"a log file" },
-  markdown: { domain:"markdown-viewer.us", label:"Markdown Viewer", kind:"a Markdown or text file" },
-  pdf:      { domain:"pdf-viewer.us",      label:"PDF Viewer",      kind:"a PDF" },
-  pptx:     { domain:"pptx-viewer.us",     label:"PPTX Viewer",     kind:"a presentation" },
-  pub:      { domain:"pub-viewer.us",      label:"PUB Viewer",      kind:"a Publisher file" },
-  sheets:   { domain:"sheets-viewer.us",   label:"Sheets Viewer",   kind:"a spreadsheet" }
-};
-var FAMILY_HUB = "file-viewer.us";
-var FAMILY_NAMES = { "robots.txt": "html" };
-var FAMILY_MAP = {
-  // cert
-  pem:"cert", crt:"cert", cer:"cert", der:"cert", csr:"cert", cert:"cert", p7b:"cert", p12:"cert", pfx:"cert",
-  // data
-  json:"data", jsonc:"data", json5:"data", jsonld:"data", ndjson:"data", yaml:"data", yml:"data", toml:"data",
-  csv:"data", tsv:"data", xml:"data", rss:"data", atom:"data", graphql:"data", gql:"data",
-  // docx (incl. accept-with-notice legacy types — the notice IS the destination's answer)
-  docx:"docx", docm:"docx", dotx:"docx", dotm:"docx", doc:"docx", dot:"docx", rtf:"docx", odt:"docx",
-  // eml
-  eml:"eml", mbox:"eml", emlx:"eml", msg:"eml",
-  // epub
-  epub:"epub",
-  // html (web + source code)
-  html:"html", htm:"html", xhtml:"html", xht:"html", shtml:"html", shtm:"html", stm:"html", hta:"html",
-  mhtml:"html", mht:"html", css:"html", scss:"html", sass:"html", less:"html", styl:"html", pcss:"html",
-  postcss:"html", js:"html", mjs:"html", cjs:"html", jsx:"html", ts:"html", mts:"html", cts:"html",
-  tsx:"html", coffee:"html", htaccess:"html", htpasswd:"html", env:"html", ini:"html", conf:"html",
-  webmanifest:"html", map:"html", php:"html", phtml:"html", asp:"html", aspx:"html", ascx:"html",
-  cshtml:"html", vbhtml:"html", jsp:"html", jspx:"html", cfm:"html", erb:"html", rhtml:"html", ejs:"html",
-  hbs:"html", handlebars:"html", mustache:"html", njk:"html", liquid:"html", jinja:"html", j2:"html",
-  twig:"html", pug:"html", jade:"html", haml:"html", slim:"html", vue:"html", svelte:"html", astro:"html",
-  // image
-  png:"image", jpg:"image", jpeg:"image", jpe:"image", jfif:"image", gif:"image", webp:"image",
-  avif:"image", svg:"image", svgz:"image", bmp:"image", dib:"image", ico:"image", cur:"image",
-  tif:"image", tiff:"image", tga:"image", targa:"image", icb:"image", vda:"image", vst:"image",
-  qoi:"image", pcx:"image", ppm:"image", pgm:"image", pbm:"image", pnm:"image", pam:"image",
-  ff:"image", dds:"image", heic:"image", heif:"image", jxl:"image", psd:"image",
-  // log (NOTE: no txt here — see the ⚠️ below)
-  log:"log", out:"log", err:"log", trace:"log", syslog:"log",
-  // markdown
-  md:"markdown", markdown:"markdown", mdx:"markdown", txt:"markdown", rst:"markdown", adoc:"markdown",
-  // pdf
-  pdf:"pdf",
-  // pptx
-  pptx:"pptx", pptm:"pptx", ppsx:"pptx", ppsm:"pptx", potx:"pptx", potm:"pptx", ppt:"pptx",
-  // pub
-  pub:"pub",
-  // sheets
-  xlsx:"sheets", xlsm:"sheets", xlsb:"sheets", xls:"sheets", xlt:"sheets", xltx:"sheets", xltm:"sheets",
-  xlam:"sheets", ods:"sheets", fods:"sheets", dif:"sheets", prn:"sheets", dbf:"sheets", numbers:"sheets",
-  xlml:"sheets", wk1:"sheets", wk3:"sheets", wks:"sheets", "123":"sheets", et:"sheets", uos:"sheets"
-};
-/* FV-MAP-END */
+    var FAMILY = {
+      audio:    { domain:"audio-viewer.us"     , label:"Audio Viewer"     , kind:"an audio file" },
+      cert:     { domain:"cert-viewer.us"      , label:"Cert Viewer"      , kind:"a certificate" },
+      data:     { domain:"data-viewer.us"      , label:"Data Viewer"      , kind:"a data file" },
+      docx:     { domain:"docx-viewer.us"      , label:"DOCX Viewer"      , kind:"a Word document" },
+      eml:      { domain:"eml-viewer.us"       , label:"EML Viewer"       , kind:"an email file" },
+      epub:     { domain:"epub-viewer.us"      , label:"EPUB Viewer"      , kind:"an e-book" },
+      html:     { domain:"html-viewer.us"      , label:"HTML Viewer"      , kind:"a web or source-code file" },
+      image:    { domain:"image-viewer.us"     , label:"Image Viewer"     , kind:"an image" },
+      log:      { domain:"log-viewer.us"       , label:"Log Viewer"       , kind:"a log file" },
+      markdown: { domain:"markdown-viewer.us"  , label:"Markdown Viewer"  , kind:"a Markdown or text file" },
+      pdf:      { domain:"pdf-viewer.us"       , label:"PDF Viewer"       , kind:"a PDF" },
+      pptx:     { domain:"pptx-viewer.us"      , label:"PPTX Viewer"      , kind:"a presentation" },
+      pub:      { domain:"pub-viewer.us"       , label:"PUB Viewer"       , kind:"a Publisher file" },
+      sheets:   { domain:"sheets-viewer.us"    , label:"Sheets Viewer"    , kind:"a spreadsheet" },
+      video:    { domain:"video-viewer.us"     , label:"Video Viewer"     , kind:"a video" }
+    };
+    var FAMILY_HUB = "file-viewer.us";
+    var FAMILY_NAMES = {"robots.txt":"html"};
+    var FAMILY_MAP = {
+      // sheets
+      "123":"sheets", xlsx:"sheets", xlsm:"sheets", xlsb:"sheets", xls:"sheets", xlt:"sheets", xltx:"sheets", xltm:"sheets",
+      xlam:"sheets", ods:"sheets", fods:"sheets", dif:"sheets", prn:"sheets", dbf:"sheets", numbers:"sheets", xlml:"sheets",
+      wk1:"sheets", wk3:"sheets", wks:"sheets", et:"sheets", uos:"sheets",
+      // cert
+      pem:"cert", crt:"cert", cer:"cert", der:"cert", csr:"cert", cert:"cert", p7b:"cert", p12:"cert",
+      pfx:"cert",
+      // data
+      json:"data", jsonc:"data", json5:"data", jsonld:"data", ndjson:"data", yaml:"data", yml:"data", toml:"data",
+      csv:"data", tsv:"data", xml:"data", rss:"data", atom:"data", graphql:"data", gql:"data",
+      // docx
+      docx:"docx", docm:"docx", dotx:"docx", dotm:"docx", doc:"docx", dot:"docx", rtf:"docx", odt:"docx",
+      // eml
+      eml:"eml", mbox:"eml", emlx:"eml", msg:"eml",
+      // epub
+      epub:"epub",
+      // html
+      html:"html", htm:"html", xhtml:"html", xht:"html", shtml:"html", shtm:"html", stm:"html", hta:"html",
+      mhtml:"html", mht:"html", css:"html", scss:"html", sass:"html", less:"html", styl:"html", pcss:"html",
+      postcss:"html", js:"html", mjs:"html", cjs:"html", jsx:"html", ts:"html", mts:"html", cts:"html",
+      tsx:"html", coffee:"html", htaccess:"html", htpasswd:"html", env:"html", ini:"html", conf:"html", webmanifest:"html",
+      map:"html", php:"html", phtml:"html", asp:"html", aspx:"html", ascx:"html", cshtml:"html", vbhtml:"html",
+      jsp:"html", jspx:"html", cfm:"html", erb:"html", rhtml:"html", ejs:"html", hbs:"html", handlebars:"html",
+      mustache:"html", njk:"html", liquid:"html", jinja:"html", j2:"html", twig:"html", pug:"html", jade:"html",
+      haml:"html", slim:"html", vue:"html", svelte:"html", astro:"html",
+      // image
+      png:"image", jpg:"image", jpeg:"image", jpe:"image", jfif:"image", gif:"image", webp:"image", avif:"image",
+      svg:"image", svgz:"image", bmp:"image", dib:"image", ico:"image", cur:"image", tif:"image", tiff:"image",
+      tga:"image", targa:"image", icb:"image", vda:"image", vst:"image", qoi:"image", pcx:"image", ppm:"image",
+      pgm:"image", pbm:"image", pnm:"image", pam:"image", ff:"image", dds:"image", heic:"image", heif:"image",
+      jxl:"image", psd:"image",
+      // log
+      log:"log", out:"log", err:"log", trace:"log", syslog:"log",
+      // markdown
+      md:"markdown", markdown:"markdown", mdx:"markdown", txt:"markdown", rst:"markdown", adoc:"markdown",
+      // pdf
+      pdf:"pdf",
+      // pptx
+      pptx:"pptx", pptm:"pptx", ppsx:"pptx", ppsm:"pptx", potx:"pptx", potm:"pptx", ppt:"pptx",
+      // pub
+      pub:"pub",
+      // audio
+      mp3:"audio", wav:"audio", flac:"audio", m4a:"audio", aac:"audio", ogg:"audio", oga:"audio", opus:"audio",
+      weba:"audio", mka:"audio", aif:"audio", aiff:"audio", wma:"audio", mid:"audio", midi:"audio",
+      // video
+      webm:"video", mp4:"video", m4v:"video", ogv:"video", mov:"video", mkv:"video", avi:"video", wmv:"video"
+    };
+    /* FV-MAP-END */
 var FAMILY_ORIGINS = Object.keys(FAMILY).map(function(k){ return "https://" + FAMILY[k].domain; })
   .concat("https://" + FAMILY_HUB);   // the hub can send hand-offs; nothing routes to it
 ```
