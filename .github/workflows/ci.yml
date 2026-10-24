@@ -19,6 +19,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      # FULL tree, deliberately not --omit=dev (§15): the dev half is the toolchain, and its output is what ships.
+      - name: Dependency audit (§15)
+        run: npm audit --audit-level=high
+
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
 
